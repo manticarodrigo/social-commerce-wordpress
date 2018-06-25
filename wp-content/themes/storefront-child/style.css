@@ -1,0 +1,135 @@
+/* 
+Theme Name:		 Storefront Child
+Theme URI:		 http://childtheme-generator.com/
+Description:	 Storefront Child is a child theme of Storefront, created by ChildTheme-Generator.com
+Author:			 Darwing Medina
+Author URI:		 http://childtheme-generator.com/
+Template:		 storefront
+Version:		 1.0.0
+Text Domain:	 storefront
+*/
+
+
+/*
+    Add your custom styles here
+*/
+
+body.woocommerce #primary {
+    float: none;
+    width: 100%;
+}
+
+.storefront-primary-navigation, 
+.site-header,
+.woocommerce-breadcrumb, 
+.woocommerce-result-count,
+.term-description,
+ul.products + .storefront-sorting,
+.storefront-handheld-footer-bar .my-account,
+.storefront-handheld-footer-bar .search,
+.product_meta,
+.reviews_tab {
+    display: none !important;
+}
+
+.woocommerce-products-header + .storefront-sorting {
+    margin-top: 2em;
+}
+
+.wc_quick_buy_button {
+    background-color: #eeeeee;
+    border-color: #eeeeee;
+    color: #333333;
+        border: 0;
+    cursor: pointer;
+    padding: .6180469716em 1.41575em;
+    text-decoration: none;
+    font-weight: 600;
+    text-shadow: none;
+    display: inline-block;
+    outline: 0;
+    -webkit-appearance: none;
+    border-radius: 0;
+}
+
+.quantity:before {
+    content: '-' !important;
+    margin-right: 0 !important;
+    display: inline-block;
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #eeeeee;
+    font-weight: 600;
+    width: 15px;
+} 
+
+.quantity:after {
+    content: '+';
+    display: inline-block;
+    padding: 10px 15px;
+    cursor: pointer;
+    background-color: #eeeeee;
+    font-weight: 600;
+    width: 15px;
+} 
+
+body.admin-bar .site-content {
+    padding-top: 2em;
+}
+
+.storefront-handheld-footer-bar {
+    top: 0;
+    bottom: auto;
+    position: absolute;
+}
+
+body.admin-bar .storefront-handheld-footer-bar {
+    top: 45px;
+}
+
+.storefront-handheld-footer-bar .cart {
+    float: right;
+}
+
+.woocommerce-products-header__title {
+    display: inline-block;
+    margin-bottom: 0;
+    padding: 5px 20px;
+}
+
+.woocommerce-ordering {
+    text-align: center;
+}
+
+#colophon {
+    padding: 0;
+}
+
+#secondary {
+    display: none;
+}
+
+.woocommerce-loop-product__title {
+    font-size: 1.6rem !important;
+}
+
+.woocommerce-Price-amount {
+    font-size: 1.5rem;
+}
+
+.quick_buy_container {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+ul.products li.product {
+    margin-bottom: 1.5rem;
+}
+
+.single-product div.product form.cart .quantity {
+    float: none;
+}
+
+.single-product form.cart {
+    text-align: center;
+}
