@@ -8,11 +8,14 @@
     // Changing copyright text
     let title = 'Medco';
     // let title = $('.woocommerce-products-header__title').text();
-    
-    $('.site-info').text('© ' + title);
 
     $('.quick_buy_container').each(function(index) {
         $(this).appendTo($(this).prev());
     });
 
+})(jQuery);
+
+// Flip Card
+(function($) {
+    $('.card-flip').flip();
 })(jQuery);
