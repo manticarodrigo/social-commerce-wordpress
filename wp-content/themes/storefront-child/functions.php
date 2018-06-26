@@ -42,6 +42,7 @@ remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_pr
 add_action( 'init', 'custom_remove_footer_credit', 10 );
 function custom_remove_footer_credit () {
   remove_action( 'storefront_footer', 'storefront_credit', 20 );
+  remove_action( 'storefront_footer', 'storefront_footer_widgets', 10 );
   add_action( 'storefront_footer', 'custom_storefront_credit', 20 );
 } 
 
@@ -87,5 +88,11 @@ function woo_product_loop_image_wrapper_close() {
   echo '<div class="back">'. apply_filters( 'woocommerce_description', $product->get_description() ) .'</div>';
   echo '</div>';
 }
+
+// hide coupon field on checkout page
+function hide_coupon_field_on_checkout( $enabled ) {
+  return false;
+}
+add_filter( 'woocommerce_coupons_enabled', 'hide_coupon_field_on_checkout' );
 
 ?>
