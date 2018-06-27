@@ -44,7 +44,7 @@ function custom_remove_footer_credit () {
   remove_action( 'storefront_footer', 'storefront_credit', 20 );
   remove_action( 'storefront_footer', 'storefront_footer_widgets', 10 );
   add_action( 'storefront_footer', 'custom_storefront_credit', 20 );
-} 
+}
 
 function custom_storefront_credit() {
   ?>
@@ -74,10 +74,12 @@ function woo_wrap_loop_product_image() {
   add_action( 'woocommerce_before_shop_loop_item_title' , 'woo_product_loop_image_wrapper_open', 9 );
   add_action( 'woocommerce_shop_loop_item_title' , 'woo_product_loop_image_wrapper_close', 9 );
 }
+
 //open my-class-name
 function woo_product_loop_image_wrapper_open() {
   echo '<div class="card-flip"><div class="front">';
 }
+
 //open my-class-name
 function woo_product_loop_image_wrapper_close() {
   echo '</div>';
@@ -94,5 +96,23 @@ function hide_coupon_field_on_checkout( $enabled ) {
   return false;
 }
 add_filter( 'woocommerce_coupons_enabled', 'hide_coupon_field_on_checkout' );
+
+
+//  Custom checkout
+add_action( 'init', 'custom_edit_checkout_page', 10 );
+function custom_edit_checkout_page () {
+  remove_action( 'woocommerce_checkout_order_review', 'woocommerce_checkout_payment', 20 );
+  add_action( 'woocommerce_checkout_after_customer_details', 'woocommerce_checkout_payment', 20 );
+}
+
+// Order button text
+add_filter( 'woocommerce_order_button_text', 'woo_custom_order_button_text' ); 
+function woo_custom_order_button_text() {
+    return __( 'Realiza tu pedido', 'woocommerce' ); 
+}
+
+// Remove Related products
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+
 
 ?>
