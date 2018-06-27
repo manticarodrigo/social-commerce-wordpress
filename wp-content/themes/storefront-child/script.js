@@ -1,13 +1,15 @@
 (function($) {
-    // adding title to top bar
-    //$('.woocommerce-products-header__title').prependTo(
-    //    '.storefront-handheld-footer-bar .columns-3');
-    $('.storefront-handheld-footer-bar .columns-3').prepend(
-        '<h1 class="woocommerce-products-header__title page-title">Medco</h1>');
-
     // Changing copyright text
     let title = 'Medco';
-    // let title = $('.woocommerce-products-header__title').text();
+    let $title = $('h1');
+    
+    if ($title.length == 1 && $('.single-product').length == 0) {
+        title = $title.text();
+        $title.hide();
+    }
+    
+    $('.storefront-handheld-footer-bar .columns-3').prepend(
+        `<span class="woocommerce-products-header__title alpha page-title">${title}</span>`);
 
     $('.quick_buy_container').each(function(index) {
         $(this).appendTo($(this).prev());
