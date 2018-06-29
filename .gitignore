@@ -1,6 +1,8 @@
 logs
 *.log
+*.sql
 npm-debug.log*
 
 .DS_Store
+wp-content/uploads/
 wp-config.php
