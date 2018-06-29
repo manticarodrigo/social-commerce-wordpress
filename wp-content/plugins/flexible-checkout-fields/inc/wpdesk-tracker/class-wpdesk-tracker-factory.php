@@ -66,7 +66,7 @@ if ( ! class_exists( 'WPDesk_Tracker_Factory' ) ) {
 			$tracker->add_data_provider( new WPDesk_Tracker_Data_Provider_Users() );
 			$tracker->add_data_provider( new WPDesk_Tracker_Data_Provider_Wordpress() );
 
-			$tracker->init();
+			$tracker->init_hooks();
 
 			return $tracker;
 		}

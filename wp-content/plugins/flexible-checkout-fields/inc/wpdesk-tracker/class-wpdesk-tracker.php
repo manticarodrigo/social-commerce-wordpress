@@ -42,6 +42,13 @@ if ( ! class_exists( 'WPDesk_Tracker' ) ) {
 		 */
 		private $sender;
 
+		/**
+		 * @deprecated do not use. This is for backward compatibility only.
+		 */
+		public static function init( $foo = null ) {
+
+		}
+
 		public function __construct( $plugin_basename, WPDesk_Tracker_Sender $sender ) {
 			$this->plugin_basename = $plugin_basename;
 			$this->set_sender( $sender );
@@ -59,7 +66,7 @@ if ( ! class_exists( 'WPDesk_Tracker' ) ) {
 		/**
 		 * Hook into cron event.
 		 */
-		public function init() {
+		public function init_hooks() {
 			add_action( 'plugins_loaded', array( $this, 'load_plugin_text_domain' ) );
 			add_action( 'admin_init', array( $this, 'init_schedule' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ), 100 );

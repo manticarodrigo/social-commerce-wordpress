@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WooCommerce - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-06-20 18:14:45+0000\n"
+"PO-Revision-Date: 2018-06-28 06:40:57+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12928,10 +12928,6 @@ msgstr "Error de validación: Las cantidades de PayPal no coinciden (cantidad %s
 msgid "Pay via PayPal; you can pay with your credit card if you don't have a PayPal account."
 msgstr "Pagar con PayPal; puedes pagar con tu tarjeta de crédito si no tienes una cuenta de PayPal."
 
-#: includes/gateways/paypal/includes/settings-paypal.php:78
-msgid "Optionally enable \"Payment Data Transfer\" (Profile > Profile and Settings > My Selling Tools > Website Preferences) and then copy your identity token here. This will allow payments to be verified without the need for PayPal IPN."
-msgstr "Opcionalmente activa “Transferencia de datos de pago” (Perfil > Perfil y Ajustes > Mis herramientas de venta > Preferencias de la web) y luego copia tu token de identidad aquí. Esto permitirá a los pagos verificarse sin la necesidad de la IPN de PayPal."
-
 #: includes/gateways/simplify-commerce/class-wc-addons-gateway-simplify-commerce.php:355
 #: includes/gateways/simplify-commerce/class-wc-addons-gateway-simplify-commerce.php:467
 msgid "Simplify Transaction Failed (%s)"
@@ -13546,6 +13542,10 @@ msgstr "¿Qué códigos postales estan disponibles para la recogida local?"
 #: includes/gateways/cod/class-wc-gateway-cod.php:57
 msgid "Have your customers pay with cash (or by other means) upon delivery."
 msgstr "Haz que tus clientes paguen en efectivo (o por otros medios) en el momento de la entrega."
+
+#: includes/gateways/paypal/includes/settings-paypal.php:78
+msgid "Optionally enable \"Payment Data Transfer\" (Profile > Profile and Settings > My Selling Tools > Website Preferences) and then copy your identity token here. This will allow payments to be verified without the need for PayPal IPN."
+msgstr "Opcionalmente activa “Transferencia de datos de pago” (Perfil > Configuración de la cuenta > Opciones de venta > Preferencias de sitio web ) y luego copia tu Código personal de identidad. Esto permitirá a los pagos verificarse sin la necesidad de la IPN de PayPal."
 
 #: includes/class-wc-ajax.php:216
 msgid "Coupon has been removed."

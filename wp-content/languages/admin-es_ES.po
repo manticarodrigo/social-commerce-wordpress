@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-06-27 10:51:12+0000\n"
+"PO-Revision-Date: 2018-06-27 18:34:04+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2221,10 +2221,6 @@ msgstr "La hora universal (%1$s) es %2$s."
 msgid "There is a pending change of the admin email to %s."
 msgstr "Hay un cambio pendiente del correo electrónico del administrador a %s."
 
-#: wp-admin/install.php:378
-msgid "WordPress has been installed. Thank you, and enjoy!"
-msgstr "WordPress ya está instalado. ¡Gracias y disfrútalo!"
-
 #. translators: %s: DO_NOT_UPGRADE_GLOBAL_TABLES
 #: wp-admin/install.php:272
 msgid "The constant %s cannot be defined when installing WordPress."
@@ -2238,6 +2234,10 @@ msgstr "Descartar el panel de bienvenida"
 #: wp-admin/install.php:259
 msgid "Your %s file has an empty database table prefix, which is not supported."
 msgstr "Tu archivo %s tiene vacío el prefijo de la tabla de la base de datos, y es obligatorio."
+
+#: wp-admin/install.php:378
+msgid "WordPress has been installed. Thank you, and enjoy!"
+msgstr "WordPress ya está instalado. ¡Gracias, y que lo disfrutes!"
 
 #: wp-admin/includes/plugin-install.php:359
 msgid "You are using a development version of WordPress. These feature plugins are also under development. <a href=\"%s\">Learn more</a>."
@@ -5551,10 +5551,6 @@ msgstr "Siguientes pasos"
 msgid "or, <a href=\"%s\">change your theme completely</a>"
 msgstr "o, <a href=\"%s\">cambia tu tema por completo</a>"
 
-#: wp-admin/setup-config.php:194
-msgid "Below you should enter your database connection details. If you&#8217;re not sure about these, contact your host."
-msgstr "A continuación deberás introducir los detalles de conexión a tu base de datos. Si no estás seguro de esta información contacta con tu proveedor de alojamiento web."
-
 #: wp-admin/plugin-install.php:92
 msgid "You can also browse a user&#8217;s favorite plugins, by using the Favorites link above the plugins list and entering their WordPress.org username."
 msgstr "También puedes navegar por los plugins favoritos de un usuario usando el enlace Favoritos de la parte superior derecha de la pantalla e introduciendo su nombre de usuario en WordPress.org."
@@ -5596,6 +5592,10 @@ msgstr "Si has marcado plugins cómo favoritos en WordPress.org, puedes verlos a
 #: wp-admin/install.php:191 wp-admin/options-reading.php:115
 msgid "Allow search engines to index this site"
 msgstr "Permitir a los buscadores indexar este sitio"
+
+#: wp-admin/setup-config.php:194
+msgid "Below you should enter your database connection details. If you&#8217;re not sure about these, contact your host."
+msgstr "A continuación debes introducir los datos de conexión de tu base de datos. Si no estás seguro de esta información, contacta con tu proveedor de alojamiento web."
 
 #: wp-admin/includes/class-wp-plugin-install-list-table.php:112
 msgctxt "Plugin Installer"

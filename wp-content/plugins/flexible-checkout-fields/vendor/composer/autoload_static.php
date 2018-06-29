@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1d6967f32154d23eca6189f656cde102
+class ComposerStaticInit3f0269cd11ecf2e6ad7a40c06d4968fc
 {
     public static $classMap = array (
         'Browser' => __DIR__ . '/../..' . '/classes/wpdesk/settings-api/modules/sysinfo/browser.php',
@@ -52,7 +52,7 @@ class ComposerStaticInit1d6967f32154d23eca6189f656cde102
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInit1d6967f32154d23eca6189f656cde102::$classMap;
+            $loader->classMap = ComposerStaticInit3f0269cd11ecf2e6ad7a40c06d4968fc::$classMap;
 
         }, null, ClassLoader::class);
     }

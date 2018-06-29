@@ -12,7 +12,7 @@
             "keyword": "Before ",
             "result": {
               "status": "passed",
-              "duration": 3776260858
+              "duration": 3988698122
             },
             "hidden": true,
             "match": {
@@ -25,7 +25,7 @@
             "name": "user is logged in to wordPress",
             "result": {
               "status": "passed",
-              "duration": 286095171
+              "duration": 296016047
             },
             "line": 5,
             "match": {
@@ -38,7 +38,7 @@
             "name": "i resets the consent to collect data in the database",
             "result": {
               "status": "passed",
-              "duration": 27081581
+              "duration": 28008213
             },
             "line": 6,
             "match": {
@@ -51,7 +51,7 @@
             "name": "i open \"menu-plugins\" and activate plugin with slug \"flexible-checkout-fields\"",
             "result": {
               "status": "passed",
-              "duration": 2133878763
+              "duration": 1940375166
             },
             "line": 9,
             "match": {
@@ -64,7 +64,7 @@
             "name": "check if plugin with slug \"flexible-checkout-fields\" is Active",
             "result": {
               "status": "passed",
-              "duration": 420396337
+              "duration": 383242023
             },
             "line": 10,
             "match": {
@@ -76,7 +76,7 @@
             "keyword": "After ",
             "result": {
               "status": "passed",
-              "duration": 2017470121
+              "duration": 1978433518
             },
             "hidden": true,
             "match": {
@@ -103,7 +103,7 @@
             "keyword": "Before ",
             "result": {
               "status": "passed",
-              "duration": 943170015
+              "duration": 863775757
             },
             "hidden": true,
             "match": {
@@ -116,7 +116,7 @@
             "name": "user is logged in to wordPress",
             "result": {
               "status": "passed",
-              "duration": 282878745
+              "duration": 306466474
             },
             "line": 5,
             "match": {
@@ -129,7 +129,7 @@
             "name": "i resets the consent to collect data in the database",
             "result": {
               "status": "passed",
-              "duration": 30187140
+              "duration": 19793317
             },
             "line": 6,
             "match": {
@@ -142,7 +142,7 @@
             "name": "i open \"menu-plugins\" and deactivate plugin with slug \"flexible-checkout-fields\"",
             "result": {
               "status": "passed",
-              "duration": 1161572176
+              "duration": 995534465
             },
             "line": 13,
             "match": {
@@ -155,7 +155,7 @@
             "name": "check if plugin with slug \"flexible-checkout-fields\" is Inactive",
             "result": {
               "status": "passed",
-              "duration": 386512389
+              "duration": 365946098
             },
             "line": 14,
             "match": {
@@ -167,7 +167,7 @@
             "keyword": "After ",
             "result": {
               "status": "passed",
-              "duration": 1988750662
+              "duration": 1967038701
             },
             "hidden": true,
             "match": {
@@ -209,7 +209,7 @@
             "keyword": "Before ",
             "result": {
               "status": "passed",
-              "duration": 1056677632
+              "duration": 965124321
             },
             "hidden": true,
             "match": {
@@ -222,7 +222,7 @@
             "name": "user is logged in to wordPress",
             "result": {
               "status": "passed",
-              "duration": 275564761
+              "duration": 263915257
             },
             "line": 5,
             "match": {
@@ -235,7 +235,7 @@
             "name": "i resets the consent to collect data in the database",
             "result": {
               "status": "passed",
-              "duration": 1439808
+              "duration": 1467135
             },
             "line": 6,
             "match": {
@@ -248,7 +248,7 @@
             "name": "i open \"menu-plugins\" and activate plugin with slug \"flexible-checkout-fields\"",
             "result": {
               "status": "passed",
-              "duration": 709212176
+              "duration": 647684524
             },
             "line": 9,
             "match": {
@@ -261,7 +261,7 @@
             "name": "tracker message type \"short\" visible",
             "result": {
               "status": "passed",
-              "duration": 119925513
+              "duration": 115629258
             },
             "line": 10,
             "match": {
@@ -274,7 +274,7 @@
             "name": "Check if buttons skip and Allow & Continue visible in tracker message",
             "result": {
               "status": "passed",
-              "duration": 134937195
+              "duration": 112118348
             },
             "line": 11,
             "match": {
@@ -287,7 +287,7 @@
             "name": "i open \"menu-plugins\" and deactivate plugin with slug \"flexible-checkout-fields\"",
             "result": {
               "status": "passed",
-              "duration": 1033105179
+              "duration": 1036840045
             },
             "line": 12,
             "match": {
@@ -299,7 +299,7 @@
             "keyword": "After ",
             "result": {
               "status": "passed",
-              "duration": 1977393669
+              "duration": 1998768056
             },
             "hidden": true,
             "match": {
@@ -326,7 +326,7 @@
             "keyword": "Before ",
             "result": {
               "status": "passed",
-              "duration": 958458537
+              "duration": 833590692
             },
             "hidden": true,
             "match": {
@@ -339,7 +339,7 @@
             "name": "user is logged in to wordPress",
             "result": {
               "status": "passed",
-              "duration": 278898719
+              "duration": 306464344
             },
             "line": 5,
             "match": {
@@ -352,7 +352,7 @@
             "name": "i resets the consent to collect data in the database",
             "result": {
               "status": "passed",
-              "duration": 19224355
+              "duration": 20230702
             },
             "line": 6,
             "match": {
@@ -365,7 +365,7 @@
             "name": "i open \"menu-plugins\" and activate plugin with slug \"flexible-checkout-fields\"",
             "result": {
               "status": "passed",
-              "duration": 663565075
+              "duration": 642530403
             },
             "line": 15,
             "match": {
@@ -378,7 +378,7 @@
             "name": "Skip tracker message",
             "result": {
               "status": "passed",
-              "duration": 2302524439
+              "duration": 1454575902
             },
             "line": 16,
             "match": {
@@ -391,7 +391,7 @@
             "name": "i open submenu \"Checkout Fields\" from menu \"toplevel_page_woocommerce\"",
             "result": {
               "status": "passed",
-              "duration": 794096829
+              "duration": 781160060
             },
             "line": 17,
             "match": {
@@ -404,7 +404,7 @@
             "name": "tracker message type \"long\" visible",
             "result": {
               "status": "failed",
-              "duration": 101550236,
+              "duration": 145304052,
               "error_message": "AssertionError: expected 'Hey admin,\\nWe need your help to improve WP Desk plugins, so they are more useful for you and the rest of 30,000+ users. By collecting data on how you use our plugins, you will help us a lot. We will not collect any sensitive data, so you can feel safe. Find out more »\\nAllow\\nDismiss this notice.' to include '\\nWe need your help to improve WP Desk plugins, so they are more useful for you and the rest of 18,000+ users. By collecting data on how you use our plugins, you will help us a lot. We will not collect any sensitive data, so you can feel safe. Find out more'"
             },
             "line": 18,
@@ -429,7 +429,7 @@
             "keyword": "After ",
             "result": {
               "status": "passed",
-              "duration": 2171911573
+              "duration": 2191862027
             },
             "hidden": true,
             "embeddings": [
