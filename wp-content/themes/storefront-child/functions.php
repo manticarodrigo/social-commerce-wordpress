@@ -153,16 +153,15 @@ function profile_endpoint( $request_data ) {
   $data = array();
   // add custom field data to posts array 
   foreach ( $categories as $category ) {
-    $category_id = $category->term_id;
-    $category->link = get_permalink( $category_id );
-    $category->image = get_the_post_thumbnail_url( $category_id );
-    $category->dni = get_woocommerce_term_meta( $category_id, '_dni', true );
-    // $category->ruc = '32';
-    $category->ruc = get_woocommerce_term_meta( $category_id, '_ruc', true );
-    $category->phone = get_woocommerce_term_meta( $category_id, '_phone', true );
-    $category->bank_account = get_woocommerce_term_meta( $category_id, '_bank_account', true );
+    $category_id              = $category->term_id;
+    $category->link           = get_permalink( $category_id );
+    $category->image          = get_the_post_thumbnail_url( $category_id );
+    $category->dni            = get_woocommerce_term_meta( $category_id, '_dni', true );
+    $category->ruc            = get_woocommerce_term_meta( $category_id, '_ruc', true );
+    $category->phone          = get_woocommerce_term_meta( $category_id, '_phone', true );
+    $category->bank_account   = get_woocommerce_term_meta( $category_id, '_bank_account', true );
     $category->logistic_provider = get_woocommerce_term_meta( $category_id, '_logistic_provider', true );
-    $categories[$key]->owner_id = get_woocommerce_term_meta( $category_id, '_owner_id', true );
+    $category->owner_id       = get_woocommerce_term_meta( $category_id, '_owner_id', true );
     array_push($data, $category);
   }
   return $data;
@@ -171,59 +170,66 @@ function profile_endpoint( $request_data ) {
 // register the endpoint
 add_action( 'rest_api_init', function () {
   register_rest_route( 'socialcommerce/v1', '/profiles/', array(
-      'methods' => 'GET',
+      'methods' =>  'GET',
       'callback' => 'profile_endpoint',
     )
   );
 });
 
 function profile_create( $request_data ) {
-  $data = array();
-
+  $data               = array();
+  $taxonomy           = 'product_cat';
+  
   // Fetching values from API
-  $parameters = $request_data->get_params();
-  $term_name = $parameters['businessName'];
-  $term_logo = $parameters['businessLogo'];
-  $dni = $parameters['dni'];
-  $ruc = $parameters['ruc'];
-  $phone = $parameters['phone'];
-  $bank_account = $parameters['bankAccount'];
-  $logistic_provider = $parameters['logisticProvider'];
+  $parameters         = $request_data->get_params();
+  
+  $term_name          = $parameters['businessName'];
+  $term_logo          = $parameters['businessLogo'];
+  $dni                = $parameters['dni'];
+  $ruc                = $parameters['ruc'];
+  $phone              = $parameters['phone'];
+  $bank_account       = $parameters['bankAccount'];
+  $logistic_provider  = $parameters['logisticProvider'];
   
   // We'll need to find a way to validate this.
   $owner_id = $parameters['ownerId'];
 
-  if( $term_name != '' && $owner_id != '' ){
+  if ( $term_name && $owner_id ) {
 
       // Create term object
-      $term = wp_insert_term( $term_name, 'product_cat' );
+      $term = wp_insert_term( $term_name, $taxonomy );
       
       if ( is_wp_error( $term ) ) {
-        $term_id = $term->error_data['term_exists'] ?? null;
+        $term_id  = $term->error_data['term_exists'] ?? null;
       } else {
-        $term_id = $term['term_id'];
-        add_woocommerce_term_meta($term_id, '_dni', $dni, true);
-        add_woocommerce_term_meta($term_id, '_ruc', $ruc, true);
-        add_woocommerce_term_meta($term_id, '_phone', $phone, true);
-        add_woocommerce_term_meta($term_id, '_bank_account', $bank_account, true);
-        add_woocommerce_term_meta($term_id, '_logistic_provider', $logistic_provider, true);
-        add_woocommerce_term_meta($term_id, '_owner_id', $owner_id, true);
+        $term_id  = $term['term_id'];
       }
 
       if ( $term_id) {
-        $data['status'] = 'Profile added Successfully.';  
-        $data['term_id'] = $term_id;
+        $acf_id   = $taxonomy . '_' . $term_id;
+        add_woocommerce_term_meta( $term_id, '_dni', $dni, true );
+        add_woocommerce_term_meta( $term_id, '_ruc', $ruc, true );
+        add_woocommerce_term_meta( $term_id, '_phone', $phone, true );
+        add_woocommerce_term_meta( $term_id, '_bank_account', $bank_account, true );
+        add_woocommerce_term_meta( $term_id, '_logistic_provider', $logistic_provider, true );
+        
+        // Not defined yet, we should confirm if is the same of user_id
+        add_woocommerce_term_meta($term_id, '_owner_id', $owner_id, true );
+        
+        $data['status']   = 'Profile added Successfully.';  
+        $data['term_id']  = $term_id;
+        $data['acf_id']  = $dni;
 
         // Set featured Image
         if ( $term_logo ) {
           
           include_once( ABSPATH . 'wp-admin/includes/image.php' );
 
-          $filename = basename($term_logo);
-          $uploaddir = wp_upload_dir();
+          $filename   = strtok( basename( $term_logo ), '?' );
+          $uploaddir  = wp_upload_dir();
           $uploadfile = $uploaddir['path'] . '/' . $filename;
 
-          $contents= file_get_contents($term_logo);
+          $contents = file_get_contents($term_logo);
           $savefile = fopen($uploadfile, 'w');
           fwrite($savefile, $contents);
           fclose($savefile);
@@ -231,10 +237,10 @@ function profile_create( $request_data ) {
           $wp_filetype = wp_check_filetype(basename($filename), null );
 
           $attachment = array(
-            'post_mime_type' => $wp_filetype['type'],
-            'post_title' => $filename,
-            'post_content' => '',
-            'post_status' => 'inherit'
+            'post_mime_type'  => $wp_filetype['type'],
+            'post_title'      => $filename,
+            'post_content'    => '',
+            'post_status'     => 'inherit'
           );
 
           $attach_id = wp_insert_attachment( $attachment, $uploadfile );
@@ -251,14 +257,15 @@ function profile_create( $request_data ) {
 
   } else {
     $data['status'] = ' Please provide correct post parameters.';
+    $data['parameters'] = $parameters;
   }
   return $data;
 }
 
 add_action( 'rest_api_init', function () {
   register_rest_route( 'socialcommerce/v1', '/profiles/create/', array(
-      'methods' => 'POST',
-      'callback' => 'profile_create',
+      'methods'   => 'POST',
+      'callback'  => 'profile_create',
     )
   );
 });
