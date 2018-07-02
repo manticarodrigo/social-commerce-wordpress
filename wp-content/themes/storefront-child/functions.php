@@ -90,19 +90,39 @@ function custom_remove_footer_credit () {
 }
 
 function custom_storefront_credit() {
+  $term = get_queried_object();
+  $footer_data = array();
+  $trasient_data = get_transient( 'footer_data' );
+
+  if ( $term->term_id ) {
+    $term_id  = $term->term_id;
+    $owner_id = get_term_meta( $term_id, '_owner_id', true );
+    $owner    = get_userdata( intval($owner_id) );
+
+    $footer_data  = array(
+      'ruc'       => get_term_meta( $term_id, '_ruc', true ),
+      'empresa'   => $term->name,
+      'te_vende'  => $owner->first_name
+    );
+    // Saving in case not in term page
+    set_transient( 'footer_data', $footer_data, DAY_IN_SECONDS );
+  } else if ( $trasient_data ) {
+    $footer_data = $trasient_data;
+  }
+
   ?>
   <ul class="site-info"> 
     <li>
       <strong>RUC: </strong>
-      <span>12345678910111213</span>
+      <span><?php echo( $footer_data['ruc'] ) ?></span>
     </li>
     <li>
       <strong>Empresa: </strong>
-      <span>Medco</span></span>
+      <span><?php echo( $footer_data['empresa'] ); ?></span></span>
     </li>
     <li>
       <strong>Te Vende: </strong>
-      <span>José Lopéz</span>
+      <span><?php echo( $footer_data['te_vende'] ) ?></span>
     </li>
   </ul><!-- .site-info -->
   <?php
