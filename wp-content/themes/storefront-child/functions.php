@@ -9,6 +9,7 @@ add_filter( 'rest_authentication_errors', function(){
 }, 101 );
 
 
+// Set origin for JSON API (not official)
 add_action( 'json_api', function( $controller, $method ) {
   $http_origin = $_SERVER['HTTP_ORIGIN'];
   if ($http_origin == "http://localhost:3000" || $http_origin == "http://socialecommerce.southcentralus.cloudapp.azure.com:81") {  
@@ -16,17 +17,42 @@ add_action( 'json_api', function( $controller, $method ) {
   }
 }, 10, 2 );
 
+
+// Adding custom scripts
 add_action( 'wp_enqueue_scripts', 'storefront_enqueue_styles' );
 function storefront_enqueue_styles() {
   wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
 }
 
+
+// Remove sidebar
 add_action( 'get_header', 'remove_storefront_sidebar' );
 function remove_storefront_sidebar() {
   if ( is_woocommerce() ) {
     remove_action( 'storefront_sidebar', 'storefront_get_sidebar', 10 );
   }
 }
+
+
+// remove product-category from categories
+add_filter('request', function( $vars ) {
+	global $wpdb;
+	if( ! empty( $vars['pagename'] ) || ! empty( $vars['category_name'] ) || ! empty( $vars['name'] ) || ! empty( $vars['attachment'] ) ) {
+		$slug = ! empty( $vars['pagename'] ) ? $vars['pagename'] : ( ! empty( $vars['name'] ) ? $vars['name'] : ( !empty( $vars['category_name'] ) ? $vars['category_name'] : $vars['attachment'] ) );
+		$exists = $wpdb->get_var( $wpdb->prepare( "SELECT t.term_id FROM $wpdb->terms t LEFT JOIN $wpdb->term_taxonomy tt ON tt.term_id = t.term_id WHERE tt.taxonomy = 'product_cat' AND t.slug = %s" ,array( $slug )));
+		if( $exists ){
+			$old_vars = $vars;
+			$vars = array('product_cat' => $slug );
+			if ( !empty( $old_vars['paged'] ) || !empty( $old_vars['page'] ) )
+				$vars['paged'] = ! empty( $old_vars['paged'] ) ? $old_vars['paged'] : $old_vars['page'];
+			if ( !empty( $old_vars['orderby'] ) )
+	 	        	$vars['orderby'] = $old_vars['orderby'];
+      			if ( !empty( $old_vars['order'] ) )
+ 			        $vars['order'] = $old_vars['order'];	
+		}
+	}
+	return $vars;
+});
 
 /**
  * Display category image on category archive
