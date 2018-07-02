@@ -177,6 +177,20 @@ function woo_custom_order_button_text() {
 // Remove Related products
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
 
+/** 
+ * Manipulate default state and countries
+ */
+add_filter( 'default_checkout_country', 'change_default_checkout_country' );
+add_filter( 'default_checkout_state', 'change_default_checkout_state' );
+
+function change_default_checkout_country() {
+  return 'PE'; // country code
+}
+
+function change_default_checkout_state() {
+  return 'PE:LIM'; // state code
+}
+
 
 // Small product categories API
 
