@@ -206,7 +206,6 @@ function profile_create( $request_data ) {
       }
 
       if ( $term_id) {
-        $acf_id   = $taxonomy . '_' . $term_id;
         add_woocommerce_term_meta( $term_id, '_dni', $dni, true );
         add_woocommerce_term_meta( $term_id, '_ruc', $ruc, true );
         add_woocommerce_term_meta( $term_id, '_phone', $phone, true );
@@ -218,7 +217,7 @@ function profile_create( $request_data ) {
         
         $data['status']   = 'Profile added Successfully.';  
         $data['term_id']  = $term_id;
-        $data['acf_id']  = $dni;
+        $data['term_link'] = get_term_link( $term_id, $taxonomy );
 
         // Set featured Image
         if ( $term_logo ) {
