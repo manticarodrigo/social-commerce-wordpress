@@ -8,6 +8,14 @@ add_filter( 'rest_authentication_errors', function(){
     wp_set_current_user( 1 ); // replace with the ID of a WP user with the authorization you want
 }, 101 );
 
+
+add_action( 'json_api', function( $controller, $method ) {
+  $http_origin = $_SERVER['HTTP_ORIGIN'];
+  if ($http_origin == "http://localhost:3000" || $http_origin == "http://socialecommerce.southcentralus.cloudapp.azure.com:81") {  
+    header( "Access-Control-Allow-Origin: $http_origin" );
+  }
+}, 10, 2 );
+
 add_action( 'wp_enqueue_scripts', 'storefront_enqueue_styles' );
 function storefront_enqueue_styles() {
   wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
