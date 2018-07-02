@@ -69,27 +69,13 @@ ul.products + .storefront-sorting,
     margin: 0;
 }
 
-.quantity:before {
-    content: '-' !important;
+.quantity .qty-btn {
     display: table-cell;
     padding: 5px 15px;
     cursor: pointer;
     background-color: #eeeeee;
     font-weight: 800;
-    width: 20px;
-    font-size: 1.8em;
-    vertical-align: top;
-    height: 100%;
-} 
-
-.quantity:after {
-    content: '+';
-    display: table-cell;
-    padding: 5px 15px;
-    cursor: pointer;
-    background-color: #eeeeee;
-    font-weight: 800;
-    width: 20px;
+    width: 56px;
     font-size: 1.8em;
     vertical-align: top;
     height: 100%;
