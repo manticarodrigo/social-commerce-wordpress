@@ -1,4 +1,3 @@
-<? header("Access-Control-Allow-Origin: *"); ?>
 <?php
 
 class JSON_API {
