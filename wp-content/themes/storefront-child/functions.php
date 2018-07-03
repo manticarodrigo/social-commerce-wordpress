@@ -81,7 +81,7 @@ function my_assets() {
 remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
 remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
 
-// Cusotm footer
+// Custom footer
 add_action( 'init', 'custom_remove_footer_credit', 10 );
 function custom_remove_footer_credit () {
   remove_action( 'storefront_footer', 'storefront_credit', 20 );
@@ -208,7 +208,7 @@ function change_default_checkout_state() {
 
 // Small product categories API
 
-function profile_endpoint( $request_data ) {
+function category_endpoint( $request_data ) {
 
   $taxonomy     = 'product_cat';
   $orderby      = 'name';  
@@ -251,14 +251,14 @@ function profile_endpoint( $request_data ) {
 
 // register the endpoint
 add_action( 'rest_api_init', function () {
-  register_rest_route( 'socialcommerce/v1', '/profiles/', array(
+  register_rest_route( 'socialcommerce/v1', '/categories/', array(
       'methods' =>  'GET',
-      'callback' => 'profile_endpoint',
+      'callback' => 'category_endpoint',
     )
   );
 });
 
-function profile_create( $request_data ) {
+function category_create( $request_data ) {
   $data               = array();
   $taxonomy           = 'product_cat';
   
@@ -297,9 +297,10 @@ function profile_create( $request_data ) {
         // Not defined yet, we should confirm if is the same of user_id
         add_woocommerce_term_meta($term_id, '_owner_id', $owner_id, true );
         
-        $data['status']   = 'Profile added Successfully.';  
+        $data['status']   = 'Category added successfully.';  
         $data['term_id']  = $term_id;
         $data['term_link'] = get_term_link( $term_id, $taxonomy );
+        $data['term_name'] = $term_name;
 
         // Set featured Image
         if ( $term_logo ) {
@@ -344,9 +345,9 @@ function profile_create( $request_data ) {
 }
 
 add_action( 'rest_api_init', function () {
-  register_rest_route( 'socialcommerce/v1', '/profiles/create/', array(
+  register_rest_route( 'socialcommerce/v1', '/categories/create/', array(
       'methods'   => 'POST',
-      'callback'  => 'profile_create',
+      'callback'  => 'category_create',
     )
   );
 });
