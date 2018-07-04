@@ -206,9 +206,12 @@ function change_default_checkout_state() {
 }
 
 
-// Small product categories API
+/** 
+ * Small product categories API
+ */
 
-function category_endpoint( $request_data ) {
+// Define categories get method
+function categories_get( $request_data ) {
 
   $taxonomy     = 'product_cat';
   $orderby      = 'name';  
@@ -244,21 +247,84 @@ function category_endpoint( $request_data ) {
     $category->bank_account   = get_woocommerce_term_meta( $category_id, '_bank_account', true );
     $category->logistic_provider = get_woocommerce_term_meta( $category_id, '_logistic_provider', true );
     $category->owner_id       = get_woocommerce_term_meta( $category_id, '_owner_id', true );
+    $category->term_link      = get_term_link( $category->term_id, $taxonomy );
     array_push($data, $category);
   }
   return $data;
 }
 
-// register the endpoint
+// Register categories get endpoint
 add_action( 'rest_api_init', function () {
   register_rest_route( 'socialcommerce/v1', '/categories/', array(
       'methods' =>  'GET',
-      'callback' => 'category_endpoint',
+      'callback' => 'categories_get',
     )
   );
 });
 
-function category_create( $request_data ) {
+// Define category get method
+function category_get( $request_data ) {
+
+  // Fetching values from API
+  $parameters   = $request_data->get_params();
+  $owner_id     = $parameters['ownerId'];
+
+  $taxonomy     = 'product_cat';
+  $orderby      = 'name';  
+  $show_count   = 0;      // 1 for yes, 0 for no
+  $pad_counts   = 0;      // 1 for yes, 0 for no
+  $hierarchical = 1;      // 1 for yes, 0 for no  
+  $title        = '';  
+  $empty        = 0;
+  $meta         = array($owner_id);
+
+  // setup query argument
+  $args = array(
+    'taxonomy'     => $taxonomy,
+    'orderby'      => $orderby,
+    'show_count'   => $show_count,
+    'pad_counts'   => $pad_counts,
+    'hierarchical' => $hierarchical,
+    'title_li'     => $title,
+    'hide_empty'   => $empty,
+    'meta'         => $meta
+  );
+
+  // get categories
+  $categories = get_categories( $args );
+
+  $data = array();
+  // add custom field data to posts array 
+  foreach ( $categories as $category ) {
+    $category_id              = $category->term_id;
+    $category->link           = get_permalink( $category_id );
+    $category->image          = get_the_post_thumbnail_url( $category_id );
+    $category->dni            = get_woocommerce_term_meta( $category_id, '_dni', true );
+    $category->ruc            = get_woocommerce_term_meta( $category_id, '_ruc', true );
+    $category->phone          = get_woocommerce_term_meta( $category_id, '_phone', true );
+    $category->bank_account   = get_woocommerce_term_meta( $category_id, '_bank_account', true );
+    $category->logistic_provider = get_woocommerce_term_meta( $category_id, '_logistic_provider', true );
+    $category->owner_id       = get_woocommerce_term_meta( $category_id, '_owner_id', true );
+    $category->term_link      = get_term_link( $category->term_id, $taxonomy );
+    array_push($data, $category);
+  }
+  return $data;
+}
+
+// Register categories get endpoint
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'socialcommerce/v1', '/category/', array(
+      'methods' =>  'GET',
+      'callback' => 'category_get',
+      'args' => [
+          'ownerId'
+      ],
+    )
+  );
+});
+
+// Define category post method
+function category_post( $request_data ) {
   $data               = array();
   $taxonomy           = 'product_cat';
   
@@ -344,10 +410,11 @@ function category_create( $request_data ) {
   return $data;
 }
 
+// Register category post endpoint
 add_action( 'rest_api_init', function () {
   register_rest_route( 'socialcommerce/v1', '/categories/create/', array(
       'methods'   => 'POST',
-      'callback'  => 'category_create',
+      'callback'  => 'category_post',
     )
   );
 });
