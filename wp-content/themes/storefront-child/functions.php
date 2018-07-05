@@ -205,218 +205,26 @@ function change_default_checkout_state() {
   return 'PE:LIM'; // state code
 }
 
-
-/** 
- * Small product categories API
- */
-
-// Define categories get method
-function categories_get( $request_data ) {
-
-  $taxonomy     = 'product_cat';
-  $orderby      = 'name';  
-  $show_count   = 0;      // 1 for yes, 0 for no
-  $pad_counts   = 0;      // 1 for yes, 0 for no
-  $hierarchical = 1;      // 1 for yes, 0 for no  
-  $title        = '';  
-  $empty        = 0;
-
-  // setup query argument
-  $args = array(
-    'taxonomy'     => $taxonomy,
-    'orderby'      => $orderby,
-    'show_count'   => $show_count,
-    'pad_counts'   => $pad_counts,
-    'hierarchical' => $hierarchical,
-    'title_li'     => $title,
-    'hide_empty'   => $empty
-  );
-
-  // get categories
-  $categories = get_categories( $args );
-
-  $data = array();
-  // add custom field data to posts array 
-  foreach ( $categories as $category ) {
-    $category_id              = $category->term_id;
-    $category->link           = get_permalink( $category_id );
-    $category->image          = get_the_post_thumbnail_url( $category_id );
-    $category->dni            = get_woocommerce_term_meta( $category_id, '_dni', true );
-    $category->ruc            = get_woocommerce_term_meta( $category_id, '_ruc', true );
-    $category->phone          = get_woocommerce_term_meta( $category_id, '_phone', true );
-    $category->bank_account   = get_woocommerce_term_meta( $category_id, '_bank_account', true );
-    $category->logistic_provider = get_woocommerce_term_meta( $category_id, '_logistic_provider', true );
-    $category->owner_id       = get_woocommerce_term_meta( $category_id, '_owner_id', true );
-    $category->term_link      = get_term_link( $category->term_id, $taxonomy );
-    array_push($data, $category);
-  }
-  return $data;
+function user_id_exists( $user_id ) {
+  global $wpdb;
+  $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(ID) FROM $wpdb->users WHERE ID = %d", $user_id ) );
+  return empty( $count ) || 1 > $count ? false : true;
 }
 
-// Register categories get endpoint
-add_action( 'rest_api_init', function () {
-  register_rest_route( 'socialcommerce/v1', '/categories/', array(
-      'methods' =>  'GET',
-      'callback' => 'categories_get',
-    )
-  );
-});
-
-// Define category get method
-function category_get( $request_data ) {
-
-  // Fetching values from API
-  $parameters   = $request_data->get_params();
-  $owner_id     = $parameters['ownerId'];
-
-  $taxonomy     = 'product_cat';
-  $orderby      = 'name';  
-  $show_count   = 0;      // 1 for yes, 0 for no
-  $pad_counts   = 0;      // 1 for yes, 0 for no
-  $hierarchical = 1;      // 1 for yes, 0 for no  
-  $title        = '';  
-  $empty        = 0;
-  $meta         = array($owner_id);
-
-  // setup query argument
-  $args = array(
-    'taxonomy'     => $taxonomy,
-    'orderby'      => $orderby,
-    'show_count'   => $show_count,
-    'pad_counts'   => $pad_counts,
-    'hierarchical' => $hierarchical,
-    'title_li'     => $title,
-    'hide_empty'   => $empty,
-    'meta'         => $meta
-  );
-
-  // get categories
-  $categories = get_categories( $args );
-
-  $data = array();
-  // add custom field data to posts array 
-  foreach ( $categories as $category ) {
-    $category_id              = $category->term_id;
-    $category->link           = get_permalink( $category_id );
-    $category->image          = get_the_post_thumbnail_url( $category_id );
-    $category->dni            = get_woocommerce_term_meta( $category_id, '_dni', true );
-    $category->ruc            = get_woocommerce_term_meta( $category_id, '_ruc', true );
-    $category->phone          = get_woocommerce_term_meta( $category_id, '_phone', true );
-    $category->bank_account   = get_woocommerce_term_meta( $category_id, '_bank_account', true );
-    $category->logistic_provider = get_woocommerce_term_meta( $category_id, '_logistic_provider', true );
-    $category->owner_id       = get_woocommerce_term_meta( $category_id, '_owner_id', true );
-    $category->term_link      = get_term_link( $category->term_id, $taxonomy );
-    array_push($data, $category);
+// API stuff
+add_filter( 'rest_endpoints', function( $endpoints ){
+  // Disabling endpoints
+  if ( isset( $endpoints['/wc/v2/products/categories'] ) ) {
+      unset( $endpoints['/wc/v2/products/categories'] );
   }
-  return $data;
-}
-
-// Register categories get endpoint
-add_action( 'rest_api_init', function () {
-  register_rest_route( 'socialcommerce/v1', '/category/', array(
-      'methods' =>  'GET',
-      'callback' => 'category_get',
-      'args' => [
-          'ownerId'
-      ],
-    )
-  );
-});
-
-// Define category post method
-function category_post( $request_data ) {
-  $data               = array();
-  $taxonomy           = 'product_cat';
-  
-  // Fetching values from API
-  $parameters         = $request_data->get_params();
-  
-  $term_name          = $parameters['businessName'];
-  $term_logo          = $parameters['businessLogo'];
-  $dni                = $parameters['dni'];
-  $ruc                = $parameters['ruc'];
-  $phone              = $parameters['phone'];
-  $bank_account       = $parameters['bankAccount'];
-  $logistic_provider  = $parameters['logisticProvider'];
-  
-  // We'll need to find a way to validate this.
-  $owner_id = $parameters['ownerId'];
-
-  if ( $term_name && $owner_id ) {
-
-      // Create term object
-      $term = wp_insert_term( $term_name, $taxonomy );
-      
-      if ( is_wp_error( $term ) ) {
-        $term_id  = $term->error_data['term_exists'] ?? null;
-      } else {
-        $term_id  = $term['term_id'];
-      }
-
-      if ( $term_id) {
-        add_woocommerce_term_meta( $term_id, '_dni', $dni, true );
-        add_woocommerce_term_meta( $term_id, '_ruc', $ruc, true );
-        add_woocommerce_term_meta( $term_id, '_phone', $phone, true );
-        add_woocommerce_term_meta( $term_id, '_bank_account', $bank_account, true );
-        add_woocommerce_term_meta( $term_id, '_logistic_provider', $logistic_provider, true );
-        
-        // Not defined yet, we should confirm if is the same of user_id
-        add_woocommerce_term_meta($term_id, '_owner_id', $owner_id, true );
-        
-        $data['status']   = 'Category added successfully.';  
-        $data['term_id']  = $term_id;
-        $data['term_link'] = get_term_link( $term_id, $taxonomy );
-        $data['term_name'] = $term_name;
-
-        // Set featured Image
-        if ( $term_logo ) {
-          
-          include_once( ABSPATH . 'wp-admin/includes/image.php' );
-
-          $filename   = strtok( basename( $term_logo ), '?' );
-          $uploaddir  = wp_upload_dir();
-          $uploadfile = $uploaddir['path'] . '/' . $filename;
-
-          $contents = file_get_contents($term_logo);
-          $savefile = fopen($uploadfile, 'w');
-          fwrite($savefile, $contents);
-          fclose($savefile);
-
-          $wp_filetype = wp_check_filetype(basename($filename), null );
-
-          $attachment = array(
-            'post_mime_type'  => $wp_filetype['type'],
-            'post_title'      => $filename,
-            'post_content'    => '',
-            'post_status'     => 'inherit'
-          );
-
-          $attach_id = wp_insert_attachment( $attachment, $uploadfile );
-          $attach_data = wp_generate_attachment_metadata( $attach_id, $filename );
-          wp_update_attachment_metadata( $attach_id, $attach_data );
-
-          update_woocommerce_term_meta( $term_id, 'thumbnail_id', absint( $attach_id ) );
-        }
-
-      }
-      else {
-        $data['status'] = 'request failed..';
-      }
-
-  } else {
-    $data['status'] = ' Please provide correct post parameters.';
-    $data['parameters'] = $parameters;
+  if ( isset( $endpoints['/wp/v2/products/categrories/(?P<id>[\d]+)'] ) ) {
+      unset( $endpoints['/wp/v2/products/categrories/(?P<id>[\d]+)'] );
   }
-  return $data;
-}
-
-// Register category post endpoint
-add_action( 'rest_api_init', function () {
-  register_rest_route( 'socialcommerce/v1', '/categories/create/', array(
-      'methods'   => 'POST',
-      'callback'  => 'category_post',
-    )
-  );
+  return $endpoints;
 });
+
+include_once dirname( __FILE__ ) . '/api/wc-product-cat-custom.php';
+$controller = new WC_REST_Product_Categories_Custom_Controller;
+$controller->register_routes();
 
 ?>
