@@ -1,6 +1,6 @@
 (function($) {
     // Changing copyright text
-    let title = 'Medco';
+    let title = 'Peritagua';
     let $title = $('h1');
     
     if ($title.length == 1 && $('.single-product').length == 0) {

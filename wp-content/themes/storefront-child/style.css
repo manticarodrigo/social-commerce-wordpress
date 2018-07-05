@@ -81,8 +81,15 @@ ul.products + .storefront-sorting,
     height: 100%;
 } 
 
-body.admin-bar .site-content {
+.site-content {
     padding-top: 2em;
+}
+
+.cat-banner {
+    background-size: cover;
+    background-position: center center;
+    height: 180px;
+    width: 100;
 }
 
 .storefront-handheld-footer-bar {
