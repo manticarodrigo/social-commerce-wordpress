@@ -16,3 +16,11 @@ services:
       - my-wpdb:mysql
     environment:
       WORDPRESS_DB_PASSWORD: root
+  my-wpcli:
+    image: tatemz/wp-cli
+    volumes_from:
+      - my-wp
+    links:
+      - my-wpdb:mysql
+    entrypoint: wp  
+    command: "--info"
