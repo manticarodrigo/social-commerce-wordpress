@@ -11,6 +11,7 @@ add_filter( 'rest_authentication_errors', function(){
 
 // Set origin for JSON API (not official)
 add_action( 'json_api', function( $controller, $method ) {
+  // header( "Access-Control-Allow-Origin: *" );
   $http_origin = $_SERVER['HTTP_ORIGIN'];
   if ($http_origin == "http://localhost:3000" || $http_origin == "https://tiendas.peritagua.com") {  
     header( "Access-Control-Allow-Origin: $http_origin" );

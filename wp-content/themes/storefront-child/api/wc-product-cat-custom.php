@@ -34,6 +34,7 @@ class WC_REST_Product_Categories_Custom_Controller extends WC_REST_Product_Categ
         parent::update_term_meta_fields( $term, $request );
 
         $id = (int) $term->term_id;
+        $approved = false;
         
         $error_data = array( 'status' => 400 );
         if ( !isset( $request['owner_id'] ) ) {
@@ -60,6 +61,9 @@ class WC_REST_Product_Categories_Custom_Controller extends WC_REST_Product_Categ
         }
         if ( isset( $request['logistic_provider'] ) ) {
 			update_woocommerce_term_meta( $id, '_logistic_provider', $request['logistic_provider'] );
+        }
+        if ( isset( $request['approved'] ) ) { 
+            update_woocommerce_term_meta( $id, '_approved', $request['approved'] == 'true' ? true : false );
         }
         
         return true;
@@ -94,6 +98,7 @@ function custom_products_cat_api_data( $response, $item ) {
   $response->data['logistic_provider']  = get_woocommerce_term_meta( $item->term_id, '_logistic_provider', true );
   $response->data['owner_id']           = get_woocommerce_term_meta( $item->term_id, '_owner_id', true );
   $response->data['term_link']          = get_term_link( $item->term_id, $taxonomy );
+  $response->data['approved']           = get_woocommerce_term_meta( $item->term_id, '_approved', true ) == true;
   return $response;
 }
 
