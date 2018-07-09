@@ -15,6 +15,8 @@ add_action( 'json_api', function( $controller, $method ) {
   $http_origin = $_SERVER['HTTP_ORIGIN'];
   if ($http_origin == "http://localhost:3000" || $http_origin == "https://tiendas.peritagua.com") {  
     header( "Access-Control-Allow-Origin: $http_origin" );
+		header( 'Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE' );
+		header( 'Access-Control-Allow-Credentials: true' );
   }
 }, 10, 2 );
 
