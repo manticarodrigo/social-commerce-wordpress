@@ -103,6 +103,7 @@ function custom_storefront_credit() {
     $owner    = get_userdata( intval($owner_id) );
 
     $footer_data  = array(
+      'term_id'   => $term_id,
       'ruc'       => get_term_meta( $term_id, '_ruc', true ),
       'empresa'   => $term->name,
       'te_vende'  => $owner->first_name
