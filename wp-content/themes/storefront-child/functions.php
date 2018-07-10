@@ -214,6 +214,23 @@ function user_id_exists( $user_id ) {
   return empty( $count ) || 1 > $count ? false : true;
 }
 
+add_action('wp_head', 'cat_opengraph_image', 5);
+function cat_opengraph_image() {
+ 
+    // If it's not a category, die.
+    if ( !is_product_category() ) {
+        return;
+    }
+
+    global $wp_query;
+    $cat = $wp_query->get_queried_object();
+    $thumbnail_id = get_woocommerce_term_meta( $cat->term_id, 'thumbnail_id', true );
+    $image = wp_get_attachment_url( $thumbnail_id );
+    if ( $image ) {
+      echo '<meta property="og:image" content="'.$image.'" />';
+    }
+}
+
 // API stuff
 add_filter( 'rest_endpoints', function( $endpoints ){
   // Disabling endpoints
