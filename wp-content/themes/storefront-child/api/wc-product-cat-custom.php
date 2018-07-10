@@ -110,3 +110,8 @@ function custom_products_cat_api_query( $prepared_args, $request ) {
     }
   return $prepared_args;
 }
+
+add_filter( 'woocommerce_rest_product_cat_trashable', 'trash', 20, 2 );
+function trash( $prepared_args, $request ) {
+  return true;
+}
