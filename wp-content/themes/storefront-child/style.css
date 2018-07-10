@@ -203,6 +203,7 @@ ul.products li.product {
 }
 
 .card-flip .back {
-    padding: 40px;
+    padding: 35px;
     background-color: #f8f8f8;
+    overflow: hidden;
 }

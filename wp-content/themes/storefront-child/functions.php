@@ -153,7 +153,7 @@ function woo_product_loop_image_wrapper_close() {
   global $product;
   if ( ! $product->get_description() ) return;
 
-  echo '<div class="back">'. apply_filters( 'woocommerce_description', $product->get_description() ) .'</div>';
+  echo '<div class="back">'. apply_filters( 'woocommerce_description', wp_trim_words( $product->get_description(), $num_words = 55, $more = null ) ) .'</div>';
   echo '</div>';
 }
 
