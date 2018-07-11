@@ -36,26 +36,26 @@ function remove_storefront_sidebar() {
   }
 }
 
+// Add scripts to wp_head()
+add_action( 'wp_head', 'child_theme_head_script' );
+function child_theme_head_script() { ?>
+	<!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-K8XP8ZX');</script>
+  <!-- End Google Tag Manager -->
+<?php }
 
-// remove product-category from categories
-add_filter('request', function( $vars ) {
-	global $wpdb;
-	if( ! empty( $vars['pagename'] ) || ! empty( $vars['category_name'] ) || ! empty( $vars['name'] ) || ! empty( $vars['attachment'] ) ) {
-		$slug = ! empty( $vars['pagename'] ) ? $vars['pagename'] : ( ! empty( $vars['name'] ) ? $vars['name'] : ( !empty( $vars['category_name'] ) ? $vars['category_name'] : $vars['attachment'] ) );
-		$exists = $wpdb->get_var( $wpdb->prepare( "SELECT t.term_id FROM $wpdb->terms t LEFT JOIN $wpdb->term_taxonomy tt ON tt.term_id = t.term_id WHERE tt.taxonomy = 'product_cat' AND t.slug = %s" ,array( $slug )));
-		if( $exists ){
-			$old_vars = $vars;
-			$vars = array('product_cat' => $slug );
-			if ( !empty( $old_vars['paged'] ) || !empty( $old_vars['page'] ) )
-				$vars['paged'] = ! empty( $old_vars['paged'] ) ? $old_vars['paged'] : $old_vars['page'];
-			if ( !empty( $old_vars['orderby'] ) )
-	 	        	$vars['orderby'] = $old_vars['orderby'];
-      			if ( !empty( $old_vars['order'] ) )
- 			        $vars['order'] = $old_vars['order'];	
-		}
-	}
-	return $vars;
-});
+// Add scripts to body
+add_action( 'storefront_before_site', 'child_theme_body_script' );
+function child_theme_body_script() { ?>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K8XP8ZX"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+<?php }
 
 /**
  * Display category image on category archive
