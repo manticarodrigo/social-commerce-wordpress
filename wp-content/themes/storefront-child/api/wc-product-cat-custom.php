@@ -8,12 +8,15 @@
  * @since   2.6.0
  */
 defined( 'ABSPATH' ) || exit;
+
 /**
  * REST API Product Categories controller class.
  *
  * @package WooCommerce/API
  * @extends WC_REST_Product_Categories_V1_Controller
  */
+
+ 
 class WC_REST_Product_Categories_Custom_Controller extends WC_REST_Product_Categories_Controller {
     /**
 	 * Endpoint namespace.
