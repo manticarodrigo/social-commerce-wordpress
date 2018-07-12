@@ -256,7 +256,7 @@ add_filter( 'rest_endpoints', function( $endpoints ){
   return $endpoints;
 });
 
-if ( defined( 'WC_REST_Product_Categories_Controller' ) ) {
+if ( class_exists( 'WooCommerce' ) ) {
 	include_once dirname( __FILE__ ) . '/api/wc-product-cat-custom.php';
   $controller = new WC_REST_Product_Categories_Custom_Controller;
   $controller->register_routes();
