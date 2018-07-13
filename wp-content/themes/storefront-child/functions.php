@@ -244,7 +244,88 @@ function remove_category_prefix_from_archive_title( $title ) {
 }
 add_filter( 'get_the_archive_title', 'remove_category_prefix_from_archive_title' );
 
-// API stuff
+// Analytics API
+include_once dirname( __FILE__ ) . '/inc/GoogleAnalyticsAPI.class.php';
+function get_product_analytics( $data ) {
+  $ga = new GoogleAnalyticsAPI('service');
+  
+  $auth = get_transient( 'ga_auth' );
+  
+  if( ! $auth ) {
+    $ga->auth->setClientId('0e2150fdee9f4dbd52e95bd31d452841df8b4598'); // From the APIs console
+    $ga->auth->setEmail('google-anlytics-api@heyshopper-210022.iam.gserviceaccount.com'); // From the APIs console
+    $ga->auth->setPrivateKey(dirname( __FILE__ ) . '/heyshopper-210022-0e2150fdee9f.p12'); // Path to the .p12 file
+    $auth = $ga->auth->getAccessToken();
+    if ( $auth['http_code'] == 200 ) {
+      set_transient( 'ga_auth', $auth, 3600 );
+    }
+  }
+
+  // Try to get the AccessToken
+  if ( $auth['http_code'] == 200 ) {
+    $accessToken  = $auth['access_token'];
+    $tokenExpires = $auth['expires_in'];
+    $tokenCreated = time();
+    
+    $ga->setAccessToken($accessToken);
+    $ga->setAccountId('ga:178457267');
+
+    // Set the default params. For example the start/end dates and max-results
+    $defaults = array(
+      'start-date'  => date('Y-m-d', strtotime('-1 month')),
+      'end-date'    => date('Y-m-d'),
+    );
+    $ga->setDefaultQueryParams($defaults);
+
+    // Example1: Get visits by date
+    $params = array(
+      'metrics'     => 'ga:itemQuantity',
+      'dimensions'  => 'ga:productSku,ga:dateHour',
+      'filters'     => 'ga:productSku==' . $data['product_id']
+    );
+    
+    $sales = $ga->query($params);  
+    $result = array(
+      'dates'     => array(),
+      'quantities'  => array()
+    );
+
+    if ( $sales['http_code'] == 200 && isset( $sales['rows'] ) ) {
+      foreach ($sales['rows'] as $row) {
+        array_push($result['dates'], $row[1]);
+        array_push($result['quantities'], $row[2]);
+      }
+    }
+
+    return $result;
+  } else {
+    return array();
+  }
+}
+
+add_action( 'rest_api_init', function () {
+  register_rest_route( 'custom/v1', '/analytics/(?P<product_id>\d+)', array(
+      'methods' => 'GET',
+      'callback' => 'get_product_analytics',
+      'args' => array(
+        'product_id' => array(
+          'validate_callback' => function($param, $request, $key) {
+            return is_numeric( $param );
+          }
+        ),
+      ),
+    ) );
+} );
+
+// Woocommerce API stuff
+
+if ( class_exists( 'WooCommerce' ) ) {
+	include_once dirname( __FILE__ ) . '/api/wc-product-cat-custom.php';
+  $controller = new WC_REST_Product_Categories_Custom_Controller;
+  $controller->register_routes();
+}
+
+// Set this at the end or any custom endpoint will work
 add_filter( 'rest_endpoints', function( $endpoints ){
   // Disabling endpoints
   if ( isset( $endpoints['/wc/v2/products/categories'] ) ) {
@@ -256,10 +337,5 @@ add_filter( 'rest_endpoints', function( $endpoints ){
   return $endpoints;
 });
 
-if ( class_exists( 'WooCommerce' ) ) {
-	include_once dirname( __FILE__ ) . '/api/wc-product-cat-custom.php';
-  $controller = new WC_REST_Product_Categories_Custom_Controller;
-  $controller->register_routes();
-}
 
 ?>
