@@ -79,16 +79,16 @@ class WC_REST_Product_Categories_Custom_Controller extends WC_REST_Product_Categ
 	 * @return array
 	 */
 	public function get_collection_params() {
-        $params = parent::get_collection_params();
+    $params = parent::get_collection_params();
 
-        $params['owner_id'] = array(
+    $params['owner_id'] = array(
 			'description'       => __( 'Limit result to a givin owner id.', 'woocommerce' ),
 			'type'              => 'integer',
 			'default'           => null,
 			'validate_callback' => 'rest_validate_request_arg',
-        );
-        return $params;
-    }
+    );
+    return $params;
+  }
 }
 
 add_filter( 'woocommerce_rest_prepare_product_cat', 'custom_products_cat_api_data', 90, 2 );
