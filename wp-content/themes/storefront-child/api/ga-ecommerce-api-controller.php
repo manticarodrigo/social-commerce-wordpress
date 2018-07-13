@@ -57,6 +57,8 @@ class GaEcommerceAPIController extends WP_REST_Controller {
       $this->ga->setAccessToken($accessToken);
       $this->ga->setAccountId('ga:178457267');
 
+      $include_empty = 'true';
+
       // Query by period argument, default 1W
       switch ( $request['period'] ) {
 
@@ -78,6 +80,7 @@ class GaEcommerceAPIController extends WP_REST_Controller {
         case 'ALL':
           $start_date     = '2005-01-01'; // based on documentation, this is the earlist date
           $date_dimension = 'ga:date';
+          $include_empty  = 'false';
           break;
 
         default:
@@ -88,8 +91,8 @@ class GaEcommerceAPIController extends WP_REST_Controller {
 
       // Set the default params. For example the start/end dates and max-results
       $defaults = array(
-        'start-date'  => $start_date,
-        'end-date'    => 'today',
+        'start-date'    => $start_date,
+        'end-date'      => 'today'
       );
 
       $this->ga->setDefaultQueryParams($defaults);
@@ -99,7 +102,8 @@ class GaEcommerceAPIController extends WP_REST_Controller {
         'metrics'     => 'ga:itemQuantity,ga:localItemRevenue',
         'dimensions'  => $date_dimension,
         'filters'     => 'ga:productSku==' . $request['id'],
-        'sort'        => $date_dimension
+        'sort'        => $date_dimension,
+        'include-empty-rows' => $include_empty
       );
       
       $sales = $this->ga->query($params);
