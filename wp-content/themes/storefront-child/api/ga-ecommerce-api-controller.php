@@ -126,6 +126,7 @@ class GaEcommerceAPIController extends WP_REST_Controller {
           // Will fill the missing hour values
           $range_dates = array();
           $quantities = array();
+          $revenues = array();
           
           $max_hours = 24;
           while ($max_hours > 0) {
@@ -138,6 +139,7 @@ class GaEcommerceAPIController extends WP_REST_Controller {
             }
             else {
               $quantities[] = 0;
+              $revenues[] = 0;
             }
             $max_hours--;
           }
