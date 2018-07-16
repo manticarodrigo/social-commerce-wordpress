@@ -58,9 +58,10 @@ class GaEcommerceAPIController extends WP_REST_Controller {
       $this->ga->setAccountId('ga:178457267');
 
       $include_empty = 'true';
+      $period = $request['period'];
 
       // Query by period argument, default 1W
-      switch ( $request['period'] ) {
+      switch ( $period ) {
 
         case '1D':
           $start_date     = 'yesterday';
@@ -74,12 +75,12 @@ class GaEcommerceAPIController extends WP_REST_Controller {
 
         case '1Y':
           $start_date     = date('Y-m-d', strtotime('-1 year'));
-          $date_dimension = 'ga:month';
+          $date_dimension = 'ga:yearMonth';
           break;
 
         case 'ALL':
-          $start_date     = '2005-01-01'; // based on documentation, this is the earlist date
-          $date_dimension = 'ga:date';
+          $start_date     = '2016-01-01'; // based on documentation, this is the earlist date
+          $date_dimension = 'ga:dateHour';
           $include_empty  = 'false';
           break;
 
@@ -119,6 +120,30 @@ class GaEcommerceAPIController extends WP_REST_Controller {
           array_push( $result['dates'], $row[0] );
           array_push( $result['quantities'], (int) $row[1] );
           array_push( $result['revenues'], (float) $row[2] );
+        }
+
+        if ( $period == '1D' && count($result['dates']) < 24 ) {
+          // Will fill the missing hour values
+          $range_dates = array();
+          $quantities = array();
+          
+          $max_hours = 24;
+          while ($max_hours > 0) {
+            $hour = date('YmdH', strtotime('-'. $max_hours . ' hour'));
+            $range_dates[] = $hour;
+            if ( in_array( $hour, $result['dates'] ) ) {
+              $index = array_search($hour, $result['dates']);
+              $quantities[] = $result['quantities'][$index];
+              $revenues[] = $result['revenues'][$index];
+            }
+            else {
+              $quantities[] = 0;
+            }
+            $max_hours--;
+          }
+          $result['dates'] = $range_dates;
+          $result['quantities'] = $quantities;
+          $result['revenues'] = $revenues;
         }
         
         // Getting totals
