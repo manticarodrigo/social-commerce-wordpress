@@ -1,0 +1,73 @@
+# Spanish translations for PACKAGE package.
+# Copyright (C) 2018 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# U-OOQSDLTDMEDI0\usuario <darwing.medina@ooqia.com>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-07-16 15:56-0600\n"
+"PO-Revision-Date: 2018-07-16 16:03-0600\n"
+"Last-Translator: U-OOQSDLTDMEDI0\\usuario <darwing.medina@ooqia.com>\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: reference-number-gateway.php:37
+msgid "Accept a reference number from a direct bank transfer as payment"
+msgstr "Acepta un número de referencia de una transferencia bancaria directa como forma de pago"
+
+#: reference-number-gateway.php:128
+msgid "Awaiting reference number confirmation"
+msgstr "Awaiting reference number confirmation"
+
+#: reference-number-gateway.php:74
+msgid "Bank transfer | Reference Number"
+msgstr "Transferencia bancaria | Número de referencia"
+
+#: reference-number-gateway.php:78
+msgid "Description"
+msgstr "Descripción"
+
+#: reference-number-gateway.php:65
+msgid "Enable Reference Number Gateway"
+msgstr "Habilitar Gateway"
+
+#: reference-number-gateway.php:64
+msgid "Enable/Disable"
+msgstr "Habilitar/Desabilitar"
+
+#. you shouldn't have to worry about inline styles, WooCommerce adds them itself depending on the theme you use
+#: reference-number-gateway.php:98 reference-number-gateway.php:146
+#: reference-number-gateway.php:157 reference-number-gateway.php:176
+#: reference-number-gateway.php:178 reference-number-gateway.php:182
+#: reference-number-gateway.php:195 reference-number-gateway.php:199
+msgid "Reference Number"
+msgstr "Número de referencia"
+
+#. payment gateway plugin ID
+#. URL of the icon that will be displayed on checkout page near your gateway name
+#. in case you need a custom credit card form
+#: reference-number-gateway.php:36
+msgid "Reference Number Gateway"
+msgstr "Gateway Número de referencia"
+
+#: reference-number-gateway.php:80
+msgid "This controls the description which the user sees during checkout."
+msgstr ""
+
+#: reference-number-gateway.php:73
+msgid "This controls the title which the user sees during checkout."
+msgstr ""
+
+#: reference-number-gateway.php:71
+msgid "Title"
+msgstr "Titulo"
+
+#: reference-number-gateway.php:81
+msgid "Use a bank transfer reference number"
+msgstr "Use un número de referencia de transferencia bancaria"
