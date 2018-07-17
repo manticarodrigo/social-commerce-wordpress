@@ -96,6 +96,7 @@ function ref_number_init_gateway_class() {
             if ( $trasient_data && isset( $trasient_data['term_id'] ) ) {
                 $term_id = $trasient_data['term_id'];
                 $account_number = get_term_meta( intval($term_id), '_bank_account', true );
+                $account_number = $account_number ? $account_number : '123456789';
                 echo wp_kses_post(__('Número de cuenta de Banco', 'ref_number') . ': <strong>' . $account_number . '</strong>');
             }
             
