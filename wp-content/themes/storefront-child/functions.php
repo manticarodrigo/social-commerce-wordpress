@@ -95,6 +95,7 @@ function custom_remove_footer_credit () {
 function custom_storefront_credit() {
   $term = get_queried_object();
   $footer_data = array();
+  // @TODO move this to cookies
   $trasient_data = get_transient( 'footer_data' );
 
   if ( $term->term_id ) {
@@ -230,12 +231,47 @@ function cat_opengraph_image() {
     if ( $image ) {
       echo '<meta property="og:image" content="'.$image.'" />';
     }
+
+}
+
+// add_action( 'init', 'setting_category_cookie' );
+// function setting_category_cookie() {
+//   setcookie( $v_username, $v_value, 30 * DAY_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
+// }
+
+add_filter( 'woocommerce_email_recipient_customer_processing_order', 'add_recipient', 20, 2 );
+add_filter( 'woocommerce_email_recipient_customer_completed_order', 'add_recipient', 20, 2 );
+add_filter( 'woocommerce_email_recipient_customer_note', 'add_recipient', 20, 2 );
+/**
+ * Add recipient to emails
+ *
+ * @var  str $email, comma-delimited list of addresses
+ * @return  str
+ */
+function add_recipient( $email, $order ) {
+  // @TODO This must be with cookies
+  $trasient_data = get_transient( 'footer_data' );
+  if ( $trasient_data && isset( $trasient_data['term_id'] ) ) {
+    $term_id = $trasient_data['term_id'];
+    $owner_id = get_term_meta( intval($term_id), '_owner_id', true );
+    if ( $owner_id ) {
+      $owner = get_userdata( intval($owner_id) );
+      $additional_email = $owner->user_email;
+
+      if ( $additional_email && is_email( $additional_email ) ) {
+        $email = explode( ',', $email );
+        array_push( $email, $additional_email );
+        $email = implode( ',', $email );
+      }
+    }
+  }
+  return $email;
 }
 
 
 add_filter( 'get_the_archive_title', 'remove_category_prefix_from_archive_title' );
 function remove_category_prefix_from_archive_title( $title ) {
-  if ( is_category() ) {
+  if ( is_category() || is_product_category() ) {
     $title = single_cat_title( '', false );
   } elseif ( is_tag() ) {
     $title = single_tag_title( '', false );

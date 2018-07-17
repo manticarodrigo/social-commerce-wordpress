@@ -92,6 +92,13 @@ function ref_number_init_gateway_class() {
 		 * Displays form fields
 		 */
 		public function payment_fields() {
+            $trasient_data = get_transient( 'footer_data' );
+            if ( $trasient_data && isset( $trasient_data['term_id'] ) ) {
+                $term_id = $trasient_data['term_id'];
+                $account_number = get_term_meta( intval($term_id), '_bank_account', true );
+                echo wp_kses_post(__('Número de cuenta de Banco', 'ref_number') . ': <strong>' . $account_number . '</strong>');
+            }
+            
             if ( $this->description ) {
                 $this->description  = trim( $this->description );
                 // display the description with <p> tags etc.
@@ -180,7 +187,7 @@ function ref_number_add_email_order_meta( $order_obj, $sent_to_admin, $plain_tex
 		// you shouldn't have to worry about inline styles, WooCommerce adds them itself depending on the theme you use
 		echo '<h2>' . _e('Reference Number', 'ref_number') . '</h2>
 		<ul>
-		<li><strong>' . _e('Reference Number', 'ref_number') .':</strong> ' . $ref_number . '</li>
+		<li><strong>' . __('Reference Number', 'ref_number') .':</strong> ' . $ref_number . '</li>
 		</ul>';
  
 	} else {
