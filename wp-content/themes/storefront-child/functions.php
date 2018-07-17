@@ -1,5 +1,4 @@
 <?php 
-
 /*
  * Automagically authorize every request
  * INSECURE! DANGER! ONLY USE IN LOCAL ENVIRONMENT.
@@ -84,6 +83,26 @@ function my_assets() {
 remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
 remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
 
+function get_active_term_id($from_existing=true) {
+  global $wp_query;
+  $term_id = false;
+  if ( is_product_category() ) {
+    $term_id = $wp_query->get_queried_object_id();
+  } elseif ( is_product() ) {
+    $terms = get_the_terms( $wp_query->get_queried_object_id(), 'product_cat' );
+    $term_id = $terms[0]->term_id;
+  } elseif ( $from_existing && isset( $_COOKIE['wp_active_term_id'] ) ) {
+    $term_id = intval($_COOKIE['wp_active_term_id']);
+  }
+  return $term_id;
+}
+
+// Setting term cookie 
+add_action( 'template_redirect', 'set_active_term_id', 10);
+function set_active_term_id() {
+  wc_setcookie( 'wp_active_term_id', get_active_term_id(false) );
+}
+
 // Custom footer
 add_action( 'init', 'custom_remove_footer_credit', 10 );
 function custom_remove_footer_credit () {
@@ -93,13 +112,10 @@ function custom_remove_footer_credit () {
 }
 
 function custom_storefront_credit() {
-  $term = get_queried_object();
   $footer_data = array();
-  // @TODO move this to cookies
-  $trasient_data = get_transient( 'footer_data' );
+  $term_id = get_active_term_id();
 
-  if ( $term->term_id ) {
-    $term_id  = $term->term_id;
+  if ( $term_id ) {
     $owner_id = get_term_meta( $term_id, '_owner_id', true );
     $owner    = get_userdata( intval($owner_id) );
 
@@ -109,10 +125,6 @@ function custom_storefront_credit() {
       'empresa'   => $term->name,
       'te_vende'  => $owner->first_name
     );
-    // Saving in case not in term page
-    set_transient( 'footer_data', $footer_data, DAY_IN_SECONDS );
-  } else if ( $trasient_data ) {
-    $footer_data = $trasient_data;
   }
 
   ?>
@@ -233,11 +245,6 @@ function cat_opengraph_image() {
     }
 
 }
-
-// add_action( 'init', 'setting_category_cookie' );
-// function setting_category_cookie() {
-//   setcookie( $v_username, $v_value, 30 * DAY_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN );
-// }
 
 add_filter( 'woocommerce_email_recipient_customer_processing_order', 'add_recipient', 20, 2 );
 add_filter( 'woocommerce_email_recipient_customer_completed_order', 'add_recipient', 20, 2 );
