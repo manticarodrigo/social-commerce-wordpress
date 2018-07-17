@@ -553,10 +553,6 @@ foreach ( $plugin->sections as $section ) {
                 alert( '<?php _e( 'Field name can not be number!', 'flexible-checkout-fields' ); ?>' );
                 return false;
             }
-            if ( stringToSlug( jQuery(field).val() ) != jQuery(field).val() ) {
-                alert( '<?php _e( 'Invalid field name. Field name can contains only lower case letters, digits and _ (underline) character!', 'flexible-checkout-fields' ); ?>');
-                return false;
-            }
             return true;
         }
 
