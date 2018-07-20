@@ -206,4 +206,17 @@ ul.products li.product {
     padding: 35px;
     background-color: #f8f8f8;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ul.products li.product img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.storefront-handheld-footer-bar {
+    display: block !important;
 }

@@ -1,5 +1,4 @@
 <?php 
-
 /*
  * Automagically authorize every request
  * INSECURE! DANGER! ONLY USE IN LOCAL ENVIRONMENT.
@@ -84,6 +83,27 @@ function my_assets() {
 remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
 remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
 
+function get_active_term_id() {
+  global $wp_query;
+  $term_id = false;
+  if ( is_product_category() ) {
+    $term_id = $wp_query->get_queried_object_id();
+  } elseif ( is_product() ) {
+    $terms = get_the_terms( $wp_query->get_queried_object_id(), 'product_cat' );
+    $term_id = $terms[0]->term_id;
+  } elseif (isset( $_COOKIE['wp_active_term_id'] ) ) {
+    $term_id = intval($_COOKIE['wp_active_term_id']);
+  }
+  return $term_id;
+}
+
+// Setting term cookie 
+add_action( 'template_redirect', 'set_active_term_id', 10);
+function set_active_term_id() {
+  if ( is_product_category() || is_product() )
+    wc_setcookie( 'wp_active_term_id', get_active_term_id() );
+}
+
 // Custom footer
 add_action( 'init', 'custom_remove_footer_credit', 10 );
 function custom_remove_footer_credit () {
@@ -93,12 +113,10 @@ function custom_remove_footer_credit () {
 }
 
 function custom_storefront_credit() {
-  $term = get_queried_object();
   $footer_data = array();
-  $trasient_data = get_transient( 'footer_data' );
+  $term_id = get_active_term_id();
 
-  if ( $term->term_id ) {
-    $term_id  = $term->term_id;
+  if ( $term_id ) {
     $owner_id = get_term_meta( $term_id, '_owner_id', true );
     $owner    = get_userdata( intval($owner_id) );
 
@@ -108,10 +126,6 @@ function custom_storefront_credit() {
       'empresa'   => $term->name,
       'te_vende'  => $owner->first_name
     );
-    // Saving in case not in term page
-    set_transient( 'footer_data', $footer_data, DAY_IN_SECONDS );
-  } else if ( $trasient_data ) {
-    $footer_data = $trasient_data;
   }
 
   ?>
@@ -130,6 +144,19 @@ function custom_storefront_credit() {
     </li>
   </ul><!-- .site-info -->
   <?php
+}
+
+/** 
+ * Adds bank info to ref number fields
+ */
+add_action( 'ref_number_before_fields', 'add_extra_data_to_ref_number' );
+function add_extra_data_to_ref_number() {
+  $term_id = get_active_term_id();
+  if ( $term_id ) {
+    $account_number = get_term_meta( intval($term_id), '_bank_account', true );
+    $account_number = $account_number ? $account_number : '123456789';
+    echo wp_kses_post(__('Número de cuenta de Banco', 'ref_number') . ': <strong>' . $account_number . '</strong>');
+  }
 }
 
 /** 
@@ -230,12 +257,40 @@ function cat_opengraph_image() {
     if ( $image ) {
       echo '<meta property="og:image" content="'.$image.'" />';
     }
+
+}
+
+add_filter( 'woocommerce_email_recipient_customer_processing_order', 'add_recipient', 20, 2 );
+add_filter( 'woocommerce_email_recipient_customer_completed_order', 'add_recipient', 20, 2 );
+add_filter( 'woocommerce_email_recipient_customer_note', 'add_recipient', 20, 2 );
+/**
+ * Add recipient to emails
+ *
+ * @var  str $email, comma-delimited list of addresses
+ * @return  str
+ */
+function add_recipient( $email, $order ) {
+  $term_id = get_active_term_id();
+  if ( $term_id ) {
+    $owner_id = get_term_meta( intval($term_id), '_owner_id', true );
+    if ( $owner_id ) {
+      $owner = get_userdata( intval($owner_id) );
+      $additional_email = $owner->user_email;
+
+      if ( $additional_email && is_email( $additional_email ) ) {
+        $email = explode( ',', $email );
+        array_push( $email, $additional_email );
+        $email = implode( ',', $email );
+      }
+    }
+  }
+  return $email;
 }
 
 
 add_filter( 'get_the_archive_title', 'remove_category_prefix_from_archive_title' );
 function remove_category_prefix_from_archive_title( $title ) {
-  if ( is_category() ) {
+  if ( is_category() || is_product_category() ) {
     $title = single_cat_title( '', false );
   } elseif ( is_tag() ) {
     $title = single_tag_title( '', false );

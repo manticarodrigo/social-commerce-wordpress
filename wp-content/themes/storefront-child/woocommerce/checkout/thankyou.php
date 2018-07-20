@@ -84,9 +84,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php endif; ?>
 
-	<?php
-	$footer_data = get_transient( 'footer_data' );
-	$term_link = get_term_link( $footer_data['term_id'], 'product_cat' );
+	<?php	
+	$term_link = get_term_link( get_active_term_id(), 'product_cat' );
 	
 	if ( $term_link ) :
 	?>
