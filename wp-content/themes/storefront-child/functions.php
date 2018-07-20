@@ -83,7 +83,7 @@ function my_assets() {
 remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
 remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
 
-function get_active_term_id($from_existing=true) {
+function get_active_term_id() {
   global $wp_query;
   $term_id = false;
   if ( is_product_category() ) {
@@ -91,7 +91,7 @@ function get_active_term_id($from_existing=true) {
   } elseif ( is_product() ) {
     $terms = get_the_terms( $wp_query->get_queried_object_id(), 'product_cat' );
     $term_id = $terms[0]->term_id;
-  } elseif ( $from_existing && isset( $_COOKIE['wp_active_term_id'] ) ) {
+  } elseif (isset( $_COOKIE['wp_active_term_id'] ) ) {
     $term_id = intval($_COOKIE['wp_active_term_id']);
   }
   return $term_id;
@@ -100,7 +100,8 @@ function get_active_term_id($from_existing=true) {
 // Setting term cookie 
 add_action( 'template_redirect', 'set_active_term_id', 10);
 function set_active_term_id() {
-  wc_setcookie( 'wp_active_term_id', get_active_term_id(false) );
+  if ( is_product_category() || is_product() )
+    wc_setcookie( 'wp_active_term_id', get_active_term_id() );
 }
 
 // Custom footer
@@ -143,6 +144,19 @@ function custom_storefront_credit() {
     </li>
   </ul><!-- .site-info -->
   <?php
+}
+
+/** 
+ * Adds bank info to ref number fields
+ */
+add_action( 'ref_number_before_fields', 'add_extra_data_to_ref_number' );
+function add_extra_data_to_ref_number() {
+  $term_id = get_active_term_id();
+  if ( $term_id ) {
+    $account_number = get_term_meta( intval($term_id), '_bank_account', true );
+    $account_number = $account_number ? $account_number : '123456789';
+    echo wp_kses_post(__('Número de cuenta de Banco', 'ref_number') . ': <strong>' . $account_number . '</strong>');
+  }
 }
 
 /** 
@@ -256,10 +270,8 @@ add_filter( 'woocommerce_email_recipient_customer_note', 'add_recipient', 20, 2 
  * @return  str
  */
 function add_recipient( $email, $order ) {
-  // @TODO This must be with cookies
-  $trasient_data = get_transient( 'footer_data' );
-  if ( $trasient_data && isset( $trasient_data['term_id'] ) ) {
-    $term_id = $trasient_data['term_id'];
+  $term_id = get_active_term_id();
+  if ( $term_id ) {
     $owner_id = get_term_meta( intval($term_id), '_owner_id', true );
     if ( $owner_id ) {
       $owner = get_userdata( intval($owner_id) );

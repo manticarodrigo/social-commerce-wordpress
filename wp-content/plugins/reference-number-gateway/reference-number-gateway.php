@@ -92,13 +92,7 @@ function ref_number_init_gateway_class() {
 		 * Displays form fields
 		 */
 		public function payment_fields() {
-            $trasient_data = get_transient( 'footer_data' );
-            if ( $trasient_data && isset( $trasient_data['term_id'] ) ) {
-                $term_id = $trasient_data['term_id'];
-                $account_number = get_term_meta( intval($term_id), '_bank_account', true );
-                $account_number = $account_number ? $account_number : '123456789';
-                echo wp_kses_post(__('Número de cuenta de Banco', 'ref_number') . ': <strong>' . $account_number . '</strong>');
-            }
+            do_action( 'ref_number_before_fields' );
             
             if ( $this->description ) {
                 $this->description  = trim( $this->description );
@@ -138,7 +132,7 @@ function ref_number_init_gateway_class() {
             $order = wc_get_order( $order_id );
             update_post_meta( $order_id, 'ref_number', $ref_number );
 
-            $order->update_status('on-hold', __( 'Awaiting reference number confirmation', 'ref_number' ));
+            $order->update_status('processing', __( 'Awaiting reference number confirmation', 'ref_number' ));
             $order->reduce_order_stock();
             $woocommerce->cart->empty_cart();
 
