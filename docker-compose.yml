@@ -1,26 +1,53 @@
-version: "2"
+version: "3"
 services:
-  my-wpdb:
-    image: mariadb
-    ports:
-      - "8081:3306"
+  wordpress:
+    image: "wordpress:${WP_VERSION:-4.9.6}-php${PHP_VERSION:-7.2}-apache"
     environment:
-      MYSQL_ROOT_PASSWORD: root
-  my-wp:
-    image: wordpress
+      VIRTUAL_HOST: "${DOCKER_DEV_DOMAIN:-heyshopper.loc}"
+      WORDPRESS_DB_HOST: "mysql"
+      WORDPRESS_DB_NAME: "wordpress"
+      WORDPRESS_DB_PASSWORD: ""
+      WORDPRESS_DB_USER: "root"
+    depends_on:
+      - "mysql"
+    networks:
+      - "front"
+      - "back"
     volumes:
-      - ./:/var/www/html
-    ports:
-      - "8080:80"
-    links:
-      - my-wpdb:mysql
+      - "./:/var/www/html"
+  wp-cli:
+    image: "wordpress:cli-php${PHP_VERSION:-7.2}"
     environment:
-      WORDPRESS_DB_PASSWORD: root
-  my-wpcli:
-    image: tatemz/wp-cli
-    volumes_from:
-      - my-wp
-    links:
-      - my-wpdb:mysql
-    entrypoint: wp  
-    command: "--info"
+      - APACHE_RUN_USER="www-data"
+      - APACHE_RUN_GROUP="www-data"
+    depends_on:
+      - "mysql"
+    networks:
+      - "back"
+    volumes:
+      - "./:/var/www/html"
+  mysql:
+    image: "mariadb"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: "wordpress"
+      MYSQL_ROOT_PASSWORD: ""
+    networks:
+      - "back"
+  proxy:
+    image: "jwilder/nginx-proxy:alpine"
+    ports:
+      - "80:80"
+    networks:
+      front:
+        aliases:
+          - "${DOCKER_DEV_DOMAIN:-heyshopper.loc}"
+    volumes:
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
+
+networks:
+  front: {}
+  back: {}
+
+volumes:
+  wp: {}

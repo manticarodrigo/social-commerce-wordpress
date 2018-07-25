@@ -3,19 +3,22 @@ Contributors: Tatvic
 Plugin Name: Enhanced Ecommerce for Woocommerce store
 Plugin URI: http://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/
 Tags: Google Analytics, Universal Analytics, Enhanced E-commerce, E-commerce, e-commerce, woo-commerce,Ecommerce,woocommerce, commerce, Wordpress Enhanced Ecommerce, Woocommerce Enhanced Ecommerce, Woocommerce Google Analytics, Google Analytics Plugin, Enhanced Ecommerce Plugin
-Author URI: http://www.tatvic.com/
+Author URI: https://www.tatvic.com/
 Author: Tatvic
 Requires at least: 3.6
 Tested up to: 4.9
-Stable tag: 2.0.3
-Version: 2.0.3
+Stable tag: 2.1.0
+Version: 2.1.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Provides integration between Enhanced Ecommerce feature of Google Analytics and WooCommerce.
 
 == Description ==
-<a href="http://www.tatvic.com/enhanced-ecommerce-google-analytics-plugin-woocommerce/">Enhanced Ecommerce Google Analytics</a> is a Free Plugin for Woocommerce stores which allows you to use the newly launched feature of Google Analytics – Enhanced Ecommerce.You can track the user behavior across your e-commerce store starting from product views to thank you page. Enhanced Ecommerce is only supported by Universal Analytics.
+<a href="https://www.tatvic.com/enhanced-ecommerce-google-analytics-plugin-woocommerce/" target="_blank">Enhanced Ecommerce Google Analytics</a> is a Free Plugin for Woocommerce stores which allows you to use the newly launched feature of Google Analytics – Enhanced Ecommerce.You can track the user behavior across your e-commerce store starting from product views to thank you page. Enhanced Ecommerce is only supported by Universal Analytics.
+
+== Note : ==
+== With the Latest Release 2.1.0 we have done some major UI changes so follow <a href="https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/#installation" target="_blank" >these</a> installation instruction & also Go through the <a href="http://plugins.tatvic.com/downloads/EE-Woocommerce-Plugin-Documentation.pdf" target="_blank" > documentation </a>First ==
 
 = Features of Plugin =
 1. Quick & Easy installation from the wordpress interface
@@ -25,15 +28,14 @@ Provides integration between Enhanced Ecommerce feature of Google Analytics and 
      * Product Performance Report
      * Sales Performance Report
 3. Supports Guest checkout functionality
-4. Supports Display Advertising Feature
-5. Captures Product Impressions, Add to Cart & Product Clicks events on category page 
-6. Captures Product Impressions, Add to Cart & Product Clicks events on product page
-7. Captures Product Impressions, Add to Cart & Product Clicks events on featured Product Section on Homepage
-8. Captures Product Impressions, Add to Cart & Product Clicks events on Recent Product Section on Homepage
-9. Captures Product Impressions, Add to Cart & Product Clicks events on Related Product Section on Productpage 
-10. Set your local currency
-11. Google Analytics Opt Out
-12. IP Anonymization
+4. Captures Product Impressions, Add to Cart & Product Clicks events on category page 
+5. Captures Product Impressions, Add to Cart & Product Clicks events on product page
+6. Captures Product Impressions, Add to Cart & Product Clicks events on featured Product Section on Homepage
+7. Captures Product Impressions, Add to Cart & Product Clicks events on Recent Product Section on Homepage
+8. Captures Product Impressions, Add to Cart & Product Clicks events on Related Product Section on Productpage 
+9. Set your local currency
+10. Google Analytics Opt Out
+11. IP Anonymization
 
 
 = Installation Instructions  =
@@ -41,18 +43,15 @@ Provides integration between Enhanced Ecommerce feature of Google Analytics and 
 
 * Add meaningful labels for your checkout steps. We recommend you to label as, Step 1 : Checkout View; Step 2 : Billing Info; Step 3 : Proceed to payment
 
-* Activate our plug-in from the Settings page. You can access the setting page from here WooCommerce -> Settings ->Integration ->Enhanced Ecommerce Google Analytics.
+* Activate our plug-in from the Settings page. You can access the setting page from sidebar Tatvic EE Plugin > Enhanced Ecommerce for Woocommerce.
 
 * Find “Add Enhanced Ecommerce Tracking Code” in the settings page and check the box to add the tracking code
 
 * If you have a guest checkout on your WooCommerce store, then Check the box “Add Code to Track the Login Step of Guest Users”. If you have a guest login but you do not check the box, then it might cause an uneven funnel reporting in Google Analytics.
 
-* All the product sections on homepage other than feature product will be fired as Recent Product and will be available in product list performance report.
-
-* All the product sections on product page will be fired as Related Product and will be available in product list performance report.
 
 = Need an Advanced Google Analytics Plugin? =
-We have an Advanced Google Analytics Plugin for WooCommerce which includes tracking of 9 Reports of Enhanced Ecommerce, User ID Tracking, Product Refund, I.P. Anonymization, 15+ Custom Dimenensions & Metrics, Form Field Tracking, Content Grouping, Google Optimize & much more. <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">Learn More</a>
+We have an Advanced Google Analytics Plugin for WooCommerce which includes tracking of 9 Reports of Enhanced Ecommerce, User ID Tracking, Product Refund, I.P. Anonymization, Adwords Conversion Tracking, Facebook Pixel Tracking, 15+ Custom Dimenensions & Metrics & much more. <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">Learn More</a>
 
 == Note : ==
 == Our plugin does not support the below features out of the box ==
@@ -63,14 +62,15 @@ We have an Advanced Google Analytics Plugin for WooCommerce which includes track
 * Not fully compatible with the child/custom Theme
 
 == Installation ==
-1. Download the plugin file to your computer and unzip it
-2. Using an FTP program, or your hosting control panel, upload the unzipped plugin folder to your WordPress installation’s wp-content/plugins/ directory
-3. Activate the plugin from the Plugins menu within the WordPress admin
-4. Enter your Universal Analytics ID for the plugin to enable the tracking code
+1. Deactivate & Delete the Older version of the Plugin
+2. Download the new plugin file to your computer and unzip it
+3. Using an FTP program, or your hosting control panel, upload the unzipped plugin folder to your WordPress installation’s wp-content/plugins/ directory
+4. Activate the plugin from the Plugins menu within the WordPress admin
+5. Enter your Universal Analytics ID for the plugin to enable the tracking code
 
 == Screenshots ==
 1. Enable Enhanced E-commerce for your profile/view. This is a profile / view level setting and can be accessed under Admin > View > E-commerce Settings. Also, add meaningful labels for your checkout steps. We recommend you to label as, Step 1 : Checkout View; Step 2 : Login; Step 3 : Proceed to payment;
-2. Next, you need to activate your plugin from the Settings page by clicking the checkbox – “Add Enhanced Ecommerce Tracking Code". You can access the same from: WooCommerce > Settings > Integration > Enhanced Ecommerce Google Analytics.
+2. Next, you need to activate your plugin from the Settings page by clicking the checkbox – “Add Enhanced Ecommerce Tracking Code". You can access the same from: Tatvic EE Plugin > Enhanced Ecommerce for Woocommerce.
 3. To Track Guest Users, Check the box – Add Code to Track the Login Steps of Guest Users. If you have a Guest Check out & if it’s Unchecked, then it might cause an uneven funnel reporting in Google Analytics.
 
 == Frequently Asked Questions ==
@@ -81,6 +81,10 @@ This plugin will add the settings to the Integration tab, to be found in the Woo
 = Does this conflict with the WooCommerce? =
 
 Starting the WooCommerce 2.1 release there are no conflicts. However for earlier the plugin might conflict with the default Google Analytics integration for WooCommerce.
+
+= Getting Error After Updating with the Latest version of the Plugin 2.1.0 =
+
+We have done the Major updates with the latest version so first you need to deactivate & delete the older version & add the latest version of the plugin again.
 
 = Do I Need to add any custom code for it? =
 
@@ -131,6 +135,18 @@ You can Find all The Enhanced Ecommerce Reports in your Analytics Account under 
 = Products with variant not getting recorded in GA =
 
 Currently our plugin does not support products with variant & hence you may not see their transaction data in GA. This feature is only available with the <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium version</a> of our plugin.
+
+= Does this plugin provide Adwords Conversion Tracking? =
+
+The free version of our plugin does not provide Adwords Conversion Tracking feature. This feature is only available with the <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium version</a> of our plugin.
+
+= Does this plugin provide Facebook Pixel Tracking? =
+
+The free version of our plugin does not provide Facebook Pixel Tracking feature. This feature is only available with the <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium version</a> of our plugin.
+
+= Does this plugin provide Google Optimize Snippet Adding Support? =
+
+The free version of our plugin does not provide Google Optimize Snippet Adding Support. This feature is only available with the <a href="https://codecanyon.net/item/actionable-google-analytics-for-woocommerce/9899552?ref=tatvic" target="_blank">premium version</a> of our plugin.
 
 = I have noticed that some transactions are missing in my GA account, compared to my Woocmmerce backend (Orders) =
 
@@ -299,4 +315,8 @@ Important Note: When you update the plugin, please save your settings again.
  * Update the Privacy Policy under GDPR Compliance
 
  = 2.0.3 - 04/06/2018 =
+ * Minor Bug Fixes
+
+ = 2.1.0 - 19/07/2018 =
+ * New User Interface
  * Minor Bug Fixes
