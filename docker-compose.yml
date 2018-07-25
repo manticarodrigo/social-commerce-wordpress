@@ -14,7 +14,7 @@ services:
       - "front"
       - "back"
     volumes:
-      - "./:/var/www/html"
+      - ".:/var/www/html"
   wp-cli:
     image: "wordpress:cli-php${PHP_VERSION:-7.2}"
     environment:
@@ -25,7 +25,7 @@ services:
     networks:
       - "back"
     volumes:
-      - "./:/var/www/html"
+      - ".:/var/www/html"
   mysql:
     image: "mariadb"
     environment:
