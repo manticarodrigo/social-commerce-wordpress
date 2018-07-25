@@ -18,9 +18,6 @@
  * @package WordPress
  */
 
-/* Multisite */
-define( 'WP_ALLOW_MULTISITE', true );
-
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define('DB_NAME', 'wordpress');
@@ -89,6 +86,15 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROT
 }
 
 /* That's all, stop editing! Happy blogging. */
+/* Multisite */
+define( 'WP_ALLOW_MULTISITE', true );
+define('MULTISITE', true);
+define('SUBDOMAIN_INSTALL', false);
+define('DOMAIN_CURRENT_SITE', 'heyshopper.loc');
+define('PATH_CURRENT_SITE', '/');
+define('SITE_ID_CURRENT_SITE', 1);
+define('BLOG_ID_CURRENT_SITE', 1);
+
 
 /** Absolute path to the WordPress directory. */
 if ( !defined('ABSPATH') )
