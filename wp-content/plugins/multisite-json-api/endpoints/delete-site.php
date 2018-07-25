@@ -14,19 +14,19 @@ if(isset($api->json->blog_id)) {
 	/*
 	 * Authenticate the user using WordPress
 	 */
-	$user = $api->authenticate();
-	if($user) {
+	// $user = $api->authenticate();
+	// if($user) {
 		/*
 		 * Make sure user can actually create sites
 		 */
-		if($api->user_can_create_sites()) {
-			error_log("Attempt to delete site with user '" . $_SERVER['HTTP_USER'] . "', but user does not have permission to manage sites in WordPress.");
-			$api->error("You don't have permission to manage sites", 403);
-			die();
-		/*
-		 * User can create sites
-		 */
-		} else {
+		// if($api->user_can_create_sites()) {
+		// 	error_log("Attempt to delete site with user '" . $_SERVER['HTTP_USER'] . "', but user does not have permission to manage sites in WordPress.");
+		// 	$api->error("You don't have permission to manage sites", 403);
+		// 	die();
+		// /*
+		//  * User can create sites
+		//  */
+		// } else {
 			// Start killing stuff
 			try {
 				$site = $api->delete_site($api->json->blog_id, $api->json->drop);
@@ -35,11 +35,11 @@ if(isset($api->json->blog_id)) {
 				$api->json_exception($e);
 				die();
 			}
-		}
-	} else {
-		$api->error('Invalid Username or Password', 403);
-		die();
-	}
+		// }
+	// } else {
+	// 	$api->error('Invalid Username or Password', 403);
+	// 	die();
+	// }
 } else {
 	$api->error('This endpoint needs a JSON payload of the form {"blog_id": 1, "drop": true}');
 }
