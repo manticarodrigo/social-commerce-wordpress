@@ -12,19 +12,19 @@ if(isset($api->json->title) && isset($api->json->email) && isset($api->json->sit
 	/*
 	 * Authenticate the user using WordPress
 	 */
-	$user = $api->authenticate();
-	if($user) {
+	// $user = $api->authenticate();
+	// if($user) {
 		/*
 		 * Make sure user can actually create sites
 		 */
-		if($api->user_can_create_sites()) {
-			error_log("Attempt to create site via Multisite JSON API with user '" . $_SERVER['HTTP_USER'] . "', but user does not have permission to manage sites in WordPress.");
-			$api->error("You don't have permission to manage sites", 403);
-			die();
-		/*
-		 * User can create sites
-		 */
-		} else {
+		// if($api->user_can_create_sites()) {
+		// 	error_log("Attempt to create site via Multisite JSON API with user '" . $_SERVER['HTTP_USER'] . "', but user does not have permission to manage sites in WordPress.");
+		// 	$api->error("You don't have permission to manage sites", 403);
+		// 	die();
+		// /*
+		//  * User can create sites
+		//  */
+		// } else {
 			/*
 			 * Start validating input
 			 */
@@ -62,11 +62,11 @@ if(isset($api->json->title) && isset($api->json->email) && isset($api->json->sit
 			}
 			$api->send_site_creation_notifications($site->blog_id, $api->json->email);
 			$api->respond_with_json($site, 201);
-		}
-	} else {
-		$api->error('Invalid Username or Password', 'access_denied', 403);
-		die();
-	}
+		// }
+	// } else {
+	// 	$api->error('Invalid Username or Password', 'access_denied', 403);
+	// 	die();
+	// }
 } else {
 	$api->error('This endpoint needs a JSON payload of the form {"title": "My New Blog", "email": "user@email.com", "site_name": "my-new-blog"}',
 		'invalid_parameters',

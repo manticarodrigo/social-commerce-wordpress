@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WooCommerce - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-07-24 16:27:01+0000\n"
+"PO-Revision-Date: 2018-07-25 19:03:07+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,13 +11,24 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: Plugins - WooCommerce - Stable (latest release)\n"
 
+#: includes/class-wc-countries.php:617
+msgid "Apartment, suite, unit etc."
+msgstr "Apartamento, habitación, etc."
+
+#. translators: %d: count
+#: includes/admin/class-wc-admin-api-keys.php:179
+msgid "%d API key permanently revoked."
+msgid_plural "%d API keys permanently revoked."
+msgstr[0] "%d clave API anulada permanentemente."
+msgstr[1] "%d claves API anuladas permanentemente."
+
 #. Translators: %d parent ID.
 #: includes/api/class-wc-rest-product-variations-controller.php:410
 msgid "Cannot set attributes due to invalid parent product."
 msgstr "No se pudieron aplicar atributos debido a un producto superior no válido."
 
 #: includes/admin/views/html-notice-wootenberg.php:19
-msgid "Active the Gutenberg Products Block"
+msgid "Activate the Gutenberg Products Block"
 msgstr "Activa el bloque de productos para Gutenberg"
 
 #: includes/admin/views/html-notice-wootenberg.php:15
@@ -366,6 +377,7 @@ msgstr "Descargas del cliente"
 msgid "Personal data removed."
 msgstr "Datos personales borrados."
 
+#: includes/class-wc-countries.php:620
 #: includes/class-wc-frontend-scripts.php:522
 #: includes/wc-template-functions.php:2470
 msgid "optional"
@@ -666,11 +678,11 @@ msgstr "Activar cupones"
 msgid "Manage"
 msgstr "Gestionar"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:132
+#: includes/admin/settings/class-wc-settings-advanced.php:130
 msgid "Secure checkout"
 msgstr "Pago seguro"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:215
+#: includes/admin/settings/class-wc-settings-advanced.php:213
 msgid "Account endpoints"
 msgstr "Variables de la cuenta"
 
@@ -719,12 +731,12 @@ msgstr "Las tasas ser podrán configurar, y los impuestos se calcularán durante
 msgid "Enable tax rates and calculations"
 msgstr "Activar tasas de impuestos y sus cálculos"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:314
+#: includes/admin/settings/class-wc-settings-advanced.php:312
 msgid "Enable the legacy REST API"
 msgstr "Activar la REST API heredada"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:45
-#: includes/admin/settings/class-wc-settings-advanced.php:313
+#: includes/admin/settings/class-wc-settings-advanced.php:43
+#: includes/admin/settings/class-wc-settings-advanced.php:311
 msgid "Legacy API"
 msgstr "API heredada"
 
@@ -905,136 +917,136 @@ msgstr "Solicitudes de borrado de cuenta"
 msgid "Personal data retention"
 msgstr "Conservación de datos personales"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2174
+#: includes/admin/class-wc-admin-setup-wizard.php:2175
 msgid "View &amp; Customize"
 msgstr "Ver y personalizar"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2171
+#: includes/admin/class-wc-admin-setup-wizard.php:2172
 msgid "Review Settings"
 msgstr "Revisar ajustes"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2163
+#: includes/admin/class-wc-admin-setup-wizard.php:2164
 msgid "You can also:"
 msgstr "También puedes:"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2137
+#: includes/admin/class-wc-admin-setup-wizard.php:2138
 msgid "You're ready to add products to your store."
 msgstr "Ya estás listo para añadir productos a tu tienda."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2136
+#: includes/admin/class-wc-admin-setup-wizard.php:2137
 msgid "Create some products"
 msgstr "Crea algunos productos"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1919
+#: includes/admin/class-wc-admin-setup-wizard.php:1920
 msgid "Continue with WooCommerce Services"
 msgstr "Seguir con WooCommerce Services"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1918
+#: includes/admin/class-wc-admin-setup-wizard.php:1919
 msgid "Connect your store to activate WooCommerce Services"
 msgstr "Conecta tu tienda para activar WooCommerce Services"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1907
+#: includes/admin/class-wc-admin-setup-wizard.php:1908
 msgid "Thanks for using Jetpack! Your store is almost ready: to activate services like %s, just connect your store."
 msgstr "¡Gracias por usar Jetpack! Tu tienda está casi lista: para activar servicios como %s simplemente conecta tu tienda."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1771
-#: includes/admin/class-wc-admin-setup-wizard.php:1813
+#: includes/admin/class-wc-admin-setup-wizard.php:1772
+#: includes/admin/class-wc-admin-setup-wizard.php:1814
 msgid "MailChimp for WooCommerce"
 msgstr "MailChimp para WooCommerce"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1770
+#: includes/admin/class-wc-admin-setup-wizard.php:1771
 msgid "MailChimp icon"
 msgstr "Icono de MailChimp"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1768
+#: includes/admin/class-wc-admin-setup-wizard.php:1769
 msgid "Join the 16 million customers who use MailChimp. Sync list and store data to send automated emails, and targeted campaigns."
 msgstr "Únete a 16 millones de clientes que  usan MailChimp. Sincroniza tus listas y almacena datos para enviar correos electrónicos automáticos, y campañas segmentadas."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1767
+#: includes/admin/class-wc-admin-setup-wizard.php:1768
 msgid "MailChimp"
 msgstr "MailChimp"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1759
+#: includes/admin/class-wc-admin-setup-wizard.php:1760
 msgid "automated taxes icon"
 msgstr "icono de impuestos automáticos"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1757
+#: includes/admin/class-wc-admin-setup-wizard.php:1758
 msgid "Save time and errors with automated tax calculation and collection at checkout. Powered by WooCommerce Services and Jetpack."
 msgstr "Ahorra tiempo y errores con el cálculo automático de impuestos y su aplicación al finalizar compra. Gracias a WooCommerce Services y Jetpack."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1749
+#: includes/admin/class-wc-admin-setup-wizard.php:1750
 msgid "Storefront icon"
 msgstr "Icono de Storefront"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1744
+#: includes/admin/class-wc-admin-setup-wizard.php:1745
 msgid "Design your store with deep WooCommerce integration. If toggled on, we’ll install <a href=\"https://woocommerce.com/storefront/\" target=\"_blank\" rel=\"noopener noreferrer\">Storefront</a>, and your current theme <em>%s</em> will be deactivated."
 msgstr "Diseña tu tienda con una integración profunda con WooCommerce. Si activas esto instalaremos <a href=\"https://woocommerce.com/storefront/\" target=\"_blank\" rel=\"noopener noreferrer\">Storefront</a>, y tu tema actual <em>%s</em> se desactivará."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2168
+#: includes/admin/class-wc-admin-setup-wizard.php:2169
 msgid "Visit Dashboard"
 msgstr "Visitar el escritorio"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1732
+#: includes/admin/class-wc-admin-setup-wizard.php:1733
 msgid "Enhance your store with these recommended features."
 msgstr "Mejora tu tienda con estas características recomendadas."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1730
+#: includes/admin/class-wc-admin-setup-wizard.php:1731
 msgid "Select from the list below to enable automated taxes and MailChimp’s best-in-class email services — and design your store with our official, free WooCommerce theme."
 msgstr "Elige de la lista de abajo y activa los impuestos automáticos y el servicio insuperable de correo electrónico de MailChimp - y diseña tu tienda con nuestro tema oficial, y gratuito, para WooCommerce."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1720
+#: includes/admin/class-wc-admin-setup-wizard.php:1721
 msgid "Recommended for All WooCommerce Stores"
 msgstr "Recomendado para todas las tiendas WooCommerce"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1322
+#: includes/admin/class-wc-admin-setup-wizard.php:1323
 msgid "The PayFast extension for WooCommerce enables you to accept payments by Credit Card and EFT via one of South Africa’s most popular payment gateways. No setup fees or monthly subscription costs."
 msgstr "La extensión PayFast para WooCommerce te permite aceptar pagos mediante tarjeta de crédito y EFT gracias a una de las pasarelas de pago más populares de Sudáfrica. No hay cuotas de activación ni costes de suscripción."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1314
+#: includes/admin/class-wc-admin-setup-wizard.php:1315
 msgid "The eWAY extension for WooCommerce allows you to take credit card payments directly on your store without redirecting your customers to a third party site to make payment."
 msgstr "La extensión eWAY para WooCommerce te permite recibir pagos directamente por tarjeta de crédito en tu tienda sin redirigir a tus clientes a otro sitio para hacer el pago."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:722
+#: includes/admin/class-wc-admin-setup-wizard.php:723
 msgid "The following plugins will be installed and activated for you:"
 msgstr "Los siguientes plugins se instalarán y activarán para ti:"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1305
+#: includes/admin/class-wc-admin-setup-wizard.php:1306
 msgid "WooCommerce Square"
 msgstr "WooCommerce Square"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1297
+#: includes/admin/class-wc-admin-setup-wizard.php:1298
 msgid "Klarna Payments for WooCommerce"
 msgstr "Klarna Payments for WooCommerce"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1289
+#: includes/admin/class-wc-admin-setup-wizard.php:1290
 msgid "Klarna Checkout for WooCommerce"
 msgstr "Klarna Checkout for WooCommerce"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1224
+#: includes/admin/class-wc-admin-setup-wizard.php:1225
 msgid "WooCommerce Stripe Gateway"
 msgstr "WooCommerce Stripe Gateway"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1249
+#: includes/admin/class-wc-admin-setup-wizard.php:1250
 msgid "WooCommerce PayPal Express Checkout Gateway"
 msgstr "WooCommerce PayPal Express Checkout Gateway"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1321
+#: includes/admin/class-wc-admin-setup-wizard.php:1322
 msgid "WooCommerce PayFast Gateway"
 msgstr "WooCommerce PayFast Gateway"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1313
+#: includes/admin/class-wc-admin-setup-wizard.php:1314
 msgid "WooCommerce eWAY Gateway"
 msgstr "WooCommerce eWAY Gateway"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1269
+#: includes/admin/class-wc-admin-setup-wizard.php:1270
 msgid "Enter your email address and we'll authenticate payments for you. Powered by WooCommerce Services and Jetpack."
 msgstr "Introduce tu dirección de correo electrónico e identificaremos tus pagos. Gracias a WooCommerce Services y Jetpack."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1243
+#: includes/admin/class-wc-admin-setup-wizard.php:1244
 msgid "Enter your email address and we'll handle account creation. Powered by WooCommerce Services and Jetpack."
 msgstr "Introduce tu dirección de correo electrónico y gestionaremos la creación de tu cuenta. Gracias a WooCommerce Services y Jetpack."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:759
+#: includes/admin/class-wc-admin-setup-wizard.php:760
 msgid "Powered by WooCommerce Services and Jetpack."
 msgstr "Gracias a WooCommerce Services y Jetpack."
 
@@ -1047,8 +1059,8 @@ msgstr "%1$s (%2$s / %3$s)"
 msgid "Help WooCommerce improve with usage tracking."
 msgstr "Ayuda a mejorar WooCommerce con el seguimiento de uso."
 
-#: includes/admin/class-wc-admin-api-keys.php:75
-#: includes/admin/settings/class-wc-settings-advanced.php:43
+#: includes/admin/class-wc-admin-api-keys.php:91
+#: includes/admin/settings/class-wc-settings-advanced.php:41
 msgid "REST API"
 msgstr "REST API"
 
@@ -1133,7 +1145,7 @@ msgstr "Cargando pedidos de la red"
 msgid "WooCommerce network orders"
 msgstr "Pedidos de la red WooCommerce"
 
-#: includes/admin/class-wc-admin-api-keys.php:189
+#: includes/admin/class-wc-admin-api-keys.php:208
 msgid "You do not have permission to edit API Keys"
 msgstr "No tienes permisos para editar las claves API"
 
@@ -1803,7 +1815,7 @@ msgstr "¿Cómo deberían ordenarse por defecto los productos en el catálogo?"
 msgid "Invalid permission ID."
 msgstr "ID de permiso no válido."
 
-#: includes/class-wc-countries.php:1107
+#: includes/class-wc-countries.php:1112
 msgid "Municipality / District"
 msgstr "Municipio / Barrio"
 
@@ -2013,51 +2025,51 @@ msgstr "Asunto de webhook desconocido. Por favor, elige un asunto válido."
 msgid "Delete \"%s\" permanently"
 msgstr "Borrar \"%s\" permanentemente"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1916
+#: includes/admin/class-wc-admin-setup-wizard.php:1917
 msgid "Continue with Jetpack"
 msgstr "Seguir con Jetpack"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1866
+#: includes/admin/class-wc-admin-setup-wizard.php:1867
 msgid "payment setup and automated taxes"
 msgstr "configuración de pagos y tarifas automáticas"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1980
+#: includes/admin/class-wc-admin-setup-wizard.php:1981
 msgid "Reasons you'll love Jetpack"
 msgstr "Razones por las que te encantará Jetpack"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1870
+#: includes/admin/class-wc-admin-setup-wizard.php:1871
 msgid "payment setup"
 msgstr "configuración de pago"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1268
+#: includes/admin/class-wc-admin-setup-wizard.php:1269
 msgid "Email address to receive payments"
 msgstr "Dirección de correo electrónico para recibir pagos"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1265
+#: includes/admin/class-wc-admin-setup-wizard.php:1266
 msgid "Direct payments to email address:"
 msgstr "Pagos directos a la dirección de correo electrónico:"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1257
+#: includes/admin/class-wc-admin-setup-wizard.php:1258
 msgid "Accept payments without linking a PayPal account"
 msgstr "Acepta pagos sin enlazar con una cuenta de PayPal"
 
 #. translators: %s: URL
-#: includes/admin/class-wc-admin-setup-wizard.php:1218
+#: includes/admin/class-wc-admin-setup-wizard.php:1219
 msgid "Securely accept credit and debit cards with one low rate, no surprise fees (custom rates available). Sell online and in store and track sales and inventory in one place. <a href=\"%s\" target=\"_blank\">Learn more about Square</a>."
 msgstr "Acepta tarjetas de crédito y débito con seguridad con una tarifa baja, sin cuotas sorpresa (hay tarifas personalizadas disponibles). Vende online y en tu tienda y lleva el seguimiento de las ventas y el inventario desde un solo lugar. <a href=\"%s\" target=\"_blank\">Aprende más sobre Square</a>."
 
 #. translators: %s: URL
-#: includes/admin/class-wc-admin-setup-wizard.php:1213
+#: includes/admin/class-wc-admin-setup-wizard.php:1214
 msgid "Choose the payment that you want, pay now, pay later or slice it. No credit card numbers, no passwords, no worries. <a href=\"%s\" target=\"_blank\">Learn more about Klarna</a>."
 msgstr "Elige el pago que quieras, paga ahora, paga más tarde, o a plazos. Sin números de tarjeta de crédito, sin contraseñas, sin preocupaciones. <a href=\"%s\" target=\"_blank\">Aprende más sobre Klarna</a>."
 
 #. translators: %s: URL
-#: includes/admin/class-wc-admin-setup-wizard.php:1208
+#: includes/admin/class-wc-admin-setup-wizard.php:1209
 msgid "Full checkout experience with pay now, pay later and slice it. No credit card numbers, no passwords, no worries. <a href=\"%s\" target=\"_blank\">Learn more about Klarna</a>."
 msgstr "Completa experiencia de pago pudiendo pagar ahora, más tarde o a plazos. Sin números de tarjeta de crédito, sin contraseñas, sin preocupaciones. <a href=\"%s\" target=\"_blank\">Aprende más sobre Klarna</a>."
 
 #. translators: %s: URL
-#: includes/admin/class-wc-admin-setup-wizard.php:1198
+#: includes/admin/class-wc-admin-setup-wizard.php:1199
 msgid "Accept debit and credit cards in 135+ currencies, methods such as Alipay, and one-touch checkout with Apple Pay. <a href=\"%s\" target=\"_blank\">Learn more</a>."
 msgstr "Acepta tarjetas de débito y crédito en más de 135 divisas, métodos como Alipay y pago en un toque con Apple Pay. <a href=\"%s\" target=\"_blank\">Aprende más</a>."
 
@@ -2496,7 +2508,7 @@ msgstr "Pedido actualizado y enviado."
 
 #. translators: %1$s: country name including the 'the' prefix, %2$s: shipping
 #. carrier name
-#: includes/admin/class-wc-admin-setup-wizard.php:868
+#: includes/admin/class-wc-admin-setup-wizard.php:869
 msgid "You're all set up to ship anywhere in %1$s, and outside of it. We recommend using <strong>live rates</strong> (which are powered by our WooCommerce Services plugin and Jetpack) to get accurate %2$s shipping prices to cover the cost of order fulfillment."
 msgstr "Has configurado enviar a cualquier parte de %1$s y al exterior. Te recomendamos usar <strong>las tarifas en directo</strong> (servidas por nuestro plugin WooCommerce Services y Jetpack) para obtener precios de envío precisos de %2$s que cubran los costes del total del pedido."
 
@@ -2872,7 +2884,7 @@ msgstr "Ordenar por:"
 msgid "Below is a list of extensions available on your WooCommerce.com account. To receive extension updates please make sure the extension is installed, and its subscription activated and connected to your WooCommerce.com account. Extensions can be activated from the <a href=\"%s\">Plugins</a> screen."
 msgstr "Abajo tienes una lista de las extensiones disponibles en tu cuenta de WooCommerce.com. Para recibir actualizaciones de una extensión asegúrate de que la extensión esté instalada, y de que su suscripción esté activa y conectada a tu cuenta de WordPress.com. Las extensiones pueden activarse desde la pantalla de <a href=\"%s\">Plugins</a>."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2151
+#: includes/admin/class-wc-admin-setup-wizard.php:2152
 msgid "Transfer existing products to your new store — just import a CSV file."
 msgstr "Transfiere productos existentes a tu nueva tienda — simplemente importa un archivo CSV."
 
@@ -2893,176 +2905,176 @@ msgstr "Actualización disponible"
 msgid "If you like %1$s please leave us a %2$s rating. A huge thanks in advance!"
 msgstr "Si te gusta %1$s, por favor, déjanos una valoración de %2$s. ¡Gracias anticipadas!"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2149
+#: includes/admin/class-wc-admin-setup-wizard.php:2150
 msgid "Have an existing store?"
 msgstr "¿Ya tienes una tienda?"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2142
+#: includes/admin/class-wc-admin-setup-wizard.php:2143
 msgid "Create a product"
 msgstr "Crea un producto"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2150
-#: includes/admin/class-wc-admin-setup-wizard.php:2156
+#: includes/admin/class-wc-admin-setup-wizard.php:2151
+#: includes/admin/class-wc-admin-setup-wizard.php:2157
 msgid "Import products"
 msgstr "Importa productos"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2122
-#: includes/admin/class-wc-admin-setup-wizard.php:2126
+#: includes/admin/class-wc-admin-setup-wizard.php:2123
+#: includes/admin/class-wc-admin-setup-wizard.php:2127
 msgid "Yes please!"
 msgstr "¡Sí, por favor!"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2108
+#: includes/admin/class-wc-admin-setup-wizard.php:2109
 msgid "We're here for you — get tips, product updates, and inspiration straight to your mailbox."
 msgstr "Estamos aquí para ayudarte — consigue trucos, actualizaciones de productos e inspiración directamente en tu bandeja de entrada."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2105
+#: includes/admin/class-wc-admin-setup-wizard.php:2106
 msgid "You're ready to start selling!"
 msgstr "¡Ya estás listo para empezar a vender!"
 
 #. translators: %1$s: link to videos, %2$s: link to docs
-#: includes/admin/class-wc-admin-setup-wizard.php:2100
+#: includes/admin/class-wc-admin-setup-wizard.php:2101
 msgid "Watch our <a href=\"%1$s\" target=\"_blank\">guided tour videos</a> to learn more about WooCommerce, and visit WooCommerce.com to learn more about <a href=\"%2$s\" target=\"_blank\">getting started</a>."
 msgstr "Echa un vistazo a nuestros <a href=\"%1$s\" target=\"_blank\">vídeos de visita guiada</a> para aprender más sobre WooCommerce, y visita WooCommerce.com para aprender más sobre <a href=\"%2$s\" target=\"_blank\">cómo empezar</a>."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2028
+#: includes/admin/class-wc-admin-setup-wizard.php:2029
 msgid "Your site might be on a private network. Jetpack can only connect to public sites. Please make sure your site is visible over the internet, and then try connecting again 🙏."
 msgstr "Tu sitio podría estar en una red privada. Jetpack solo puede conectarse a sitios públicos. Por favor asegúrate de que tu sitio está visible en internet y después intenta conectarlo de nuevo 🙏."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2027
+#: includes/admin/class-wc-admin-setup-wizard.php:2028
 msgid "Sorry! We couldn't contact Jetpack just now 😭. Please make sure that your site is visible over the internet, and that it accepts incoming and outgoing requests via curl. You can also try to connect to Jetpack again, and if you run into any more issues, please contact support."
 msgstr "¡Lo siento! No hemos podido contactar con Jetpack justo ahora 😭. Por favor asegúrate de que tu sitio está visible en internet y que acepta peticiones de entrada y salida vía curl. Puedes también intentar conectar Jetpack de nuevo, y si tienes más problemas, por favor contacta con soporte."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2026
+#: includes/admin/class-wc-admin-setup-wizard.php:2027
 msgid "Sorry! We tried, but we couldn't install Jetpack for you 😭. Please go to the Plugins tab to install it, and finish setting up your store."
 msgstr "¡Lo siento! Hemos intentado pero no hemos podido instalar Jetpack por ti 😭. Por favor ve a la pestaña de Plugins para instalarlo y terminar de configurar tu tienda."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2025
+#: includes/admin/class-wc-admin-setup-wizard.php:2026
 msgid "Sorry! We tried, but we couldn't connect Jetpack just now 😭. Please go to the Plugins tab to connect Jetpack, so that you can finish setting up your store."
 msgstr "¡Lo siento! Hemos intentado pero no hemos podido conectarnos con Jetpack justo ahora 😭. Por favor ve a la pestaña de Plugins para conectar Jetpack y así poder terminar de configurar tu tienda."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2014
+#: includes/admin/class-wc-admin-setup-wizard.php:2015
 msgid "Share new items on social media the moment they're live in your store."
 msgstr "Comparte los nuevos productos en las redes sociales en el momento en que estén publicados en tu tienda."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2011
+#: includes/admin/class-wc-admin-setup-wizard.php:2012
 msgid "Product promotion"
 msgstr "Promoción de productos"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2006
+#: includes/admin/class-wc-admin-setup-wizard.php:2007
 msgid "Get an alert if your store is down for even a few minutes."
 msgstr "Recibe una alerta si se cae tu tienda aunque solo sea unos pocos minutos."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2003
+#: includes/admin/class-wc-admin-setup-wizard.php:2004
 msgid "Store monitoring"
 msgstr "Vigilancia de la tienda"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1998
+#: includes/admin/class-wc-admin-setup-wizard.php:1999
 msgid "Get insights on how your store is doing, including total sales, top products, and more."
 msgstr "Obtén estadísticas de cómo va tu tienda, incluyendo ventas totales, los productos más vendidos y más."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1955
+#: includes/admin/class-wc-admin-setup-wizard.php:1956
 msgid "Finish setting up your store"
 msgstr "Terminar de configurar tu tienda"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1995
+#: includes/admin/class-wc-admin-setup-wizard.php:1996
 msgid "Store stats"
 msgstr "Estadísticas de la tienda"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1990
+#: includes/admin/class-wc-admin-setup-wizard.php:1991
 msgid "Protect your store from unauthorized access."
 msgstr "Protege tu tienda de accesos no autorizados."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1987
+#: includes/admin/class-wc-admin-setup-wizard.php:1988
 msgid "Better security"
 msgstr "Mejor seguridad"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1979
+#: includes/admin/class-wc-admin-setup-wizard.php:1980
 msgid "Bonus reasons you'll love Jetpack"
 msgstr "Razones adicionales por las que te encantará Jetpack"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1962
+#: includes/admin/class-wc-admin-setup-wizard.php:1963
 msgid "By connecting your site you agree to our fascinating <a href=\"%1$s\" target=\"_blank\">Terms of Service</a> and to <a href=\"%2$s\" target=\"_blank\">share details</a> with WordPress.com"
 msgstr "Al conectar tu sitio aceptas nuestros fascinantes <a href=\"%1$s\" target=\"_blank\">términos del servicio</a> y a <a href=\"%2$s\" target=\"_blank\">compartir detalles</a> con WordPress.com"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1915
+#: includes/admin/class-wc-admin-setup-wizard.php:1916
 msgid "Connect your store to Jetpack to enable extra features"
 msgstr "Conecta tu tienda a Jetpack para activar características adicionales"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1914
+#: includes/admin/class-wc-admin-setup-wizard.php:1915
 msgid "Connect your store to Jetpack"
 msgstr "Conecta tu tienda a Jetpack"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1874
+#: includes/admin/class-wc-admin-setup-wizard.php:1875
 msgid "automated taxes"
 msgstr "tarifas automáticas"
 
 #. translators: %s: list of features, potentially comma separated
-#: includes/admin/class-wc-admin-setup-wizard.php:1905
+#: includes/admin/class-wc-admin-setup-wizard.php:1906
 msgid "Your store is almost ready! To activate services like %s, just connect with Jetpack."
 msgstr "¡Tu tienda está casi lista! Para activar servicios como %s simplemente conecta con Jetpack."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1876
+#: includes/admin/class-wc-admin-setup-wizard.php:1877
 msgid "live rates and discounted shipping labels"
 msgstr "tarifas actualizadas y etiquetas de envío con descuento"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1872
+#: includes/admin/class-wc-admin-setup-wizard.php:1873
 msgid "automated taxes, live rates and discounted shipping labels"
 msgstr "tasas automáticas, tarifas actualizadas y etiquetas de envío con descuento"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1868
+#: includes/admin/class-wc-admin-setup-wizard.php:1869
 msgid "payment setup, live rates and discounted shipping labels"
 msgstr "configuración de pagos, tarifas en tiempo real y etiquetas de envío con descuento"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1864
+#: includes/admin/class-wc-admin-setup-wizard.php:1865
 msgid "payment setup, automated taxes, live rates and discounted shipping labels"
 msgstr "configuración de pagos, impuestos automáticos, tarifas actualizadas y etiquetas de envío con descuento"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1893
+#: includes/admin/class-wc-admin-setup-wizard.php:1894
 msgid "Sorry, we couldn't connect your store to Jetpack"
 msgstr "Lo siento, no hemos podido conectar tu tienda con Jetpack"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1242
+#: includes/admin/class-wc-admin-setup-wizard.php:1243
 msgid "Stripe email address"
 msgstr "Dirección de correo electrónico de Stripe"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1239
+#: includes/admin/class-wc-admin-setup-wizard.php:1240
 msgid "Stripe email address:"
 msgstr "Dirección de correo electrónico de Stripe:"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1756
+#: includes/admin/class-wc-admin-setup-wizard.php:1757
 msgid "Automated Taxes"
 msgstr "Impuestos automáticos"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1743
+#: includes/admin/class-wc-admin-setup-wizard.php:1744
 msgid "Storefront Theme"
 msgstr "Tema Storefront"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1280
+#: includes/admin/class-wc-admin-setup-wizard.php:1281
 msgid "PayPal email address:"
 msgstr "Dirección de correo electrónico de PayPal:"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1603
+#: includes/admin/class-wc-admin-setup-wizard.php:1604
 msgid "Collect payments from customers offline."
 msgstr "Acepta pagos sin conexión de tus clientes. "
 
-#: includes/admin/class-wc-admin-setup-wizard.php:952
+#: includes/admin/class-wc-admin-setup-wizard.php:953
 msgid "<strong>Dimension unit</strong>—helps for accurate package selection."
 msgstr "<strong>Unidad de dimensión</strong>—ayuda a la elección precisa del embalaje."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1231
+#: includes/admin/class-wc-admin-setup-wizard.php:1232
 msgid "Create a new Stripe account for me"
 msgstr "Crea una cuenta nueva de Stripe para mi"
 
 #. translators: %s: Link
-#: includes/admin/class-wc-admin-setup-wizard.php:1567
+#: includes/admin/class-wc-admin-setup-wizard.php:1568
 msgid "WooCommerce can accept both online and offline payments. <a href=\"%s\" target=\"_blank\">Additional payment methods</a> can be installed later."
 msgstr "WooCommerce puede aceptar tanto pagos online como offline. Los <a href=\"%s\" target=\"_blank\">métodos de pago adicionales</a> se pueden instalar más tarde."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:932
+#: includes/admin/class-wc-admin-setup-wizard.php:933
 msgid "<strong>Weight unit</strong>—used to calculate shipping rates, and more."
 msgstr "<strong>Unidad de peso</strong>—utilizado para calcular las tarifas de envío, y más."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:864
+#: includes/admin/class-wc-admin-setup-wizard.php:865
 msgid "How would you like units on your store displayed?"
 msgstr "¿Cómo te gustaría que se mostrasen las unidades en tu tienda?"
 
@@ -3070,42 +3082,42 @@ msgstr "¿Cómo te gustaría que se mostrasen las unidades en tu tienda?"
 msgid "The following wizard will help you configure your store and get you started quickly."
 msgstr "El asistente a continuación te ayudará a configurar tu tienda y empezar a funcionar rápidamente."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:891
+#: includes/admin/class-wc-admin-setup-wizard.php:892
 msgid "Shipping Method"
 msgstr "Método de envío"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:888
+#: includes/admin/class-wc-admin-setup-wizard.php:889
 msgid "Shipping Zone"
 msgstr "Zona de envío"
 
 #. translators: %s: country name including the 'the' prefix if needed
-#: includes/admin/class-wc-admin-setup-wizard.php:875
+#: includes/admin/class-wc-admin-setup-wizard.php:876
 msgid "You can choose which countries you'll be shipping to and with which methods. To get started, we've set you up with shipping inside and outside of %s."
 msgstr "Puedes elegir a qué países harás envíos y con qué métodos. Para empezar hemos configurado para ti el envío dentro y fuera de %s."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:775
+#: includes/admin/class-wc-admin-setup-wizard.php:776
 msgid "Don't charge for shipping."
 msgstr "No cobrar por el envío."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:768
+#: includes/admin/class-wc-admin-setup-wizard.php:769
 msgid "What would you like to charge for flat rate shipping?"
 msgstr "¿Que te gustaría cobrar por la tarifa fija de envío?"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:763
+#: includes/admin/class-wc-admin-setup-wizard.php:764
 msgid "Set a fixed price to cover shipping costs."
 msgstr "Establece un precio fijo para cubrir los costes de envío."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:762
+#: includes/admin/class-wc-admin-setup-wizard.php:763
 msgid "Flat Rate"
 msgstr "Tarifa fija"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:758
+#: includes/admin/class-wc-admin-setup-wizard.php:759
 msgid "Live Rates"
 msgstr "Tarifas actualizadas"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:674
-#: includes/admin/class-wc-admin-setup-wizard.php:709
-#: includes/admin/class-wc-admin-setup-wizard.php:2056
+#: includes/admin/class-wc-admin-setup-wizard.php:675
+#: includes/admin/class-wc-admin-setup-wizard.php:710
+#: includes/admin/class-wc-admin-setup-wizard.php:2057
 msgid "Jetpack"
 msgstr "Jetpack"
 
@@ -3519,7 +3531,7 @@ msgid "All Products"
 msgstr "Todos los productos"
 
 #. translators: use local order of street name and house number.
-#: includes/class-wc-countries.php:650
+#: includes/class-wc-countries.php:656
 msgid "House number and street name"
 msgstr "Número de la casa y nombre de la calle"
 
@@ -3531,7 +3543,7 @@ msgstr "Clave de la API generada con éxito. Asegúrate de copiar tus nuevas cla
 msgid "No matching product exists to update."
 msgstr "No hay productos que actualizar."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:910
+#: includes/admin/class-wc-admin-setup-wizard.php:911
 #: includes/admin/settings/views/html-admin-page-shipping-zones.php:26
 #: includes/data-stores/class-wc-shipping-zone-data-store.php:87
 msgid "Locations not covered by your other zones"
@@ -4236,7 +4248,7 @@ msgstr "Exportar"
 msgid "Import"
 msgstr "Importar"
 
-#: includes/admin/class-wc-admin-api-keys.php:94
+#: includes/admin/class-wc-admin-api-keys.php:110
 msgid "Create an API key"
 msgstr "Crear una clave de API"
 
@@ -4244,7 +4256,7 @@ msgstr "Crear una clave de API"
 msgid "Free - Install now"
 msgstr "Gratis - Instálalo ahora"
 
-#: includes/admin/class-wc-admin-api-keys.php:93
+#: includes/admin/class-wc-admin-api-keys.php:109
 msgid "The WooCommerce REST API allows external apps to view and manage store data. Access is granted only to those with valid API keys."
 msgstr "La REST API de WooCommerce permite a aplicaciones externas ver y gestionar los datos de la tienda. El acceso solo se permite a aquellos que tengan claves de la API válidas."
 
@@ -4338,8 +4350,8 @@ msgstr "Alba"
 
 #: includes/admin/class-wc-admin-addons.php:370
 #: includes/admin/class-wc-admin-addons.php:545
-#: includes/admin/class-wc-admin-setup-wizard.php:688
-#: includes/admin/class-wc-admin-setup-wizard.php:703
+#: includes/admin/class-wc-admin-setup-wizard.php:689
+#: includes/admin/class-wc-admin-setup-wizard.php:704
 msgid "WooCommerce Services"
 msgstr "WooCommerce Services"
 
@@ -4691,8 +4703,8 @@ msgstr "Países específicos"
 msgid "Free shipping"
 msgstr "Envío gratuito"
 
-#: includes/log-handlers/class-wc-log-handler-file.php:350
-#: includes/log-handlers/class-wc-log-handler-file.php:370
+#: includes/log-handlers/class-wc-log-handler-file.php:348
+#: includes/log-handlers/class-wc-log-handler-file.php:368
 msgid "This method should not be called before plugins_loaded."
 msgstr "Este método no debe ser invocado antes de plugins_loaded."
 
@@ -5039,15 +5051,11 @@ msgstr "Restricción de dirección de correo electrónico no válida"
 msgid "Invalid discount type"
 msgstr "Tipo de descuento no válido"
 
-#: includes/class-wc-countries.php:928
+#: includes/class-wc-countries.php:933
 msgid "Eircode"
 msgstr "Eircode"
 
-#: includes/class-wc-countries.php:657
-msgid "Apartment, suite, unit etc. (optional)"
-msgstr "Apartamento, habitación, etc. (opcional)"
-
-#: includes/class-wc-countries.php:648
+#: includes/class-wc-countries.php:654
 msgid "Street address"
 msgstr "Dirección de la calle"
 
@@ -6112,9 +6120,9 @@ msgid "The base color for WooCommerce email templates. Default %s."
 msgstr "El color base para las plantillas de correo electrónico de WooCommerce. Por defecto %s."
 
 #. Translators: %s Page contents.
-#: includes/admin/settings/class-wc-settings-advanced.php:74
-#: includes/admin/settings/class-wc-settings-advanced.php:86
-#: includes/admin/settings/class-wc-settings-advanced.php:98
+#: includes/admin/settings/class-wc-settings-advanced.php:72
+#: includes/admin/settings/class-wc-settings-advanced.php:84
+#: includes/admin/settings/class-wc-settings-advanced.php:96
 msgid "Page contents: [%s]"
 msgstr "Contenidos de la página: [%s]"
 
@@ -6270,7 +6278,7 @@ msgid "Tool does not exist."
 msgstr "La herramienta no existe."
 
 #. translators: %s: URL
-#: includes/admin/class-wc-admin-setup-wizard.php:1203
+#: includes/admin/class-wc-admin-setup-wizard.php:1204
 msgid "Safe and secure payments using credit cards or your customer's PayPal account. <a href=\"%s\" target=\"_blank\">Learn more</a>."
 msgstr "Pagos seguros con tarjetas de crédito o con la cuenta de PayPal de tu cliente. <a href=\"%s\" target=\"_blank\">Aprende más</a>."
 
@@ -6773,7 +6781,7 @@ msgstr "Clare"
 msgid "Limit result set to specific IDs."
 msgstr "Limitar el resultado a IDs específicos."
 
-#: includes/abstracts/abstract-wc-rest-crud-controller.php:533
+#: includes/abstracts/abstract-wc-rest-crud-controller.php:547
 #: includes/abstracts/abstract-wc-rest-posts-controller.php:634
 #: includes/api/v1/class-wc-rest-customers-controller.php:865
 #: includes/api/v1/class-wc-rest-webhooks-controller.php:714
@@ -6881,7 +6889,7 @@ msgid "https://woocommerce.com"
 msgstr "https://woocommerce.com"
 
 #. Translators: %s Docs URL.
-#: includes/admin/settings/class-wc-settings-advanced.php:140
+#: includes/admin/settings/class-wc-settings-advanced.php:138
 msgid "Force SSL (HTTPS) on the checkout pages (<a href=\"%s\" target=\"_blank\">an SSL Certificate is required</a>)."
 msgstr "Fuerza SSL (HTTPS) en las páginas de finalizar compra (<a href=\"%s\" target=\"_blank\">se requiere un certificado SSL</a>)."
 
@@ -6899,7 +6907,7 @@ msgstr "Si es visible la variación."
 msgid "https://woocommerce.com/"
 msgstr "https://woocommerce.com/"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:217
+#: includes/admin/settings/class-wc-settings-advanced.php:215
 msgid "Endpoints are appended to your page URLs to handle specific actions on the accounts pages. They should be unique and can be left blank to disable the endpoint."
 msgstr "Las variables se añaden a las URLs de tu página para manejar acciones específicas en las páginas de cuentas. Deberían ser únicas y pueden dejarse en blanco para desactivar la variable. "
 
@@ -6940,11 +6948,11 @@ msgstr "Won norcoreano"
 msgid "Taking a while? Click here to run it now."
 msgstr "¿Está tardando? Haz clic aquí para ejecutarlo ahora."
 
-#: includes/admin/settings/class-wc-settings-advanced.php:241
+#: includes/admin/settings/class-wc-settings-advanced.php:239
 msgid "Endpoint for the \"My account &rarr; Downloads\" page."
 msgstr "Variable para la página \"Mi cuenta &rarr; Descargas\"."
 
-#: includes/admin/settings/class-wc-settings-advanced.php:223
+#: includes/admin/settings/class-wc-settings-advanced.php:221
 msgid "Endpoint for the \"My account &rarr; Orders\" page."
 msgstr "Variable para la página \"Mi cuenta &rarr; Pedidos\"."
 
@@ -7488,17 +7496,17 @@ msgstr "Rublo bielorruso"
 msgid "Belize dollar"
 msgstr "Dólar beliceño"
 
-#: includes/abstracts/abstract-wc-rest-crud-controller.php:498
+#: includes/abstracts/abstract-wc-rest-crud-controller.php:512
 #: includes/api/v1/class-wc-rest-taxes-controller.php:658
 msgid "Current page of the collection."
 msgstr "Página actual de la colección."
 
-#: includes/abstracts/abstract-wc-rest-crud-controller.php:506
+#: includes/abstracts/abstract-wc-rest-crud-controller.php:520
 #: includes/api/v1/class-wc-rest-taxes-controller.php:666
 msgid "Maximum number of items to be returned in result set."
 msgstr "Número máximo de artículos a mostrar en los resultados."
 
-#: includes/abstracts/abstract-wc-rest-crud-controller.php:515
+#: includes/abstracts/abstract-wc-rest-crud-controller.php:529
 msgid "Limit results to those matching a string."
 msgstr "Limita los resultados a lo indicado en la cadena."
 
@@ -7921,7 +7929,7 @@ msgid "Zone"
 msgstr "Zona"
 
 #. translators: 1: plugin name, 2: URL to WP plugin page.
-#: includes/class-wc-install.php:1262
+#: includes/class-wc-install.php:1263
 msgid "%1$s was installed but could not be activated. <a href=\"%2$s\">Please activate it manually by clicking here.</a>"
 msgstr "%1$s está instalado pero no se pudo activar. <a href=\"%2$s\">Por favor, actívalo manualmente haciendo clic aquí.</a>"
 
@@ -7933,7 +7941,7 @@ msgstr "Volver a correos electrónicos"
 #. manually.
 #. translators: 1: theme slug, 2: error message, 3: URL to install theme
 #. manually.
-#: includes/class-wc-install.php:1235 includes/class-wc-install.php:1322
+#: includes/class-wc-install.php:1235 includes/class-wc-install.php:1337
 msgid "%1$s could not be installed (%2$s). <a href=\"%3$s\">Please install it manually by clicking here.</a>"
 msgstr "%1$s no se pudo instalar (%2$s). <a href=\"%3$s\">Por favor, instálalo manualmente haciendo clic aquí.</a>"
 
@@ -9976,7 +9984,7 @@ msgstr "Tu servidor no es compatible con la función %s - es imprescindible para
 msgid "Add as many zones as you need &ndash; customers will only see the methods available for their address."
 msgstr "Añade tantas zonas como necesites &ndash; los clientes solo verán los métodos disponibles para su dirección."
 
-#: includes/admin/settings/class-wc-settings-advanced.php:258
+#: includes/admin/settings/class-wc-settings-advanced.php:256
 #: includes/class-wc-query.php:124 includes/wc-account-functions.php:101
 msgid "Addresses"
 msgstr "Direcciones"
@@ -10029,7 +10037,7 @@ msgid "Edit failed. Please try again."
 msgstr "La edición falló. Por favor inténtalo de nuevo."
 
 #: includes/admin/importers/class-wc-product-csv-importer-controller.php:673
-#: includes/admin/settings/class-wc-settings-advanced.php:240
+#: includes/admin/settings/class-wc-settings-advanced.php:238
 #: includes/admin/views/html-admin-page-product-export.php:40
 #: includes/class-wc-query.php:118 includes/wc-account-functions.php:100
 #: templates/emails/email-downloads.php:22
@@ -10141,27 +10149,27 @@ msgstr "Ubicación(es) de envío"
 msgid "Sell to specific countries"
 msgstr "Vender a países específicos"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:202
+#: includes/admin/settings/class-wc-settings-advanced.php:200
 msgid "Endpoint for the setting a default payment method page."
 msgstr "Variable para establecer una página de método de pago por defecto"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:201
+#: includes/admin/settings/class-wc-settings-advanced.php:199
 msgid "Set default payment method"
 msgstr "Establecer método de pago por defecto"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:193
+#: includes/admin/settings/class-wc-settings-advanced.php:191
 msgid "Endpoint for the delete payment method page."
 msgstr "Variable para la página de eliminar método de pago"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:192
+#: includes/admin/settings/class-wc-settings-advanced.php:190
 msgid "Delete payment method"
 msgstr "Eliminar método de pago"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:268
+#: includes/admin/settings/class-wc-settings-advanced.php:266
 msgid "Endpoint for the \"My account &rarr; Payment methods\" page."
 msgstr "Variable para la página \"Mi cuenta &rarr; Métodos de pago\"."
 
-#: includes/admin/settings/class-wc-settings-advanced.php:267
+#: includes/admin/settings/class-wc-settings-advanced.php:265
 #: includes/admin/settings/class-wc-settings-payment-gateways.php:37
 #: includes/admin/settings/class-wc-settings-payment-gateways.php:55
 #: includes/class-wc-query.php:127 includes/wc-account-functions.php:102
@@ -10359,7 +10367,7 @@ msgid "ID is invalid."
 msgstr "ID no es válido."
 
 #. translators: %s: post type
-#: includes/abstracts/abstract-wc-rest-crud-controller.php:421
+#: includes/abstracts/abstract-wc-rest-crud-controller.php:435
 #: includes/abstracts/abstract-wc-rest-posts-controller.php:438
 #: includes/api/class-wc-rest-product-variations-controller.php:530
 #: includes/api/class-wc-rest-products-controller.php:1336
@@ -10368,7 +10376,7 @@ msgid "Sorry, you are not allowed to delete %s."
 msgstr "Lo sentimos, no tienes permiso para eliminar %s."
 
 #. translators: %s: post type
-#: includes/abstracts/abstract-wc-rest-crud-controller.php:435
+#: includes/abstracts/abstract-wc-rest-crud-controller.php:449
 #: includes/abstracts/abstract-wc-rest-posts-controller.php:451
 #: includes/api/class-wc-rest-product-variations-controller.php:548
 #: includes/api/class-wc-rest-products-controller.php:1367
@@ -10377,7 +10385,7 @@ msgid "The %s does not support trashing."
 msgstr "%s no soporta ser movido a la papelera."
 
 #. translators: %s: post type
-#: includes/abstracts/abstract-wc-rest-crud-controller.php:442
+#: includes/abstracts/abstract-wc-rest-crud-controller.php:456
 #: includes/abstracts/abstract-wc-rest-posts-controller.php:457
 #: includes/api/class-wc-rest-product-variations-controller.php:559
 #: includes/api/class-wc-rest-products-controller.php:1378
@@ -10386,7 +10394,7 @@ msgid "The %s has already been deleted."
 msgstr "%s ya ha sido eliminado."
 
 #. translators: %s: post type
-#: includes/abstracts/abstract-wc-rest-crud-controller.php:452
+#: includes/abstracts/abstract-wc-rest-crud-controller.php:466
 #: includes/abstracts/abstract-wc-rest-posts-controller.php:467
 #: includes/api/class-wc-rest-product-variations-controller.php:573
 #: includes/api/class-wc-rest-products-controller.php:1392
@@ -10396,48 +10404,48 @@ msgstr "%s ya ha sido eliminado."
 msgid "The %s cannot be deleted."
 msgstr "%s no puede ser eliminado."
 
-#: includes/abstracts/abstract-wc-rest-crud-controller.php:521
+#: includes/abstracts/abstract-wc-rest-crud-controller.php:535
 #: includes/abstracts/abstract-wc-rest-posts-controller.php:622
 #: includes/api/v1/class-wc-rest-webhooks-controller.php:702
 msgid "Limit response to resources published after a given ISO8601 compliant date."
 msgstr "Limitar la respuesta a recursos publicados después de una fecha escrita en formato ISO8601."
 
-#: includes/abstracts/abstract-wc-rest-crud-controller.php:527
+#: includes/abstracts/abstract-wc-rest-crud-controller.php:541
 #: includes/abstracts/abstract-wc-rest-posts-controller.php:628
 #: includes/api/v1/class-wc-rest-webhooks-controller.php:708
 msgid "Limit response to resources published before a given ISO8601 compliant date."
 msgstr "Limitar la respuesta a recursos publicados antes de una fecha escrita en formato ISO8601. "
 
-#: includes/abstracts/abstract-wc-rest-terms-controller.php:688
+#: includes/abstracts/abstract-wc-rest-terms-controller.php:689
 msgid "Ensure result set excludes specific ids."
 msgstr "Asegurarse de que los resultados incluyen ids específicos."
 
-#: includes/abstracts/abstract-wc-rest-crud-controller.php:542
+#: includes/abstracts/abstract-wc-rest-crud-controller.php:556
 #: includes/abstracts/abstract-wc-rest-posts-controller.php:643
-#: includes/abstracts/abstract-wc-rest-terms-controller.php:697
+#: includes/abstracts/abstract-wc-rest-terms-controller.php:698
 #: includes/api/v1/class-wc-rest-webhooks-controller.php:723
 msgid "Limit result set to specific ids."
 msgstr "Limitar los resultados a ids específicos."
 
-#: includes/abstracts/abstract-wc-rest-crud-controller.php:551
+#: includes/abstracts/abstract-wc-rest-crud-controller.php:565
 #: includes/abstracts/abstract-wc-rest-posts-controller.php:652
-#: includes/abstracts/abstract-wc-rest-terms-controller.php:707
+#: includes/abstracts/abstract-wc-rest-terms-controller.php:708
 #: includes/api/v1/class-wc-rest-customers-controller.php:883
 #: includes/api/v1/class-wc-rest-taxes-controller.php:675
 #: includes/api/v1/class-wc-rest-webhooks-controller.php:732
 msgid "Offset the result set by a specific number of items."
 msgstr "Saltar un número específico de artículos en los resultados."
 
-#: includes/abstracts/abstract-wc-rest-crud-controller.php:557
+#: includes/abstracts/abstract-wc-rest-crud-controller.php:571
 #: includes/abstracts/abstract-wc-rest-posts-controller.php:658
-#: includes/abstracts/abstract-wc-rest-terms-controller.php:714
+#: includes/abstracts/abstract-wc-rest-terms-controller.php:715
 #: includes/api/v1/class-wc-rest-customers-controller.php:890
 #: includes/api/v1/class-wc-rest-taxes-controller.php:682
 #: includes/api/v1/class-wc-rest-webhooks-controller.php:738
 msgid "Order sort attribute ascending or descending."
 msgstr "Ordenar atributo de manera ascendente o descendente."
 
-#: includes/abstracts/abstract-wc-rest-crud-controller.php:564
+#: includes/abstracts/abstract-wc-rest-crud-controller.php:578
 #: includes/abstracts/abstract-wc-rest-posts-controller.php:665
 #: includes/api/v1/class-wc-rest-customers-controller.php:898
 #: includes/api/v1/class-wc-rest-taxes-controller.php:690
@@ -10458,28 +10466,28 @@ msgstr "Lo sentimos, no puedes crear un nuevo recurso."
 msgid "Sorry, you cannot update resource."
 msgstr "Lo sentimos, no puedes actualizar el recurso."
 
-#: includes/abstracts/abstract-wc-rest-terms-controller.php:385
-#: includes/abstracts/abstract-wc-rest-terms-controller.php:482
+#: includes/abstracts/abstract-wc-rest-terms-controller.php:386
+#: includes/abstracts/abstract-wc-rest-terms-controller.php:483
 msgid "Can not set resource parent, taxonomy is not hierarchical."
 msgstr "No se puede establecer el padre del recurso, la taxonomía no es jerárquica."
 
-#: includes/abstracts/abstract-wc-rest-terms-controller.php:531
+#: includes/abstracts/abstract-wc-rest-terms-controller.php:532
 #: includes/api/v1/class-wc-rest-product-attributes-controller.php:357
 msgid "Resource does not support trashing."
 msgstr "El recurso no soporta ser movido a la papelera."
 
-#: includes/abstracts/abstract-wc-rest-terms-controller.php:540
+#: includes/abstracts/abstract-wc-rest-terms-controller.php:541
 #: includes/api/v1/class-wc-rest-customers-controller.php:495
 #: includes/api/v1/class-wc-rest-product-attributes-controller.php:372
 #: includes/api/v1/class-wc-rest-taxes-controller.php:472
 msgid "The resource cannot be deleted."
 msgstr "El recurso no se puede borrar."
 
-#: includes/abstracts/abstract-wc-rest-terms-controller.php:725
+#: includes/abstracts/abstract-wc-rest-terms-controller.php:726
 msgid "Sort collection by resource attribute."
 msgstr "Ordenar colección por atributo de recurso."
 
-#: includes/abstracts/abstract-wc-rest-terms-controller.php:741
+#: includes/abstracts/abstract-wc-rest-terms-controller.php:742
 msgid "Whether to hide resources not assigned to any products."
 msgstr "Ocultar o no los recursos que no estén asignados a ningún producto."
 
@@ -10496,15 +10504,15 @@ msgstr "Ocultar o no los recursos que no estén asignados a ningún producto."
 msgid "Required to be true, as resource does not support trashing."
 msgstr "Tiene que ser verdadero, ya que el recurso no soporta ser movido a la papelera."
 
-#: includes/abstracts/abstract-wc-rest-terms-controller.php:748
+#: includes/abstracts/abstract-wc-rest-terms-controller.php:749
 msgid "Limit result set to resources assigned to a specific parent."
 msgstr "Limitar los resultados a los recursos asignados a un superior específico."
 
-#: includes/abstracts/abstract-wc-rest-terms-controller.php:755
+#: includes/abstracts/abstract-wc-rest-terms-controller.php:756
 msgid "Limit result set to resources assigned to a specific product."
 msgstr "Limitar los resultados a los recursos asignados a un producto específico."
 
-#: includes/abstracts/abstract-wc-rest-terms-controller.php:761
+#: includes/abstracts/abstract-wc-rest-terms-controller.php:762
 msgid "Limit result set to resources with a specific slug."
 msgstr "Limitar resultados a recursos con un slug determinado. "
 
@@ -10533,15 +10541,15 @@ msgstr "Aprende más acerca de los cupones"
 msgid "Ready to start selling something awesome?"
 msgstr "¿Listo para empezar a vender algo fantástico?"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1408
+#: includes/admin/class-wc-admin-setup-wizard.php:1409
 msgid "A simple offline gateway that lets you accept a check as method of payment."
 msgstr "Una sencilla pasarela de pago sin conexión que te permite aceptar cheques como método de pago."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1414
+#: includes/admin/class-wc-admin-setup-wizard.php:1415
 msgid "A simple offline gateway that lets you accept BACS payment."
 msgstr "Una sencilla pasarela sin conexión que te permite aceptar pagos por transferencia bancaria."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1420
+#: includes/admin/class-wc-admin-setup-wizard.php:1421
 msgid "A simple offline gateway that lets you accept cash on delivery."
 msgstr "Una sencilla pasarela sin conexión que te permite aceptar efectivo en la entrega."
 
@@ -10555,7 +10563,7 @@ msgstr "Una sencilla pasarela sin conexión que te permite aceptar efectivo en l
 msgid "Sorry, you are not allowed to batch manipulate this resource."
 msgstr "Lo siento, pero no tienes permisos para manipular este recurso."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1407
+#: includes/admin/class-wc-admin-setup-wizard.php:1408
 #: includes/gateways/cheque/class-wc-gateway-cheque.php:31
 #: includes/gateways/cheque/class-wc-gateway-cheque.php:67
 msgctxt "Check payment method"
@@ -10571,7 +10579,7 @@ msgstr "Foros de la comunidad"
 msgid "For further assistance with WooCommerce core you can use the <a href=\"%1$s\">community forum</a>. If you need help with premium extensions sold by WooCommerce, please <a href=\"%2$s\">use our helpdesk</a>."
 msgstr "Para más ayuda con el núcleo de WooCommerce puedes utilizar los <a href=\"%1$s\">foros de la comunidad</a>. Si necesitas ayuda con extensiones de pago vendidas por WooCommerce por favor <a href=\"%2$s\">utiliza nuestro sistema de soporte</a>."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1413
+#: includes/admin/class-wc-admin-setup-wizard.php:1414
 msgid "Bank transfer (BACS) payments"
 msgstr "Pagos por transferencia bancaria"
 
@@ -10583,7 +10591,7 @@ msgstr "La taxonomía no existe."
 msgid "Sorry, you cannot delete this resource."
 msgstr "Lo sentimos, no puedes eliminar este recurso."
 
-#: includes/abstracts/abstract-wc-rest-crud-controller.php:588
+#: includes/abstracts/abstract-wc-rest-crud-controller.php:602
 #: includes/abstracts/abstract-wc-rest-posts-controller.php:691
 msgid "Limit result set to all items except those of a particular parent ID."
 msgstr "Limitar los resultados a todos los artículos excepto aquellos con un ID de superior específico."
@@ -10604,7 +10612,7 @@ msgstr "Limitar los resultados a todos los artículos excepto aquellos con un ID
 msgid "Resource does not exist."
 msgstr "El recurso no existe."
 
-#: includes/abstracts/abstract-wc-rest-crud-controller.php:579
+#: includes/abstracts/abstract-wc-rest-crud-controller.php:593
 #: includes/abstracts/abstract-wc-rest-posts-controller.php:682
 msgid "Limit result set to those of particular parent IDs."
 msgstr "Limitar resultados a los que tengan IDs superiores específicos."
@@ -10615,7 +10623,7 @@ msgstr "ID de entrada no válido."
 
 #: includes/abstracts/abstract-wc-rest-crud-controller.php:140
 #: includes/abstracts/abstract-wc-rest-crud-controller.php:235
-#: includes/abstracts/abstract-wc-rest-crud-controller.php:404
+#: includes/abstracts/abstract-wc-rest-crud-controller.php:418
 #: includes/abstracts/abstract-wc-rest-posts-controller.php:153
 #: includes/api/class-wc-rest-product-variations-controller.php:509
 #: includes/api/class-wc-rest-products-controller.php:1307
@@ -10628,7 +10636,7 @@ msgstr "ID no válido."
 msgid "Save to account"
 msgstr "Guardar en la cuenta"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1276
+#: includes/admin/class-wc-admin-setup-wizard.php:1277
 msgid "Accept payments via PayPal using account balance or credit card."
 msgstr "Acepta pagos con PayPal utilizando saldo de la cuenta o una tarjeta de crédito."
 
@@ -10798,7 +10806,7 @@ msgstr "Error: No se puede acceder a la URL de entrega: %s"
 msgid "Error: Delivery URL returned response code: %s"
 msgstr "Error: La URL de entrega devolvió un código de respuesta: %s"
 
-#: includes/class-wc-countries.php:1128
+#: includes/class-wc-countries.php:1133
 msgid "ZIP"
 msgstr "Código postal"
 
@@ -10834,7 +10842,7 @@ msgstr "No se pudo eliminar el tipo de impuesto"
 msgid "You do not have permission to read the tax classes count"
 msgstr "No tienes permisos para leer el contador de tipos de impuestos"
 
-#: includes/class-wc-countries.php:1021
+#: includes/class-wc-countries.php:1026
 msgid "State / Zone"
 msgstr "Provincia / Zona"
 
@@ -11713,7 +11721,7 @@ msgid "Returning customer?"
 msgstr "¿Ya eres cliente?"
 
 #: includes/admin/class-wc-admin-setup-wizard.php:160
-#: includes/admin/class-wc-admin-setup-wizard.php:1560
+#: includes/admin/class-wc-admin-setup-wizard.php:1561
 msgid "Payment"
 msgstr "Pago"
 
@@ -11935,7 +11943,7 @@ msgstr "Nombre de usuario: %s"
 #: templates/emails/plain/email-addresses.php:22
 #: templates/myaccount/form-edit-address.php:20
 #: templates/myaccount/my-address.php:27 templates/myaccount/my-address.php:32
-#: templates/order/order-details-customer.php:33
+#: templates/order/order-details-customer.php:32
 msgid "Billing address"
 msgstr "Dirección de facturación"
 
@@ -11943,7 +11951,7 @@ msgstr "Dirección de facturación"
 #: templates/emails/plain/email-addresses.php:37
 #: templates/myaccount/form-edit-address.php:20
 #: templates/myaccount/my-address.php:28
-#: templates/order/order-details-customer.php:52
+#: templates/order/order-details-customer.php:51
 msgid "Shipping address"
 msgstr "Dirección de envío"
 
@@ -12140,9 +12148,9 @@ msgid "Egyptian pound"
 msgstr "Libra egipcia"
 
 #: includes/admin/class-wc-admin-profile.php:89
-#: includes/admin/class-wc-admin-setup-wizard.php:2116
+#: includes/admin/class-wc-admin-setup-wizard.php:2117
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:84
-#: includes/class-wc-countries.php:1242 includes/class-wc-form-handler.php:243
+#: includes/class-wc-countries.php:1247 includes/class-wc-form-handler.php:243
 #: templates/myaccount/form-edit-account.php:43
 #: templates/myaccount/form-login.php:90
 msgid "Email address"
@@ -13722,44 +13730,44 @@ msgstr "(impuesto incluido)"
 msgid "(ex. tax)"
 msgstr "(sin impuestos)"
 
-#: includes/class-wc-countries.php:665
+#: includes/class-wc-countries.php:670
 msgid "Town / City"
 msgstr "Localidad / Ciudad"
 
-#: includes/class-wc-countries.php:758
+#: includes/class-wc-countries.php:763
 msgid "Suburb"
 msgstr "Barrio residencial"
 
-#: includes/class-wc-countries.php:780
+#: includes/class-wc-countries.php:785
 msgid "District"
 msgstr "Barrio"
 
-#: includes/class-wc-countries.php:789 includes/class-wc-countries.php:816
-#: includes/class-wc-countries.php:841 includes/class-wc-countries.php:922
-#: includes/class-wc-countries.php:961 includes/class-wc-countries.php:999
-#: includes/class-wc-countries.php:1083 includes/class-wc-countries.php:1123
-#: includes/class-wc-countries.php:1170
+#: includes/class-wc-countries.php:794 includes/class-wc-countries.php:821
+#: includes/class-wc-countries.php:846 includes/class-wc-countries.php:927
+#: includes/class-wc-countries.php:966 includes/class-wc-countries.php:1004
+#: includes/class-wc-countries.php:1088 includes/class-wc-countries.php:1128
+#: includes/class-wc-countries.php:1175
 msgid "Province"
 msgstr "Provincia"
 
-#: includes/class-wc-countries.php:824
+#: includes/class-wc-countries.php:829
 msgid "Canton"
 msgstr "Cantón"
 
-#: includes/class-wc-countries.php:836 includes/class-wc-countries.php:912
-#: includes/class-wc-countries.php:1008
+#: includes/class-wc-countries.php:841 includes/class-wc-countries.php:917
+#: includes/class-wc-countries.php:1013
 msgid "Region"
 msgstr "Región"
 
-#: includes/class-wc-countries.php:909
+#: includes/class-wc-countries.php:914
 msgid "Town / District"
 msgstr "Localidad / Distrito"
 
-#: includes/class-wc-countries.php:966
+#: includes/class-wc-countries.php:971
 msgid "Prefecture"
 msgstr "Prefectura"
 
-#: includes/class-wc-countries.php:1091
+#: includes/class-wc-countries.php:1096
 msgid "Municipality"
 msgstr "Municipio"
 
@@ -14022,7 +14030,7 @@ msgstr "Cancelado"
 #: includes/admin/settings/class-wc-settings-general.php:100
 #: includes/admin/settings/class-wc-settings-tax.php:195
 #: includes/admin/settings/views/html-settings-tax.php:28
-#: includes/class-wc-countries.php:681
+#: includes/class-wc-countries.php:686
 #: templates/cart/shipping-calculator.php:91
 msgid "Postcode / ZIP"
 msgstr "Código postal"
@@ -14047,15 +14055,15 @@ msgstr "Clave de API actualizada correctamente."
 #: includes/admin/class-wc-admin-profile.php:140
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:79
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:130
-#: includes/class-wc-countries.php:673
+#: includes/class-wc-countries.php:678
 #: templates/cart/shipping-calculator.php:55
 #: templates/cart/shipping-calculator.php:60
 #: templates/cart/shipping-calculator.php:72
 msgid "State / County"
 msgstr "Región / Provincia"
 
-#: includes/class-wc-countries.php:917 includes/class-wc-countries.php:931
-#: includes/class-wc-countries.php:1047 includes/class-wc-countries.php:1139
+#: includes/class-wc-countries.php:922 includes/class-wc-countries.php:936
+#: includes/class-wc-countries.php:1052 includes/class-wc-countries.php:1144
 msgid "County"
 msgstr "Provincia"
 
@@ -14457,7 +14465,7 @@ msgstr "Ver la documentación de WooCommerce"
 msgid "View WooCommerce settings"
 msgstr "Ver los ajustes de WooCommerce"
 
-#: includes/class-wc-countries.php:633
+#: includes/class-wc-countries.php:639
 #: includes/customizer/class-wc-shop-customizer.php:677
 msgid "Company name"
 msgstr "Nombre de la empresa"
@@ -15734,7 +15742,7 @@ msgstr "ID de atributo de producto no válido"
 msgid "Calculate coupon discounts sequentially"
 msgstr "Calcular descuentos de cupones secuencialmente"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:165
+#: includes/admin/settings/class-wc-settings-advanced.php:163
 #: includes/wc-account-functions.php:273 templates/checkout/thankyou.php:33
 msgid "Pay"
 msgstr "Pagar"
@@ -16094,23 +16102,23 @@ msgstr "Por favor, copia y pega esta información en tu ticket cuando contactes 
 msgid "Coupons can be applied from the cart and checkout pages."
 msgstr "Pueden aplicarse cupones desde las páginas de carrito y de finalizar compra."
 
-#: includes/admin/settings/class-wc-settings-advanced.php:133
+#: includes/admin/settings/class-wc-settings-advanced.php:131
 msgid "Force secure checkout"
 msgstr "Forzar el pago seguro"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:144
+#: includes/admin/settings/class-wc-settings-advanced.php:142
 msgid "Force HTTP when leaving the checkout"
 msgstr "Forzar HTTP al terminar el pago"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:66
+#: includes/admin/settings/class-wc-settings-advanced.php:64
 msgid "These pages need to be set so that WooCommerce knows where to send users to checkout."
 msgstr "Estas páginas tienen que estar establecidas de manera que WooCommerce sepa dónde enviar a los usuarios a finalizar la compra."
 
-#: includes/admin/settings/class-wc-settings-advanced.php:109
+#: includes/admin/settings/class-wc-settings-advanced.php:107
 msgid "If you define a \"Terms\" page the customer will be asked if they accept them when checking out."
 msgstr "Si defines una página de términos y condiciones se preguntará al cliente si los acepta en el momento de pagar."
 
-#: includes/admin/settings/class-wc-settings-advanced.php:160
+#: includes/admin/settings/class-wc-settings-advanced.php:158
 msgid "Endpoints are appended to your page URLs to handle specific actions during the checkout process. They should be unique."
 msgstr "Las variables se adjuntan a las URLs de tu página para manejar las acciones específicas durante el proceso de finalización de compra. Deben ser únicas."
 
@@ -16490,45 +16498,45 @@ msgstr "Opciones del remitente del correo electrónico"
 msgid "Email options"
 msgstr "Opciones del correo electrónico"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:184
+#: includes/admin/settings/class-wc-settings-advanced.php:182
 msgid "Endpoint for the \"Checkout &rarr; Add payment method\" page."
 msgstr "Variable de la página \"Finalizar compra &rarr; Añadir método de pago\"."
 
-#: includes/admin/settings/class-wc-settings-advanced.php:183
+#: includes/admin/settings/class-wc-settings-advanced.php:181
 #: includes/class-wc-query.php:130
 #: templates/myaccount/form-add-payment-method.php:52
 #: templates/myaccount/payment-methods.php:80
 msgid "Add payment method"
 msgstr "Añadir método de pago"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:175
+#: includes/admin/settings/class-wc-settings-advanced.php:173
 msgid "Endpoint for the \"Checkout &rarr; Order received\" page."
 msgstr "Variable de la página \"Finalizar compra &rarr; Pedido recibido\"."
 
-#: includes/admin/settings/class-wc-settings-advanced.php:174
+#: includes/admin/settings/class-wc-settings-advanced.php:172
 #: includes/class-wc-query.php:102
 msgid "Order received"
 msgstr "Pedido recibido"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:166
+#: includes/admin/settings/class-wc-settings-advanced.php:164
 msgid "Endpoint for the \"Checkout &rarr; Pay\" page."
 msgstr "Variable de la página de \"Finalizar compra &rarr; Pagar\"."
 
-#: includes/admin/settings/class-wc-settings-advanced.php:158
+#: includes/admin/settings/class-wc-settings-advanced.php:156
 msgid "Checkout endpoints"
 msgstr "Variables de finalización de compra"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:108
+#: includes/admin/settings/class-wc-settings-advanced.php:106
 #: includes/customizer/class-wc-shop-customizer.php:757
 #: includes/customizer/class-wc-shop-customizer.php:811
 msgid "Terms and conditions"
 msgstr "Términos y condiciones"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:84
+#: includes/admin/settings/class-wc-settings-advanced.php:82
 msgid "Checkout page"
 msgstr "Página de pago"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:72
+#: includes/admin/settings/class-wc-settings-advanced.php:70
 msgid "Cart page"
 msgstr "Página del carrito"
 
@@ -16997,7 +17005,7 @@ msgstr "Período"
 msgid "Totals"
 msgstr "Totales"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:285
+#: includes/admin/settings/class-wc-settings-advanced.php:283
 #: includes/wc-account-functions.php:104
 #: templates/auth/form-grant-access.php:39
 msgid "Logout"
@@ -17170,7 +17178,7 @@ msgstr "Beneficio neto"
 msgid "Total sales minus shipping and tax."
 msgstr "Ventas totales menos gastos de envío e impuestos."
 
-#: includes/admin/settings/class-wc-settings-advanced.php:286
+#: includes/admin/settings/class-wc-settings-advanced.php:284
 msgid "Endpoint for the triggering logout. You can add this to your menus via a custom link: yoursite.com/?customer-logout=true"
 msgstr "Variable para forzar la desconexión. Puedes añadir esto a tus menús con un enlace personalizado: tusitio.com/?customer-logout=true"
 
@@ -17441,39 +17449,39 @@ msgstr "Opciones generales"
 msgid "Account creation"
 msgstr "Creación de cuenta"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:277
+#: includes/admin/settings/class-wc-settings-advanced.php:275
 msgid "Endpoint for the \"My account &rarr; Lost password\" page."
 msgstr "Variable de la página \"Mi cuenta &rarr; Contraseña perdida\"."
 
 #: includes/admin/class-wc-admin-customize.php:79
 #: includes/admin/class-wc-admin-menus.php:296
-#: includes/admin/settings/class-wc-settings-advanced.php:276
+#: includes/admin/settings/class-wc-settings-advanced.php:274
 #: includes/class-wc-query.php:133
 msgid "Lost password"
 msgstr "Contraseña perdida"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:259
+#: includes/admin/settings/class-wc-settings-advanced.php:257
 msgid "Endpoint for the \"My account &rarr; Addresses\" page."
 msgstr "Variable para la página \"Mi cuenta &rarr; Direcciones\"."
 
-#: includes/admin/settings/class-wc-settings-advanced.php:250
+#: includes/admin/settings/class-wc-settings-advanced.php:248
 msgid "Endpoint for the \"My account &rarr; Edit account\" page."
 msgstr "Variable de la página \"Mi cuenta &rarr; Editar cuenta\"."
 
-#: includes/admin/settings/class-wc-settings-advanced.php:249
+#: includes/admin/settings/class-wc-settings-advanced.php:247
 msgid "Edit account"
 msgstr "Editar cuenta"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:232
+#: includes/admin/settings/class-wc-settings-advanced.php:230
 msgid "Endpoint for the \"My account &rarr; View order\" page."
 msgstr "Variable de la página \"Mi cuenta &rarr; Ver pedido\"."
 
-#: includes/admin/settings/class-wc-settings-advanced.php:231
+#: includes/admin/settings/class-wc-settings-advanced.php:229
 #: includes/class-wc-post-types.php:377
 msgid "View order"
 msgstr "Ver pedido"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:96
+#: includes/admin/settings/class-wc-settings-advanced.php:94
 msgid "My account page"
 msgstr "Página de mi cuenta"
 
@@ -17724,7 +17732,7 @@ msgstr "Ventas dirigidas"
 msgid "Upsells are products which you recommend instead of the currently viewed product, for example, products that are more profitable or better quality or more expensive."
 msgstr "Las ventas dirigidas son productos que recomiendas en lugar del producto que se está viendo, por ejemplo, productos que son más rentables o de mejor calidad o más caros."
 
-#: includes/admin/class-wc-admin-setup-wizard.php:767
+#: includes/admin/class-wc-admin-setup-wizard.php:768
 #: includes/admin/meta-boxes/views/html-order-items.php:31
 #: includes/shipping/flat-rate/includes/settings-flat-rate.php:31
 #: includes/shipping/legacy-flat-rate/includes/settings-flat-rate.php:63
@@ -17843,7 +17851,7 @@ msgid "Webhook created successfully."
 msgstr "Webhook creado correctamente."
 
 #: includes/admin/class-wc-admin-webhooks.php:269
-#: includes/admin/settings/class-wc-settings-advanced.php:44
+#: includes/admin/settings/class-wc-settings-advanced.php:42
 msgid "Webhooks"
 msgstr "Webhooks"
 
@@ -17951,7 +17959,7 @@ msgstr "Aplicar"
 #: includes/admin/class-wc-admin-profile.php:85
 #: includes/admin/list-tables/class-wc-admin-list-table-orders.php:360
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:87
-#: includes/class-wc-countries.php:1232
+#: includes/class-wc-countries.php:1237
 #: includes/customizer/class-wc-shop-customizer.php:679
 msgid "Phone"
 msgstr "Teléfono"
@@ -18023,7 +18031,7 @@ msgid "Downloadable products give access to a file upon purchase."
 msgstr "Los productos descargables dan acceso a un archivo después de la compra."
 
 #: includes/admin/class-wc-admin-setup-wizard.php:165
-#: includes/admin/class-wc-admin-setup-wizard.php:881
+#: includes/admin/class-wc-admin-setup-wizard.php:882
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:428
 #: includes/admin/meta-boxes/class-wc-meta-box-product-data.php:99
 #: includes/admin/meta-boxes/views/html-order-shipping.php:17
@@ -18428,8 +18436,8 @@ msgstr "Fecha de caducidad del cupón"
 #: includes/wc-formatting-functions.php:1201
 #: includes/wc-formatting-functions.php:1220
 #: templates/emails/email-addresses.php:31
-#: templates/order/order-details-customer.php:36
-#: templates/order/order-details-customer.php:54
+#: templates/order/order-details-customer.php:35
+#: templates/order/order-details-customer.php:53
 #: templates/single-product/meta.php:31
 msgid "N/A"
 msgstr "N/D"
@@ -18517,7 +18525,7 @@ msgstr "Las categorías de producto de tu tienda se pueden gestionar desde aquí
 msgid "Enable cash on delivery"
 msgstr "Habilita el pago contra reembolso"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1419
+#: includes/admin/class-wc-admin-setup-wizard.php:1420
 #: includes/gateways/cod/class-wc-gateway-cod.php:56
 #: includes/gateways/cod/class-wc-gateway-cod.php:118
 msgid "Cash on delivery"
@@ -18579,7 +18587,7 @@ msgstr "%d filas de datos temporales borradas"
 msgid "Product transients cleared"
 msgstr "Datos temporales de producto borrados"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1600
+#: includes/admin/class-wc-admin-setup-wizard.php:1601
 msgid "Offline Payments"
 msgstr "Pagos sin conexión"
 
@@ -18591,7 +18599,7 @@ msgstr "Borrar todas las tasas de impuestos de WooCommerce"
 msgid "You do not have permission to edit Webhooks"
 msgstr "¡No tienes permisos para editar Webhooks!"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:2135
+#: includes/admin/class-wc-admin-setup-wizard.php:2136
 msgid "Next step"
 msgstr "Siguiente paso"
 
@@ -19009,7 +19017,7 @@ msgstr "Cancelar"
 #: includes/admin/class-wc-admin-profile.php:105
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:44
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:95
-#: includes/class-wc-countries.php:619 includes/class-wc-form-handler.php:240
+#: includes/class-wc-countries.php:625 includes/class-wc-form-handler.php:240
 #: templates/myaccount/form-edit-account.php:27
 msgid "First name"
 msgstr "Nombre"
@@ -19033,8 +19041,8 @@ msgstr "Empresa"
 msgid "City"
 msgstr "Ciudad"
 
-#: includes/class-wc-countries.php:761 includes/class-wc-countries.php:1004
-#: includes/class-wc-countries.php:1136
+#: includes/class-wc-countries.php:766 includes/class-wc-countries.php:1009
+#: includes/class-wc-countries.php:1141
 msgid "Postcode"
 msgstr "Código postal"
 
@@ -19045,7 +19053,7 @@ msgstr "Código postal"
 #: includes/admin/class-wc-admin-setup-wizard.php:396
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:72
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:123
-#: includes/class-wc-countries.php:641
+#: includes/class-wc-countries.php:647
 msgid "Country"
 msgstr "País"
 
@@ -19058,7 +19066,7 @@ msgstr "Correo electrónico"
 
 #: includes/admin/class-wc-admin-reports.php:47
 #: includes/admin/reports/class-wc-report-customer-list.php:215
-#: includes/admin/settings/class-wc-settings-advanced.php:222
+#: includes/admin/settings/class-wc-settings-advanced.php:220
 #: includes/class-wc-post-types.php:370
 #: includes/class-wc-privacy-exporters.php:76 includes/class-wc-query.php:109
 #: includes/wc-account-functions.php:99
@@ -19125,9 +19133,9 @@ msgstr "Pagos"
 msgid "Not right now"
 msgstr "Ahora no"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:971
-#: includes/admin/class-wc-admin-setup-wizard.php:1618
-#: includes/admin/class-wc-admin-setup-wizard.php:1778
+#: includes/admin/class-wc-admin-setup-wizard.php:972
+#: includes/admin/class-wc-admin-setup-wizard.php:1619
+#: includes/admin/class-wc-admin-setup-wizard.php:1779
 #: includes/admin/importers/views/html-product-csv-import-form.php:101
 msgid "Continue"
 msgstr "Continuar"
@@ -19152,48 +19160,48 @@ msgstr "Izquierda con espacio"
 msgid "Right with space"
 msgstr "Derecha con espacio"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:940
+#: includes/admin/class-wc-admin-setup-wizard.php:941
 #: includes/admin/settings/class-wc-settings-products.php:371
 msgid "kg"
 msgstr "kg"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:941
+#: includes/admin/class-wc-admin-setup-wizard.php:942
 #: includes/admin/settings/class-wc-settings-products.php:372
 msgid "g"
 msgstr "g"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:942
+#: includes/admin/class-wc-admin-setup-wizard.php:943
 #: includes/admin/settings/class-wc-settings-products.php:373
 msgid "lbs"
 msgstr "lbs"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:943
+#: includes/admin/class-wc-admin-setup-wizard.php:944
 #: includes/admin/settings/class-wc-settings-products.php:374
 msgid "oz"
 msgstr "oz"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:960
+#: includes/admin/class-wc-admin-setup-wizard.php:961
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:237
 #: includes/admin/settings/class-wc-settings-products.php:388
 msgid "m"
 msgstr "m"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:961
+#: includes/admin/class-wc-admin-setup-wizard.php:962
 #: includes/admin/settings/class-wc-settings-products.php:389
 msgid "cm"
 msgstr "cm"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:962
+#: includes/admin/class-wc-admin-setup-wizard.php:963
 #: includes/admin/settings/class-wc-settings-products.php:390
 msgid "mm"
 msgstr "mm"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:963
+#: includes/admin/class-wc-admin-setup-wizard.php:964
 #: includes/admin/settings/class-wc-settings-products.php:391
 msgid "in"
 msgstr "in"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:964
+#: includes/admin/class-wc-admin-setup-wizard.php:965
 #: includes/admin/settings/class-wc-settings-products.php:392
 msgid "yd"
 msgstr "yd"
@@ -19284,7 +19292,7 @@ msgstr "Elige una moneda&hellip;"
 
 #: includes/admin/class-wc-admin-setup-wizard.php:415
 #: includes/admin/class-wc-admin-setup-wizard.php:417
-#: includes/class-wc-countries.php:764 includes/class-wc-countries.php:1131
+#: includes/class-wc-countries.php:769 includes/class-wc-countries.php:1136
 msgid "State"
 msgstr "Provincia"
 
@@ -19377,7 +19385,7 @@ msgstr[1] "%s cupones enviados a la papelera."
 msgid "Stock"
 msgstr "Inventario"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1283
+#: includes/admin/class-wc-admin-setup-wizard.php:1284
 msgid "PayPal email address"
 msgstr "Correo electrónico de PayPal"
 
@@ -19394,7 +19402,7 @@ msgstr "Elige un país&hellip;"
 #: includes/admin/class-wc-admin-profile.php:109
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:48
 #: includes/admin/meta-boxes/class-wc-meta-box-order-data.php:99
-#: includes/class-wc-countries.php:626 includes/class-wc-form-handler.php:241
+#: includes/class-wc-countries.php:632 includes/class-wc-form-handler.php:241
 #: templates/myaccount/form-edit-account.php:31
 msgid "Last name"
 msgstr "Apellidos"
@@ -19420,8 +19428,8 @@ msgstr "Mi cuenta"
 msgid "Let's go!"
 msgstr "¡Vamos allá!"
 
-#: includes/admin/settings/class-wc-settings-advanced.php:42
-#: includes/admin/settings/class-wc-settings-advanced.php:65
+#: includes/admin/settings/class-wc-settings-advanced.php:40
+#: includes/admin/settings/class-wc-settings-advanced.php:63
 msgid "Page setup"
 msgstr "Instalación de páginas"
 
@@ -19615,7 +19623,7 @@ msgstr "Desconocido"
 msgid "Action failed. Please refresh the page and retry."
 msgstr "Error en la acción. Por favor, recarga la página y vuelve a intentarlo."
 
-#. #-#-#-#-#  woocommerce-code.pot (WooCommerce 3.4.3)  #-#-#-#-#
+#. #-#-#-#-#  woocommerce-code.pot (WooCommerce 3.4.4)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: includes/admin/class-wc-admin-assets.php:84
 #: includes/admin/class-wc-admin-menus.php:59
@@ -19929,11 +19937,11 @@ msgstr "Duplicar"
 msgid "Copy to a new draft"
 msgstr "Copiar a un nuevo borrador"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:1275
+#: includes/admin/class-wc-admin-setup-wizard.php:1276
 msgid "PayPal Standard"
 msgstr "PayPal estándar"
 
-#: includes/admin/class-wc-admin-setup-wizard.php:774
+#: includes/admin/class-wc-admin-setup-wizard.php:775
 #: includes/shipping/legacy-free-shipping/class-wc-shipping-legacy-free-shipping.php:106
 msgid "Free Shipping"
 msgstr "Envío gratuito"
@@ -20559,15 +20567,11 @@ msgstr "Slug/referencia única para el atributo; debe tener menos de 28 caracter
 msgid "Edit attribute"
 msgstr "Editar atributo"
 
-#: includes/admin/class-wc-admin-api-keys.php:160
-msgid "API key revoked successfully."
-msgstr "Clave API revocada correctamente."
-
-#: includes/admin/class-wc-admin-api-keys.php:88
+#: includes/admin/class-wc-admin-api-keys.php:104
 msgid "Search key"
 msgstr "Buscar clave"
 
-#: includes/admin/class-wc-admin-api-keys.php:75
+#: includes/admin/class-wc-admin-api-keys.php:91
 msgid "Add key"
 msgstr "Añadir clave"
 

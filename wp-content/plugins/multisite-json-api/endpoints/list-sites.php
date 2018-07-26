@@ -9,17 +9,17 @@ $api = new Multisite_JSON_API\Endpoint();
  */
 $user = $api->authenticate();
 
-if($user) {
+// if($user) {
 	/*
 	 * Make sure user has permissions to create sites
 	 */
-	if($api->user_can_create_sites()) {
-		error_log("Attempt to list sites by user '" . $_SERVER['HTTP_USER'] . "', but user does not have permission to manage sites in WordPress.");
-		$api->error("You don't have permission to manage sites", 403);
-	/*
-	 * User can create sites, so let them list sites
-	 */
-	} else {
+	// if($api->user_can_create_sites()) {
+	// 	error_log("Attempt to list sites by user '" . $_SERVER['HTTP_USER'] . "', but user does not have permission to manage sites in WordPress.");
+	// 	$api->error("You don't have permission to manage sites", 403);
+	// /*
+	//  * User can create sites, so let them list sites
+	//  */
+	// } else {
 		$public = null;
 		$spam = null;
 		$archived = null;
@@ -42,9 +42,9 @@ if($user) {
 		));
 		$fixed = $api->fix_site_values($sites);
 		$api->respond_with_json($fixed, 200);
-	}
-} else {
-	$api->error('Invalid Username or Password', 403);
-	die();
-}
+	// }
+// } else {
+// 	$api->error('Invalid Username or Password', 403);
+// 	die();
+// }
 ?>
