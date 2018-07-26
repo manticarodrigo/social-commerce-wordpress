@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Yoast SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-07-24 16:46:31+0000\n"
+"PO-Revision-Date: 2018-07-25 19:43:34+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -214,7 +214,7 @@ msgstr "Año actual"
 #. to the link closing tag.
 #: languages/yoast-seo-js.php:102
 msgid "You are not using any %1$ssubheadings%2$s, but your text is short enough and probably doesn't need them."
-msgstr "No estás usando %1$ssubencabezados%2$s, pero tu texto es bastante corto y probablemente no los necesite."
+msgstr "No estás usando %1$ssubtítulos%2$s, pero tu texto es bastante corto y probablemente no los necesite."
 
 #. Translators: %1$s expands to a link to https://yoa.st/headings, %2$s expands
 #. to the link closing tag.
@@ -1370,7 +1370,7 @@ msgstr "archivo %s"
 #. %3$s expands to the install link, %4$s expands to the more info link.
 #: admin/class-suggested-plugins.php:109
 msgid "%1$s and %2$s can work together a lot better by adding a helper plugin. Please install %3$s to make your life better. %4$s."
-msgstr "%1$s y %2$s pueden funcionar juntos mucho mejor añadiendo un plugin de ayuda. Por favor, instala %3$s para hacer tu vida más fácil. %4$s."
+msgstr "%1$s y %2$s pueden funcionar juntos mucho mejor añadiendo un plugin que les ayude. Por favor, instala %3$s para hacer tu vida más fácil. %4$s."
 
 #: admin/class-suggested-plugins.php:135
 msgid "More information"
@@ -1380,7 +1380,7 @@ msgstr "Más información"
 #. %3$s expands to activation link.
 #: admin/class-suggested-plugins.php:149
 msgid "%1$s and %2$s can work together a lot better by adding a helper plugin. Please activate %3$s to make your life better."
-msgstr "%1$s y %2$s pueden funcionar juntos mucho mejor añadiendo un plugin de ayuda. Por favor, activa %3$s para hacer tu vida más fácil."
+msgstr "%1$s y %2$s pueden funcionar juntos mucho mejor añadiendo un plugin que les ayude. Por favor, activa %3$s para hacer tu vida más fácil."
 
 #. translators: %1$s expands to the dependency name.
 #: admin/class-suggested-plugins.php:134
@@ -3693,7 +3693,7 @@ msgstr "Esta usando WordPress en un idioma que aún no está disponible. Nos enc
 
 #: vendor/yoast/i18n-module/src/i18n-module.php:228
 msgid "You're using WordPress in %1$s. While %2$s has been translated to %1$s for %3$d%%, it's not been shipped with the plugin yet. You can help! Register at %4$s to help complete the translation to %1$s!"
-msgstr "Estás usando WordPress en %1$s. Aunque %2$s ha sido traducido al %1$s en un %3$d%%, la traducción no se ha añadido al plugin todavía. ¡Puedes ayudar! ¡Regístrate en %4$s para ayudar a completar la traducción al %1$s!"
+msgstr "Estás usando WordPress en %1$s. Aunque %2$s ha sido traducido a %1$s en un %3$d%%, la traducción no se ha añadido al plugin todavía. ¡Puedes ayudar! ¡Regístrate en %4$s para ayudar a completar la traducción a %1$s!"
 
 #: vendor/yoast/i18n-module/src/i18n-module.php:226
 msgid "As you can see, there is a translation of this plugin in %1$s. This translation is currently %3$d%% complete. We need your help to make it complete and to fix any errors. Please register at %4$s to help complete the translation to %1$s!"
