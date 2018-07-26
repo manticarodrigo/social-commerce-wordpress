@@ -102,7 +102,6 @@ class Enhanced_Ecommerce_Google_Analytics {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-enhanced-ecommerce-google-analytics-loader.php';
 
 		/**
@@ -172,7 +171,6 @@ class Enhanced_Ecommerce_Google_Analytics {
 	private function define_public_hooks() {
 
 		$plugin_public = new Enhanced_Ecommerce_Google_Analytics_Public( $this->get_plugin_name(), $this->get_version() );
-
 		$this->loader->add_action("wp_head", $plugin_public, "ee_settings");
 		$this->loader->add_action("wp_footer", $plugin_public, "t_products_impre_clicks");
 		$this->loader->add_action("woocommerce_thankyou", $plugin_public, "ecommerce_tracking_code");

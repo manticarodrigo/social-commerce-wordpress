@@ -1,0 +1,24 @@
+/* list of network sites */
+
+.subsites-container {
+	background: #3394bf;	
+}
+
+ul.subsites {
+	list-style-type: none;
+	overflow: auto;
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+ul.subsites a {
+	float: left;
+	margin: 0.5em 1em 0.5em 0;
+	color: #fff;
+}
+
+ul.subsites a:hover,
+ul.subsites a:active {
+	text-decoration: none;
+	color: #183c5b;
+}

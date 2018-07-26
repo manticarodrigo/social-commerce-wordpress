@@ -7,8 +7,8 @@ Author URI: https://www.tatvic.com/
 Author: Tatvic
 Requires at least: 3.6
 Tested up to: 4.9
-Stable tag: 2.1.0
-Version: 2.1.0
+Stable tag: 2.1.1
+Version: 2.1.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -18,7 +18,7 @@ Provides integration between Enhanced Ecommerce feature of Google Analytics and 
 <a href="https://www.tatvic.com/enhanced-ecommerce-google-analytics-plugin-woocommerce/" target="_blank">Enhanced Ecommerce Google Analytics</a> is a Free Plugin for Woocommerce stores which allows you to use the newly launched feature of Google Analytics – Enhanced Ecommerce.You can track the user behavior across your e-commerce store starting from product views to thank you page. Enhanced Ecommerce is only supported by Universal Analytics.
 
 == Note : ==
-== With the Latest Release 2.1.0 we have done some major UI changes so follow <a href="https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/#installation" target="_blank" >these</a> installation instruction & also Go through the <a href="http://plugins.tatvic.com/downloads/EE-Woocommerce-Plugin-Documentation.pdf" target="_blank" > documentation </a>First ==
+== For the Latest Release must follow <a href="https://wordpress.org/plugins/enhanced-e-commerce-for-woocommerce-store/#installation" target="_blank" >these</a>installation instruction. Also Go through the <a href="http://plugins.tatvic.com/downloads/EE-Woocommerce-Plugin-Documentation.pdf" target="_blank" > documentation </a>First ==
 
 = Features of Plugin =
 1. Quick & Easy installation from the wordpress interface
@@ -319,4 +319,9 @@ Important Note: When you update the plugin, please save your settings again.
 
  = 2.1.0 - 19/07/2018 =
  * New User Interface
+ * Minor Bug Fixes
+
+ = 2.1.1 - 26/07/2018 =
+ * Admin User Tracking Issue resolved
+ * Fatal Error Resolved
  * Minor Bug Fixes
