@@ -28,13 +28,11 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
      * @return void
      */
     //set plugin version
-    public $tvc_eeVer = '2.1.0';
+    public $tvc_eeVer = '2.1.1';
 	
 	protected $tvc_aga;
 	
 	protected $ga_id;
-	
-	protected $ga_Dname;
 	
 	protected $ga_LC;
 	
@@ -53,6 +51,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
 	protected $ga_PrivacyPolicy;
 	
 	protected $ga_IPA;
+	
     public function __construct($plugin_name, $version) {
         
        
@@ -77,9 +76,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         $this->ga_OPTOUT = $this->get_option("ga_OPTOUT") == "on" ? true : false; //Google Analytics Opt Out
         $this->ga_PrivacyPolicy = $this->get_option("ga_PrivacyPolicy") == "on" ? true : false;
         $this->ga_IPA = $this->get_option("ga_IPA") == "on" ? true : false; //IP Anony.
-        if (is_admin() ) {
-            return;
-        }
+	
 		if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 			// Put your plugin code here
 			add_action('woocommerce_init' , function (){
@@ -88,22 +85,14 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
 			});
 		}         
     }
-	
 	public function get_option($key){
-		$ee_admin_settings = array();
 		$ee_options = array();
-		$ee_advance_track = array();
-		
-		if(!empty(unserialize(get_option('ee_options')))){
-			$ee_options = unserialize(get_option('ee_options'));
+		$my_option = get_option( 'ee_options' );
+		if(!empty($my_option)){
+			$ee_options = unserialize($my_option);
 		}
-		if(!empty(unserialize(get_option('ee_advance_track ')))){
-			$ee_advance_track = unserialize(get_option('ee_advance_track'));
-		}
-		$ee_admin_settings = array_merge($ee_options, $ee_advance_track);
-		if(isset($ee_admin_settings[$key])){
-			return $ee_admin_settings[$key];
-		
+		if(isset($ee_options[$key])){
+			return $ee_options[$key];
 		}
 	}
     /**
@@ -162,7 +151,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
      * @return bool
      */
     private function disable_tracking($type) {
-        if (is_admin() || (!$this->ga_id ) || "" == $type) {
+        if (is_admin() || (!$this->ga_id ) || "" == $type || current_user_can("manage_options")) {
             return true;
         }
     }
@@ -192,7 +181,7 @@ class Enhanced_Ecommerce_Google_Analytics_Public {
         global $woocommerce;
 
         //common validation----start
-        if (is_admin() || $this->ga_ST == "") {
+        if (is_admin() || $this->ga_ST == "" || current_user_can("manage_options")) {
             return;
         }
         $tracking_id = $this->ga_id;
