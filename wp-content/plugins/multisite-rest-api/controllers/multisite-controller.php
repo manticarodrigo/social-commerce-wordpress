@@ -125,7 +125,7 @@ class MultisiteController extends WP_REST_Controller {
                 'status' => 500
             ));
 		else
-			return $this->get_blog_details( $site_id );
+			return $this->get_site_by_id( $site_id );
 	}
 
     /*
@@ -226,7 +226,7 @@ class MultisiteController extends WP_REST_Controller {
     public function get_item( $request ) {
         //get parameters from request
         $params = $request->get_params();
-        $blog   = $this->get_blog_details( $params['id'] );
+        $blog   = $this->get_site_by_id( $params['id'] );
 
         $data   = $this->prepare_item_for_response( $blog, $request );
         
