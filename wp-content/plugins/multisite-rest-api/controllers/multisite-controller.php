@@ -132,7 +132,7 @@ class MultisiteController extends WP_REST_Controller {
 	 */
 	public function update_site( $id, $title, $site_name, $user_id ) {
         $site = $this->get_site_by_id( $id );
-        if ( !is_wp_error( $update_me ) && $site->blog_id == $id && $id != 1) {
+        if ( !is_wp_error( $site ) && $site->blog_id == $id && $id != 1) {
             // TODO: Check if user in site
             update_blog_option( $id, 'blogname', $title );
             update_blog_option( $id, 'home', 'http://' . $site->domain . '/' . $site_name );
