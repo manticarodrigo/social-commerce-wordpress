@@ -207,6 +207,10 @@ class MultisiteController extends WP_REST_Controller {
             return false;
     }
 
+    public function is_valid_id($param, $request, $key) {
+        return is_numeric( $param );
+    }
+
     public function user_id_exists( $user_id ) {
         global $wpdb;
         $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(ID) FROM $wpdb->users WHERE ID = %d", $user_id ) );
@@ -392,8 +396,7 @@ class MultisiteController extends WP_REST_Controller {
             'description' => 'User Id of site owner.',
             'type' => 'integer',
             'required' => true,
-            // 'sanitize_callback' => 'absint',
-            'validate_callback' => 'is_numeric'
+            'validate_callback' => array( $this, 'is_valid_id' )
         );
         return $query_params;
     }
@@ -409,7 +412,7 @@ class MultisiteController extends WP_REST_Controller {
             'description' => 'User Id of site owner.',
             'type' => 'integer',
             'required' => true,
-            'validate_callback' => 'is_numeric'
+            'validate_callback' => array( $this, 'is_valid_id' )
         );
         $query_params['title'] = array(
             'description' => 'Title of the blog.',
