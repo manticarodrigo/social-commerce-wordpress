@@ -128,9 +128,30 @@ class MultisiteController extends WP_REST_Controller {
                 'Error creating site: ' . $site_id->get_error_message()), array(
                 'status' => 500
             ));
-		else
+        else
 			return $this->get_site_by_id( $site_id );
-	}
+    }
+
+    /**
+	 * Updates an existing site.
+     * @param site_id string The id of the site
+	 * @param title string The title of the site
+	 * @param site_name string The sitename used for the site, will become the path or the subdomain
+	 */
+	public function update_site( $id, $title, $site_name, $user_id ) {
+
+        // TODO: Check if user in site
+
+        if ( !is_numeric($id) )
+            return new WP_Error('cant-update', __(
+                'Error updating site: ' . $site_id->get_error_message()), array(
+                'status' => 500
+            ));
+        else
+            update_blog_option( $id, 'blogname', $title);
+            update_blog_option( $id, 'siteurl', $site_name);
+			return $this->get_site_by_id( $id );
+    }
 
     /*
      * Wraps the wordpress delete blog function
@@ -280,17 +301,23 @@ class MultisiteController extends WP_REST_Controller {
      */
     public function update_item( $request ) {
         $item = $this->prepare_item_for_database( $request );
-        
-        // if (function_exists('slug_some_function_to_update_item')) {
-        //     $data = slug_some_function_to_update_item($item);
-        //     if (is_array($data)) {
-        //         return new WP_REST_Response($data, 200);
-        //     }
-        // }
-        
-        return new WP_Error('cant-update', __('message', 'text-domain'), array(
-            'status' => 500
-        ));
+        if ( !is_wp_error($item) ) {
+            $data = $this->update_site(
+                $item['id'],
+                $item['title'],
+                $item['site_name'],
+                $item['user_id']
+            );
+            
+            if ( !is_wp_error($data) ) {
+                return new WP_REST_Response( $data, 200 );
+            } else {
+                return $data;
+            }
+
+        } else {
+            return $item; // return the error
+        }
     }
     
     /**
