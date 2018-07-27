@@ -28,7 +28,7 @@ class MultisiteController extends WP_REST_Controller {
                     $this,
                     'create_item'
                 ),
-                'args' => $this->get_endpoint_args_for_item_schema( true )
+                'args' => $this->get_creation_parameters()
             )
         ));
         register_rest_route( $namespace, '/' . $base . '/(?P<id>[\d]+)', array(
@@ -39,7 +39,7 @@ class MultisiteController extends WP_REST_Controller {
             array(
                 'methods' => WP_REST_Server::EDITABLE,
                 'callback' => array( $this, 'update_item' ),
-                'args' => $this->get_endpoint_args_for_item_schema( false )
+                'args' => $this->get_creation_parameters()
             ),
             array(
                 'methods' => WP_REST_Server::DELETABLE,
@@ -166,14 +166,14 @@ class MultisiteController extends WP_REST_Controller {
      * Works on both domain and subdirectory
      * @since '0.0.1'
      */
-    public function is_valid_sitename( $candidate ) {
+    public function is_valid_sitename( $param, $request, $key ) {
         if ( is_subdomain_install() ){
-            if ( preg_match( '/^[a-zA-Z0-9][a-zA-Z0-9-]+$/', $candidate ) )
+            if ( preg_match( '/^[a-zA-Z0-9][a-zA-Z0-9-]+$/', $param ) )
                 return true;
             else
                 return false;
         } else {
-            if ( preg_match( '/^[a-zA-Z0-9][a-zA-Z0-9_-]+$/', $candidate ) ) {
+            if ( preg_match( '/^[a-zA-Z0-9][a-zA-Z0-9_-]+$/', $param ) ) {
                 $reserved = apply_filters( 
                     'subdirectory_reserved_names', 
                     array( 
@@ -185,7 +185,7 @@ class MultisiteController extends WP_REST_Controller {
                         'tienda'
                     )
                 );
-                return !in_array( $candidate, $reserved );
+                return !in_array( $param, $reserved );
             } else {
                 return false;
             }
@@ -196,9 +196,9 @@ class MultisiteController extends WP_REST_Controller {
      * Validates that the site title is at least 2 alphanumerics and doesn't start with a space
      * @since '0.0.1'
      */
-    public function is_valid_site_title( $candidate ) {
+    public function is_valid_site_title( $param, $request, $key ) {
         // Make sure site title is not empty
-        if ( preg_match( '/^[a-zA-Z0-9-_][a-zA-Z0-9-_ ]+/', $candidate ) )
+        if ( preg_match( '/^[a-zA-Z0-9-_][a-zA-Z0-9-_ ]+/', $param ) )
             return true;
         else
             return false;
@@ -342,39 +342,17 @@ class MultisiteController extends WP_REST_Controller {
      * @return WP_Error|object $prepared_item
      */
     protected function prepare_item_for_database( $request ) {
-        if ( !isset( $request['title'], $request['site_name'], $request['user_id'] ) )
-            return new WP_Error(
-                'missing_arguments', 
-                __("Missing arguments"), array(
-                'status' => 400
-            ));
+        $params = $request->get_params(); // this include url and body params
         
-        $title      = $request['title'];
-        $site_name  = $request['site_name'];
-        $user_id    = $request['user_id'];
+        $title      = $params['title'];
+        $site_name  = $params['site_name'];
+        $user_id    = $params['user_id'];
 
-        // Domain is valid?
-        if ( !$this->is_valid_sitename($site_name) ) {
-            return new WP_Error(
-                'invalid_site_name', 
-                __("Invalid site_name '" . $site_name . "'"), array(
-                'status' => 400
-            ));
-        }
         // Next check if user exists
         if ( !$this->user_id_exists($user_id) ) {
             return new WP_Error(
                 'user_id_invalid', 
                 __("Invalid User Id: '" . $user_id . "'"), array(
-                'status' => 400
-            ));
-        }
-        
-        // Make sure Title is valid
-        if ( !$this->is_valid_site_title($title) ) {
-            return new WP_Error(
-                'invalid_site_title', 
-                __("Invalid site_title '" . $title . "'"), array(
                 'status' => 400
             ));
         }
@@ -413,6 +391,34 @@ class MultisiteController extends WP_REST_Controller {
             'required' => true,
             // 'sanitize_callback' => 'absint',
             'validate_callback' => 'is_numeric'
+        );
+        return $query_params;
+    }
+
+    /**
+     * Update and create params of collection
+     *
+     * @return array
+     */
+    public function get_creation_parameters() {
+        $query_params = array();
+        $query_params['user_id'] = array(
+            'description' => 'User Id of site owner.',
+            'type' => 'integer',
+            'required' => true,
+            'validate_callback' => 'is_numeric'
+        );
+        $query_params['title'] = array(
+            'description' => 'Title of the blog.',
+            'required' => true,
+            'type' => 'string',
+            'validate_callback' => array( $this, 'is_valid_site_title' )
+        );
+        $query_params['site_name'] = array(
+            'description' => 'Site name (path)',
+            'required' => true,
+            'type' => 'string',
+            'validate_callback' => array( $this, 'is_valid_sitename' )
         );
         return $query_params;
     }
