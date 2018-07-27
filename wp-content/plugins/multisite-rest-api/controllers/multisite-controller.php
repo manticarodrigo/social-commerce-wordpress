@@ -20,7 +20,7 @@ class MultisiteController extends WP_REST_Controller {
                     $this,
                     'get_items'
                 ),
-                'args' => array()
+                'args' => $this->get_collection_params()
             ),
             array(
                 'methods' => WP_REST_Server::CREATABLE,
@@ -34,22 +34,11 @@ class MultisiteController extends WP_REST_Controller {
         register_rest_route( $namespace, '/' . $base . '/(?P<id>[\d]+)', array(
             array(
                 'methods' => WP_REST_Server::READABLE,
-                'callback' => array(
-                    $this,
-                    'get_item'
-                ),
-                'args' => array(
-                    'context' => array(
-                        'default' => 'view'
-                    )
-                )
+                'callback' => array( $this, 'get_item' )
             ),
             array(
                 'methods' => WP_REST_Server::EDITABLE,
-                'callback' => array(
-                    $this,
-                    'update_item'
-                ),
+                'callback' => array( $this, 'update_item' ),
                 'args' => $this->get_endpoint_args_for_item_schema( false )
             ),
             array(
@@ -199,6 +188,14 @@ class MultisiteController extends WP_REST_Controller {
         $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(ID) FROM $wpdb->users WHERE ID = %d", $user_id ) );
         return empty( $count ) || 1 > $count ? false : true;
     }
+
+    public function get_blog_users( $blog_id, $role='administrator' ) {
+        $users = get_users( array( 
+            'blog_id' => $blog_id,
+            'role' => $role 
+        ) );
+        return $users;
+    }
     
     /**
      * Get a collection of items
@@ -207,14 +204,13 @@ class MultisiteController extends WP_REST_Controller {
      * @return WP_Error|WP_REST_Response
      */
     public function get_items( $request ) {
-        $sites = get_sites(
-            array(
-                'public' => 1,
-            )
-        );
+        $params = $request->get_params();
+        // Query by user
+        $sites = get_blogs_of_user( $params['user_id'] );
+
         $data  = array();
         foreach ( $sites as $site ) {
-            $itemdata = $this->prepare_item_for_response( $site, $request );
+            $itemdata = $this->prepare_item_for_response( $site, $params );
             $data[]   = $this->prepare_response_for_collection( $itemdata );
         }
         
@@ -319,6 +315,13 @@ class MultisiteController extends WP_REST_Controller {
      * @return WP_Error|object $prepared_item
      */
     protected function prepare_item_for_database( $request ) {
+        if ( !isset( $request['title'], $request['site_name'], $request['user_id'] ) )
+            return new WP_Error(
+                'missing_arguments', 
+                __("Missing arguments"), array(
+                'status' => 400
+            ));
+        
         $title      = $request['title'];
         $site_name  = $request['site_name'];
         $user_id    = $request['user_id'];
@@ -364,6 +367,7 @@ class MultisiteController extends WP_REST_Controller {
      * @return mixed
      */
     public function prepare_item_for_response($item, $request) {
+        // Here you can modify the item, before the response
         return $item;
     }
     
@@ -373,24 +377,15 @@ class MultisiteController extends WP_REST_Controller {
      * @return array
      */
     public function get_collection_params() {
-        return array(
-            'page' => array(
-                'description' => 'Current page of the collection.',
-                'type' => 'integer',
-                'default' => 1,
-                'sanitize_callback' => 'absint'
-            ),
-            'per_page' => array(
-                'description' => 'Maximum number of items to be returned in result set.',
-                'type' => 'integer',
-                'default' => 10,
-                'sanitize_callback' => 'absint'
-            ),
-            'user_id' => array(
-                'description' => 'User Id of site owner.',
-                'type' => 'integer',
-                'sanitize_callback' => 'absint'
-            )
+        $query_params = array();
+
+        $query_params['context']['default'] = 'view';
+        $query_params['user_id'] = array(
+            'description' => 'User Id of site owner.',
+            'type' => 'integer',
+            'required' => 'true',
+            'sanitize_callback' => 'absint'
         );
+        return $query_params;
     }
 }
