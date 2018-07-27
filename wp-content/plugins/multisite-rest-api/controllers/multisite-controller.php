@@ -1,6 +1,10 @@
 <?php
 
 class MultisiteController extends WP_REST_Controller {
+
+    public function __construct() {
+        require_once( ABSPATH . 'wp-admin/includes/admin.php' ); // To load wpmu_delete_blog
+    }
     
     /**
      * Register the routes for the objects of the controller.
@@ -132,9 +136,9 @@ class MultisiteController extends WP_REST_Controller {
      * Wraps the wordpress delete blog function
      * @since '0.5.0'
      */
-    public function delete_site($id, $drop = false) {
+    public function delete_site($id, $drop = true) {
         $delete_me = $this->get_site_by_id( $id );
-        if($delete_me != false && $delete_me->blog_id == $id){
+        if ( !is_wp_error( $delete_me ) && $delete_me->blog_id == $id ){
             wpmu_delete_blog($id, $drop);
             $delete_me->deleted = true;
             return $delete_me;
@@ -296,9 +300,9 @@ class MultisiteController extends WP_REST_Controller {
      * @return WP_Error|WP_REST_Request
      */
     public function delete_item($request) {
-        $deleted = $this->delete_site($request['site_id']);
+        $deleted = $this->delete_site($request['id']);
         if ($deleted && !is_wp_error($deleted)) {
-            return new WP_REST_Response(true, 200);
+            return new WP_REST_Response($deleted, 200);
         } else {
             return $deleted;
         }
