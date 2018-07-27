@@ -131,14 +131,14 @@ class MultisiteController extends WP_REST_Controller {
 	 * @param site_name string The sitename used for the site, will become the path or the subdomain
 	 */
 	public function update_site( $id, $title, $site_name, $user_id ) {
-        $update_me = $this->get_site_by_id( $id );
-        if ( !is_wp_error( $update_me ) && $update_me->blog_id == $id && $id != 1) {
+        $site = $this->get_site_by_id( $id );
+        if ( !is_wp_error( $update_me ) && $site->blog_id == $id && $id != 1) {
             // TODO: Check if user in site
             update_blog_option( $id, 'blogname', $title );
-            update_blog_option( $id, 'home', $site_name );
-            update_blog_option( $id, 'siteurl', $site_name );
+            update_blog_option( $id, 'home', 'http://' . $site->domain . '/' . $site_name );
+            update_blog_option( $id, 'siteurl', 'http://' . $site->domain . '/' . $site_name );
             update_blog_details( $id, array( 'path' => $site_name ) );
-            return $update_me;
+            return $this->get_site_by_id( $id );
         } else {
             return new WP_Error(
                 'rest_blog_invalid_id', 
