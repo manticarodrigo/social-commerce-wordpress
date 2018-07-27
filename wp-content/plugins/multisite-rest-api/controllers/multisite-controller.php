@@ -130,11 +130,11 @@ class MultisiteController extends WP_REST_Controller {
 	 * @param site_name string The sitename used for the site, will become the path or the subdomain
 	 */
 	public function update_site( $id, $title, $site_name, $user_id ) {
-
+        $site = $this->get_site_by_id( $id );
         // TODO: Check if user in site
         update_blog_option( $id, 'blogname', $title );
-        update_blog_option( $id, 'home', $site_name );
-        update_blog_option( $id, 'siteurl', $site_name );
+        update_blog_option( $id, 'home', 'http://' . $site->domain . '/' . $site_name );
+        update_blog_option( $id, 'siteurl', 'http://' . $site->domain . '/' . $site_name );
         update_blog_details( $id, array( 'path' => $site_name ) );
         return $this->get_site_by_id( $id );
     }
