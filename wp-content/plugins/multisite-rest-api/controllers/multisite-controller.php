@@ -111,12 +111,14 @@ class MultisiteController extends WP_REST_Controller {
 			$title,
 			$user_id,
 			array('public' => true),
-			$current_site->id);
-        if ( !is_numeric($site_id) )
-            return new WP_Error('cant-create', __(
-                'Error creating site: ' . $site_id->get_error_message()), array(
-                'status' => 500
-            ));
+            $current_site->id
+        );
+        if ( is_wp_error( $site_id ) )
+            return new WP_Error(
+                'cant-create',
+                $site_id->get_error_message(), 
+                array( 'status' => 500 )
+            );
         else
 			return $this->get_site_by_id( $site_id );
     }
@@ -132,10 +134,11 @@ class MultisiteController extends WP_REST_Controller {
         // TODO: Check if user in site
 
         if ( !is_numeric($id) )
-            return new WP_Error('cant-update', __(
-                'Error updating site: ' . $site_id->get_error_message()), array(
-                'status' => 500
-            ));
+            return new WP_Error(
+                'cant-update',
+                $site_id->get_error_message(), 
+                array( 'status' => 500 )
+            );
         else
             update_blog_option( $id, 'blogname', $title);
             update_blog_option( $id, 'siteurl', $site_name);
