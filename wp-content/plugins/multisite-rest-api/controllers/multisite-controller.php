@@ -105,10 +105,10 @@ class MultisiteController extends WP_REST_Controller {
 	 * @return site Object An objectified version of the site
 	 */
 	public function create_site( $title, $site_name, $user_id ) {
-		$current_site = get_current_site();
+        $current_site = get_current_site();
 		$site_id = wpmu_create_blog(
             $this->full_domain( $site_name, $current_site ),
-			$this->full_path($site_name, $current_site),
+			$this->full_path( $site_name, $current_site ),
 			$title,
 			$user_id,
 			array('public' => true),
@@ -133,7 +133,7 @@ class MultisiteController extends WP_REST_Controller {
 	public function update_site( $id, $title, $site_name, $user_id ) {
         $update_me = $this->get_site_by_id( $id );
         if ( !is_wp_error( $update_me ) && $update_me->blog_id == $id && $id != 1) {
-        // TODO: Check if user in site
+            // TODO: Check if user in site
             update_blog_option( $id, 'blogname', $title );
             update_blog_option( $id, 'home', $site_name );
             update_blog_option( $id, 'siteurl', $site_name );
