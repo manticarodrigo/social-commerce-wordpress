@@ -315,7 +315,7 @@ class MultisiteController extends WP_REST_Controller {
             
             if ( !is_wp_error($data) )
                 return new WP_REST_Response(
-                    $this->prepare_item_for_response( $data ), 200 );
+                    $this->prepare_item_for_response( $data, $params ), 200 );
             else
                 return $data;
         } else {
