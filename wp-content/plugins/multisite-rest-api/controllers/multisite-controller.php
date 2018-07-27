@@ -203,13 +203,13 @@ class MultisiteController extends WP_REST_Controller {
      * @return WP_Error|WP_REST_Response
      */
     public function get_items( $request ) {
-        $blogs = get_sites(
+        $sites = get_sites(
             array(
                 'public' => 1,
             )
         );
         $data  = array();
-        foreach ( $blog as $blog ) {
+        foreach ( $sites as $site ) {
             $itemdata = $this->prepare_item_for_response( $site, $request );
             $data[]   = $this->prepare_response_for_collection( $itemdata );
         }
