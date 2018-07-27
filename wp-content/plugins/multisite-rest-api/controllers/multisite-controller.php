@@ -9,7 +9,7 @@ class MultisiteController extends WP_REST_Controller {
         $version   = '1';
         $namespace = 'multisite/v' . $version;
         $base      = 'sites';
-        register_rest_route($namespace, '/' . $base, array(
+        register_rest_route( $namespace, '/' . $base, array(
             array(
                 'methods' => WP_REST_Server::READABLE,
                 'callback' => array(
@@ -24,10 +24,10 @@ class MultisiteController extends WP_REST_Controller {
                     $this,
                     'create_item'
                 ),
-                'args' => $this->get_endpoint_args_for_item_schema(true)
+                'args' => $this->get_endpoint_args_for_item_schema( true )
             )
         ));
-        register_rest_route($namespace, '/' . $base . '/(?P<id>[\d]+)', array(
+        register_rest_route( $namespace, '/' . $base . '/(?P<id>[\d]+)', array(
             array(
                 'methods' => WP_REST_Server::READABLE,
                 'callback' => array(
@@ -46,7 +46,7 @@ class MultisiteController extends WP_REST_Controller {
                     $this,
                     'update_item'
                 ),
-                'args' => $this->get_endpoint_args_for_item_schema(false)
+                'args' => $this->get_endpoint_args_for_item_schema( false )
             ),
             array(
                 'methods' => WP_REST_Server::DELETABLE,
@@ -61,7 +61,7 @@ class MultisiteController extends WP_REST_Controller {
                 )
             )
         ));
-        register_rest_route($namespace, '/' . $base . '/schema', array(
+        register_rest_route( $namespace, '/' . $base . '/schema', array(
             'methods' => WP_REST_Server::READABLE,
             'callback' => array(
                 $this,
@@ -70,10 +70,10 @@ class MultisiteController extends WP_REST_Controller {
         ));
     }
 
-    public function full_path($sitename, $current_site = null) {
-		if (empty($current_site))
+    public function full_path( $sitename, $current_site = null ) {
+		if ( empty( $current_site ) )
 			$current_site = get_current_site();
-		if (is_subdomain_install()) {
+		if ( is_subdomain_install() ) {
 			$path = $current_site->path;
 		} else {
 			$path = $current_site->path . $sitename . '/';
@@ -81,15 +81,27 @@ class MultisiteController extends WP_REST_Controller {
 		return $path;
     }
     
-    public function full_domain($sitename, $current_site = null) {
-		if (empty($current_site))
+    public function full_domain( $sitename, $current_site = null ) {
+		if ( empty( $current_site) )
 			$current_site = get_current_site();
-		if (is_subdomain_install()) {
+		if ( is_subdomain_install() ) {
 			$newdomain = $sitename . '.' . preg_replace( '|^www\.|', '', $current_site->domain );
 		} else {
 			$newdomain = $current_site->domain;
 		}
 		return $newdomain;
+    }
+
+    /*
+     * Wraps the wordpress get_blog_details function.
+     * @since '0.5.0'
+     */
+    public function get_site_by_id( $id ) {
+        $site = get_blog_details( $id );
+        if ( $site && !is_wp_error( $site ) )
+            return $site;
+        else
+            return $site;
     }
     
     /**
@@ -99,22 +111,90 @@ class MultisiteController extends WP_REST_Controller {
 	 * @param user_id The ID of the admin user for this site
 	 * @return site Object An objectified version of the site
 	 */
-	public function create_site($title, $site_name, $user_id) {
+	public function create_site( $title, $site_name, $user_id ) {
 		$current_site = get_current_site();
-		$site_id = wpmu_create_blog($this->full_domain($site_name, $current_site),
+		$site_id = wpmu_create_blog( $this->full_domain( $site_name, $current_site ),
 			$this->full_path($site_name, $current_site),
 			$title,
 			$user_id,
 			array('public' => true),
 			$current_site->id);
-        if(!is_numeric($site_id))
+        if ( !is_numeric($site_id) )
             return new WP_Error('cant-create', __(
                 'Error creating site: ' . $site_id->get_error_message()), array(
                 'status' => 500
             ));
 		else
-			return $this->get_blog_details($site_id);
+			return $this->get_blog_details( $site_id );
 	}
+
+    /*
+     * Wraps the wordpress delete blog function
+     * @since '0.5.0'
+     */
+    public function delete_site($id, $drop = false) {
+        $delete_me = $this->get_site_by_id( $id );
+        if($delete_me != false && $delete_me->blog_id == $id){
+            wpmu_delete_blog($id, $drop);
+            $delete_me->deleted = true;
+            return $delete_me;
+        } else {
+            return new WP_Error(
+                'rest_blog_invalid_id', 
+                __( 'Invalid blog ID.' ),
+                array( 'status' => 404 )
+            );
+        }
+    }
+
+    /*
+     * Checks whether sitename is a valid domain name or site name
+     * Works on both domain and subdirectory
+     * @since '0.0.1'
+     */
+    public function is_valid_sitename( $candidate ) {
+        if ( is_subdomain_install() ){
+            if ( preg_match( '/^[a-zA-Z0-9][a-zA-Z0-9-]+$/', $candidate ) )
+                return true;
+            else
+                return false;
+        } else {
+            if ( preg_match( '/^[a-zA-Z0-9][a-zA-Z0-9_-]+$/', $candidate ) ) {
+                $reserved = apply_filters( 
+                    'subdirectory_reserved_names', 
+                    array( 
+                        'page',
+                        'comments',
+                        'blog',
+                        'files',
+                        'feed',
+                        'tienda'
+                    )
+                );
+                return !in_array( $candidate, $reserved );
+            } else {
+                return false;
+            }
+        }
+    }
+
+    /*
+     * Validates that the site title is at least 2 alphanumerics and doesn't start with a space
+     * @since '0.0.1'
+     */
+    public function is_valid_site_title( $candidate ) {
+        // Make sure site title is not empty
+        if ( preg_match( '/^[a-zA-Z0-9-_][a-zA-Z0-9-_ ]+/', $candidate ) )
+            return true;
+        else
+            return false;
+    }
+
+    public function user_id_exists( $user_id ) {
+        global $wpdb;
+        $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(ID) FROM $wpdb->users WHERE ID = %d", $user_id ) );
+        return empty( $count ) || 1 > $count ? false : true;
+    }
     
     /**
      * Get a collection of items
@@ -122,17 +202,19 @@ class MultisiteController extends WP_REST_Controller {
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Response
      */
-    public function get_items($request) {
-        $blogs = get_sites(array(
-            'public' => 1,
-        ));
+    public function get_items( $request ) {
+        $blogs = get_sites(
+            array(
+                'public' => 1,
+            )
+        );
         $data  = array();
-        foreach ($blog as $blog) {
-            $itemdata = $this->prepare_item_for_response($site, $request);
-            $data[]   = $this->prepare_response_for_collection($itemdata);
+        foreach ( $blog as $blog ) {
+            $itemdata = $this->prepare_item_for_response( $site, $request );
+            $data[]   = $this->prepare_response_for_collection( $itemdata );
         }
         
-        return new WP_REST_Response($data, 200);
+        return new WP_REST_Response( $data, 200 );
     }
     
     /**
@@ -141,17 +223,22 @@ class MultisiteController extends WP_REST_Controller {
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Response
      */
-    public function get_item($request) {
+    public function get_item( $request ) {
         //get parameters from request
         $params = $request->get_params();
-        $blog   = get_blog_details( $params['id'] );
-        $data   = $this->prepare_item_for_response($blog, $request);
+        $blog   = $this->get_blog_details( $params['id'] );
+
+        $data   = $this->prepare_item_for_response( $blog, $request );
         
         //return a response or error based on some conditional
         if ( $blog ) {
             return new WP_REST_Response($data, 200);
         } else {
-            return new WP_Error( 'rest_blog_invalid_id', __( 'Invalid blog ID.' ), array( 'status' => 404 ) );
+            return new WP_Error(
+                'rest_blog_invalid_id', 
+                __( 'Invalid blog ID.' ),
+                array( 'status' => 404 )
+            );
         }
     }
     
@@ -161,20 +248,23 @@ class MultisiteController extends WP_REST_Controller {
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Request
      */
-    public function create_item($request) {
+    public function create_item( $request ) {
         $item = $this->prepare_item_for_database($request);
-        if (!is_wp_error($item) ) {
+        if ( !is_wp_error($item) ) {
             $data = $this->create_site(
                 $item['title'],
                 $item['site_name'],
                 $item['user_id']
             );
-        } else {
-            return $item;
-        }
+            
+            if ( !is_wp_error($data) ) {
+                return new WP_REST_Response( $data, 200 );
+            } else {
+                return $data;
+            }
 
-        if ($data) {
-            return new WP_REST_Response($data, 200);
+        } else {
+            return $item; // return the error
         }
     }
     
@@ -184,15 +274,15 @@ class MultisiteController extends WP_REST_Controller {
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Request
      */
-    public function update_item($request) {
-        $item = $this->prepare_item_for_database($request);
+    public function update_item( $request ) {
+        $item = $this->prepare_item_for_database( $request );
         
-        if (function_exists('slug_some_function_to_update_item')) {
-            $data = slug_some_function_to_update_item($item);
-            if (is_array($data)) {
-                return new WP_REST_Response($data, 200);
-            }
-        }
+        // if (function_exists('slug_some_function_to_update_item')) {
+        //     $data = slug_some_function_to_update_item($item);
+        //     if (is_array($data)) {
+        //         return new WP_REST_Response($data, 200);
+        //     }
+        // }
         
         return new WP_Error('cant-update', __('message', 'text-domain'), array(
             'status' => 500
@@ -206,16 +296,14 @@ class MultisiteController extends WP_REST_Controller {
      * @return WP_Error|WP_REST_Request
      */
     public function delete_item($request) {
-        $item = $this->prepare_item_for_database($request);
-        
-        if (function_exists('slug_some_function_to_delete_item')) {
-            $deleted = slug_some_function_to_delete_item($item);
-            if ($deleted) {
-                return new WP_REST_Response(true, 200);
-            }
+        $deleted = $this->delete_site($request['site_id']);
+        if ($deleted && !is_wp_error($deleted)) {
+            return new WP_REST_Response(true, 200);
+        } else {
+            return $deleted;
         }
         
-        return new WP_Error('cant-delete', __('message', 'text-domain'), array(
+        return new WP_Error('cant-delete', __('an error ocurred', 'text-domain'), array(
             'status' => 500
         ));
     }
@@ -226,14 +314,42 @@ class MultisiteController extends WP_REST_Controller {
      * @param WP_REST_Request $request Request object
      * @return WP_Error|object $prepared_item
      */
-    protected function prepare_item_for_database($request) {
-        $title = $request['title'];
-        $site_name = $request['site_name'];
-        $user_id = $request['user_id'];
+    protected function prepare_item_for_database( $request ) {
+        $title      = $request['title'];
+        $site_name  = $request['site_name'];
+        $user_id    = $request['user_id'];
 
-        // @TODO validate the previous fields
+        // Domain is valid?
+        if ( !$this->is_valid_sitename($site_name) ) {
+            return new WP_Error(
+                'invalid_site_name', 
+                __("Invalid site_name '" . $site_name . "'"), array(
+                'status' => 400
+            ));
+        }
+        // Next check if user exists
+        if ( !$this->user_id_exists($user_id) ) {
+            return new WP_Error(
+                'user_id_invalid', 
+                __("Invalid User Id: '" . $user_id . "'"), array(
+                'status' => 400
+            ));
+        }
+        
+        // Make sure Title is valid
+        if ( !$this->is_valid_site_title($title) ) {
+            return new WP_Error(
+                'invalid_site_title', 
+                __("Invalid site_title '" . $title . "'"), array(
+                'status' => 400
+            ));
+        }
 
-        return array();
+        return array(
+            'title' => $title,
+            'site_name' => $site_name,
+            'user_id' => $user_id
+        );
     }
     
     /**
