@@ -132,17 +132,9 @@ class MultisiteController extends WP_REST_Controller {
 	public function update_site( $id, $title, $site_name, $user_id ) {
 
         // TODO: Check if user in site
-
-        if ( !is_numeric($id) )
-            return new WP_Error(
-                'cant-update',
-                $site_id->get_error_message(), 
-                array( 'status' => 500 )
-            );
-        else
-            update_blog_option( $id, 'blogname', $title);
-            update_blog_option( $id, 'siteurl', $site_name);
-			return $this->get_site_by_id( $id );
+        update_blog_option( $id, 'blogname', $title);
+        update_blog_option( $id, 'siteurl', $site_name);
+        return $this->get_site_by_id( $id );
     }
 
     /*
@@ -162,6 +154,13 @@ class MultisiteController extends WP_REST_Controller {
                 array( 'status' => 404 )
             );
         }
+    }
+
+    public function update_site_meta( $id, $params ) {
+        if ( isset( $params['ruc'] ) )
+            update_blog_option( $id, 'ruc', $params['ruc'] );
+        if ( isset( $params['banner_id'] ) )
+            update_blog_option( $id, 'banner_id', $params['banner_id'] );
     }
 
     /*
@@ -259,15 +258,14 @@ class MultisiteController extends WP_REST_Controller {
         $data   = $this->prepare_item_for_response( $blog, $request );
         
         //return a response or error based on some conditional
-        if ( $blog ) {
+        if ( $blog )
             return new WP_REST_Response($data, 200);
-        } else {
+        else
             return new WP_Error(
                 'rest_blog_invalid_id', 
                 __( 'Invalid blog ID.' ),
                 array( 'status' => 404 )
             );
-        }
     }
     
     /**
@@ -277,23 +275,25 @@ class MultisiteController extends WP_REST_Controller {
      * @return WP_Error|WP_REST_Request
      */
     public function create_item( $request ) {
-        $item = $this->prepare_item_for_database($request);
+        $params = $request->get_params(); // this include url and body params
+        $item = $this->prepare_item_for_database( $params );
         if ( !is_wp_error($item) ) {
-            $data = $this->create_site(
+            $site = $this->create_site(
                 $item['title'],
                 $item['site_name'],
                 $item['user_id']
             );
-            
-            if ( !is_wp_error($data) ) {
-                return new WP_REST_Response( $data, 200 );
-            } else {
-                return $data;
-            }
+            $this->update_site_meta( $item['blog_id'], $params );
 
-        } else {
+            if ( !is_wp_error( $site ) )
+                return new WP_REST_Response( 
+                    $this->prepare_item_for_response( $site,  $params ),
+                    200
+                );
+            else
+                return $site;
+        } else
             return $item; // return the error
-        }
     }
     
     /**
@@ -303,7 +303,8 @@ class MultisiteController extends WP_REST_Controller {
      * @return WP_Error|WP_REST_Request
      */
     public function update_item( $request ) {
-        $item = $this->prepare_item_for_database( $request );
+        $params = $request->get_params();
+        $item = $this->prepare_item_for_database( $params );
         if ( !is_wp_error($item) ) {
             $data = $this->update_site(
                 $item['id'],
@@ -312,12 +313,11 @@ class MultisiteController extends WP_REST_Controller {
                 $item['user_id']
             );
             
-            if ( !is_wp_error($data) ) {
-                return new WP_REST_Response( $data, 200 );
-            } else {
+            if ( !is_wp_error($data) )
+                return new WP_REST_Response(
+                    $this->prepare_item_for_response( $data ), 200 );
+            else
                 return $data;
-            }
-
         } else {
             return $item; // return the error
         }
@@ -348,9 +348,9 @@ class MultisiteController extends WP_REST_Controller {
      * @param WP_REST_Request $request Request object
      * @return WP_Error|object $prepared_item
      */
-    protected function prepare_item_for_database( $request ) {
-        $params = $request->get_params(); // this include url and body params
+    protected function prepare_item_for_database( $params ) {
         
+        $id         = $params['id'];
         $title      = $params['title'];
         $site_name  = $params['site_name'];
         $user_id    = $params['user_id'];
@@ -365,6 +365,7 @@ class MultisiteController extends WP_REST_Controller {
         }
 
         return array(
+            'id' => $id,
             'title' => $title,
             'site_name' => $site_name,
             'user_id' => $user_id
@@ -378,8 +379,11 @@ class MultisiteController extends WP_REST_Controller {
      * @param WP_REST_Request $request Request object.
      * @return mixed
      */
-    public function prepare_item_for_response($item, $request) {
+    public function prepare_item_for_response( $item, $request ) {
         // Here you can modify the item, before the response
+        $item->ruc = get_blog_option( $item->id, 'ruc' );
+        $item->banner_id = get_blog_option( $item->id, 'banner_id' );
+
         return $item;
     }
     
@@ -425,6 +429,14 @@ class MultisiteController extends WP_REST_Controller {
             'required' => true,
             'type' => 'string',
             'validate_callback' => array( $this, 'is_valid_sitename' )
+        );
+        $query_params['ruc'] = array(
+            'description' => 'Business RUC number',
+            'type' => 'string'
+        );
+        $query_params['banner_id'] = array(
+            'description' => 'Id of attachment for the banner',
+            'type' => 'integer'
         );
         return $query_params;
     }
