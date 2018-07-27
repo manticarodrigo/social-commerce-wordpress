@@ -410,8 +410,9 @@ class MultisiteController extends WP_REST_Controller {
         $query_params['user_id'] = array(
             'description' => 'User Id of site owner.',
             'type' => 'integer',
-            'required' => 'true',
-            'sanitize_callback' => 'absint'
+            'required' => true,
+            // 'sanitize_callback' => 'absint',
+            'validate_callback' => 'is_numeric'
         );
         return $query_params;
     }
