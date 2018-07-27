@@ -106,7 +106,8 @@ class MultisiteController extends WP_REST_Controller {
 	 */
 	public function create_site( $title, $site_name, $user_id ) {
 		$current_site = get_current_site();
-		$site_id = wpmu_create_blog( $this->full_domain( $site_name, $current_site ),
+		$site_id = wpmu_create_blog(
+            $this->full_domain( $site_name, $current_site ),
 			$this->full_path($site_name, $current_site),
 			$title,
 			$user_id,
@@ -307,17 +308,19 @@ class MultisiteController extends WP_REST_Controller {
         $item = $this->prepare_item_for_database( $params );
         if ( !is_wp_error($item) ) {
             $data = $this->update_site(
-                $item['id'],
+                $item['blog_id'],
                 $item['title'],
                 $item['site_name'],
                 $item['user_id']
             );
             
-            if ( !is_wp_error($data) )
+            if ( $data && !is_wp_error($data) ) {
+                $this->update_site_meta( $item['blog_id'], $params );
                 return new WP_REST_Response(
                     $this->prepare_item_for_response( $data, $params ), 200 );
-            else
+            } else {
                 return $data;
+            }
         } else {
             return $item; // return the error
         }
@@ -350,7 +353,7 @@ class MultisiteController extends WP_REST_Controller {
      */
     protected function prepare_item_for_database( $params ) {
         
-        $id         = $params['id'];
+        $blog_id    = $params['id'];
         $title      = $params['title'];
         $site_name  = $params['site_name'];
         $user_id    = $params['user_id'];
@@ -365,10 +368,10 @@ class MultisiteController extends WP_REST_Controller {
         }
 
         return array(
-            'id' => $id,
-            'title' => $title,
+            'blog_id'   => $blog_id,
+            'title'     => $title,
             'site_name' => $site_name,
-            'user_id' => $user_id
+            'user_id'   => $user_id
         );
     }
     
@@ -381,9 +384,10 @@ class MultisiteController extends WP_REST_Controller {
      */
     public function prepare_item_for_response( $item, $request ) {
         // Here you can modify the item, before the response
-        $item->ruc = get_blog_option( $item->id, 'ruc' );
-        $item->banner_id = get_blog_option( $item->id, 'banner_id' );
-
+        if ( $item ) {
+            $item->ruc = get_blog_option( $item->id, 'ruc' );
+            $item->banner_id = get_blog_option( $item->id, 'banner_id' );
+        }
         return $item;
     }
     
