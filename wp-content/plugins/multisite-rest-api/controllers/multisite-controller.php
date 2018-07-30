@@ -174,6 +174,17 @@ class MultisiteController extends WP_REST_Controller {
             update_blog_option( $id, 'banner_id', $params['banner_id'] );
     }
 
+    public function update_user_meta( $user_id, $params ) {
+        if ( isset( $params['user_name'] ) )
+            wp_update_user( array( 'ID' => $user_id, 'display_name' => $params['user_name'] ) );
+        if ( isset( $params['user_email'] ) )
+            wp_update_user( array( 'ID' => $user_id, 'display_name' => $params['user_email'] ) );
+        if ( isset( $params['user_cellphone'] ) )
+            update_user_meta( $user_id, 'user_cellphone', $params['user_cellphone'] );
+        if ( isset( $params['user_dni'] ) )
+            update_user_meta( $user_id, 'user_dni', $params['user_dni'] );
+    }
+
     /*
      * Checks whether sitename is a valid domain name or site name
      * Works on both domain and subdirectory
@@ -217,8 +228,8 @@ class MultisiteController extends WP_REST_Controller {
             return false;
     }
 
-    public function is_valid_id($param, $request, $key) {
-        return is_numeric( $param );
+    public function is_valid_user_id( $param, $request, $key ) {
+        return is_numeric( $param ) && $this->user_id_exists($param);
     }
 
     public function user_id_exists( $user_id ) {
@@ -294,13 +305,15 @@ class MultisiteController extends WP_REST_Controller {
                 $item['site_name'],
                 $item['user_id']
             );
-            $this->update_site_meta( $item['blog_id'], $params );
 
-            if ( !is_wp_error( $site ) )
+            if ( !is_wp_error( $site ) ) {
+                $this->update_site_meta( $site->blog_id, $params );
+                $this->update_user_meta( $params['user_id'], $params );
                 return new WP_REST_Response( 
                     $this->prepare_item_for_response( $site,  $params ),
                     200
                 );
+            }
             else
                 return $site;
         } else
@@ -317,19 +330,20 @@ class MultisiteController extends WP_REST_Controller {
         $params = $request->get_params();
         $item = $this->prepare_item_for_database( $params );
         if ( !is_wp_error($item) ) {
-            $data = $this->update_site(
-                $item['blog_id'],
+            $site = $this->update_site(
+                $params['id'],
                 $item['title'],
                 $item['site_name'],
                 $item['user_id']
             );
             
-            if ( $data && !is_wp_error($data) ) {
-                $this->update_site_meta( $item['blog_id'], $params );
+            if ( $site && !is_wp_error($site) ) {
+                $this->update_site_meta( $site->blog_id, $params );
+                $this->update_user_meta( $params['user_id'], $params );
                 return new WP_REST_Response(
-                    $this->prepare_item_for_response( $data, $params ), 200 );
+                    $this->prepare_item_for_response( $site, $params ), 200 );
             } else {
-                return $data;
+                return $site;
             }
         } else {
             return $item; // return the error
@@ -362,26 +376,12 @@ class MultisiteController extends WP_REST_Controller {
      * @return WP_Error|object $prepared_item
      */
     protected function prepare_item_for_database( $params ) {
-        
-        $blog_id    = $params['id'];
-        $title      = $params['title'];
-        $site_name  = $params['site_name'];
-        $user_id    = $params['user_id'];
-
-        // Next check if user exists
-        if ( !$this->user_id_exists($user_id) ) {
-            return new WP_Error(
-                'user_id_invalid', 
-                __("Invalid User Id: '" . $user_id . "'"), array(
-                'status' => 400
-            ));
-        }
-
+        /* This function is just for transform the params in 
+         * case you need to store it different in database. */
         return array(
-            'blog_id'   => $blog_id,
-            'title'     => $title,
-            'site_name' => $site_name,
-            'user_id'   => $user_id
+            'title'     => $params['title'],
+            'site_name' => $params['site_name'],
+            'user_id'   => $params['user_id']
         );
     }
     
@@ -395,8 +395,19 @@ class MultisiteController extends WP_REST_Controller {
     public function prepare_item_for_response( $item, $request ) {
         // Here you can modify the item, before the response
         if ( $item ) {
-            $item->ruc = get_blog_option( $item->id, 'ruc' );
-            $item->banner_id = get_blog_option( $item->id, 'banner_id' );
+            $item->ruc = get_blog_option( intval($item->id), 'ruc' );
+            $item->banner_id = get_blog_option( intval($item->id), 'banner_id' );
+
+            $users = $this->get_blog_users( intval($item->id) );
+            $item->users = array();
+            foreach ( $users as $user ) {
+                array_push( $item->users, array(
+                    'user_name'         =>  $user->display_name,
+                    'user_email'        =>  $user->user_email,
+                    'user_cellphone'    =>  get_user_meta( $user->ID, 'user_cellphone', true ),
+                    'user_dni'          =>  get_user_meta( $user->ID, 'user_dni', true )
+                ) );
+            }
         }
         return $item;
     }
@@ -414,7 +425,7 @@ class MultisiteController extends WP_REST_Controller {
             'description' => 'User Id of site owner.',
             'type' => 'integer',
             'required' => true,
-            'validate_callback' => array( $this, 'is_valid_id' )
+            'validate_callback' => array( $this, 'is_valid_user_id' )
         );
         return $query_params;
     }
@@ -430,7 +441,7 @@ class MultisiteController extends WP_REST_Controller {
             'description' => 'User Id of site owner.',
             'type' => 'integer',
             'required' => true,
-            'validate_callback' => array( $this, 'is_valid_id' )
+            'validate_callback' => array( $this, 'is_valid_user_id' )
         );
         $query_params['title'] = array(
             'description' => 'Title of the blog.',
@@ -452,6 +463,25 @@ class MultisiteController extends WP_REST_Controller {
             'description' => 'Id of attachment for the banner',
             'type' => 'integer'
         );
+
+        // User related fields, should be in a different place but IDK
+        $query_params['user_name'] = array(
+            'description' => 'Name of user',
+            'type' => 'string'
+        );
+        $query_params['user_email'] = array(
+            'description' => 'Email of user',
+            'type' => 'string'
+        );
+        $query_params['user_cellphone'] = array(
+            'description' => 'User Cellphone',
+            'type' => 'string'
+        );
+        $query_params['user_dni'] = array(
+            'description' => 'User DNI',
+            'type' => 'string'
+        );
+
         return $query_params;
     }
 }
