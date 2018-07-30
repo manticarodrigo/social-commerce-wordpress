@@ -13,7 +13,7 @@ function wpmu_list_sites() {
 	
 	if ( ! empty ( $subsites ) ) {
     
-    wp_enqueue_style('list-sites-styles', plugin_dir_url( __FILE__ ) . './list-sites.css' );
+    wp_enqueue_style('sitedirectory-styles', plugin_dir_url( __FILE__ ) . './sitedirectory.css' );
     
 		echo '<section class="subsites-container">';
 		
