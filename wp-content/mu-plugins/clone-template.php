@@ -6,13 +6,12 @@
  * @param int $clone_to_blog_id the blog id in which we are cloning
  */
 
-add_action( 'wpmu_new_blog', 'bpdev_clone_on_new_blog_registration',10, 6 );
+add_action( 'wpmu_new_blog', 'bpdev_clone_on_new_blog_registration', 10, 6 );
 function bpdev_clone_on_new_blog_registration( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
   $template_id = 2; // blog id you want to clone
   $site = get_blog_details( $template_id );
-  if ( $site && !is_wp_error( $site ) )
+  if ( ($blog_id !== 1 && $blog_id !== 2) && ($site && !is_wp_error( $site )) )
     bpdev_clone_blog( $template_id, $blog_id ); // clone the specified blog to the newly registered blog
- 
 }
 
 function bpdev_clone_blog( $clone_from_blog_id, $clone_to_blog_id ){
