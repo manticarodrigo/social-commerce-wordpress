@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WooCommerce - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2018-07-25 19:03:07+0000\n"
+"PO-Revision-Date: 2018-07-29 08:15:31+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -15619,10 +15619,6 @@ msgstr "Disminuir el precio existente en (cantidad fija o %):"
 msgid "Not declared"
 msgstr "No declarada"
 
-#: includes/admin/views/html-admin-page-status-report.php:794
-msgid "WooCommerce support"
-msgstr "Soporte WooCommerce"
-
 #: includes/admin/views/html-admin-page-status-report.php:755
 msgid "Child theme"
 msgstr "Tema hijo"
@@ -15636,14 +15632,14 @@ msgctxt "Page setting"
 msgid "My account"
 msgstr "Mi cuenta"
 
-#: includes/admin/views/html-notice-template-check.php:15
-msgid "<strong>Your theme (%1$s) contains outdated copies of some WooCommerce template files.</strong> These files may need updating to ensure they are compatible with the current version of WooCommerce. You can see which files are affected from the <a href=\"%2$s\">system status page</a>. If in doubt, check with the author of the theme."
-msgstr "<strong>Tu tema (%1$s) contiene copias no actualizadas de algunos archivos de plantilla WooCommerce.</strong> Estos archivos necesitan modificarse para que sean compatibles con la versión actual de WooCommerce. Puedes ver qué archivos se han visto afectados en la <a href=\"%2$s\">página del estado del sistema</a>. En caso de duda, consulta con el autor del tema."
-
 #: includes/api/class-wc-rest-system-status-controller.php:976
 msgctxt "Page setting"
 msgid "Shop base"
 msgstr "Base de la tienda"
+
+#: includes/admin/views/html-notice-template-check.php:15
+msgid "<strong>Your theme (%1$s) contains outdated copies of some WooCommerce template files.</strong> These files may need updating to ensure they are compatible with the current version of WooCommerce. You can see which files are affected from the <a href=\"%2$s\">system status page</a>. If in doubt, check with the author of the theme."
+msgstr "<strong>Tu tema (%1$s) contiene copias no actualizadas de algunos archivos de plantilla WooCommerce.</strong> Estos archivos necesitan modificarse para que sean compatibles con la versión actual de WooCommerce. Puedes ver qué archivos se han visto afectados en la <a href=\"%2$s\">página del estado del sistema</a>. En caso de duda, consulta con el autor del tema."
 
 #: includes/admin/views/html-admin-page-status-report.php:609
 msgid "API enabled"
@@ -15737,6 +15733,10 @@ msgstr "Tipo de atributo order_by de producto no válido  - el tipo de atributo 
 #: includes/api/legacy/v3/class-wc-api-products.php:2870
 msgid "Invalid product attribute ID"
 msgstr "ID de atributo de producto no válido"
+
+#: includes/admin/views/html-admin-page-status-report.php:794
+msgid "WooCommerce support"
+msgstr "Compatible con WooCommerce"
 
 #: includes/admin/settings/class-wc-settings-general.php:211
 msgid "Calculate coupon discounts sequentially"
