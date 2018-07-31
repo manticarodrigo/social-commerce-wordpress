@@ -395,10 +395,23 @@ class MultisiteController extends WP_REST_Controller {
     public function prepare_item_for_response( $item, $request ) {
         // Here you can modify the item, before the response
         if ( $item ) {
-            $item->ruc = get_blog_option( intval($item->id), 'ruc' );
+            $ruc = get_blog_option( intval($item->id), 'ruc' );
+            $item->ruc = $ruc ? $ruc : '';
+
             $item->banner_id = get_blog_option( intval($item->id), 'banner_id' );
 
             $users = $this->get_blog_users( intval($item->id) );
+
+            // Changing some field names
+            if ( isset($item->userblog_id) ) {
+                $item->blog_id = $item->userblog_id;
+                unset($item->userblog_id);
+            }
+            if ( isset($item->blogname) ) {
+                $item->title = $item->blogname;
+                unset($item->blogname);
+            }
+
             $item->users = array();
             foreach ( $users as $user ) {
                 array_push( $item->users, array(
