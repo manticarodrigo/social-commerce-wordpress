@@ -6,7 +6,7 @@
  * @param int $clone_to_blog_id the blog id in which we are cloning
  */
 
-add_action( 'wpmu_new_blog', 'bpdev_clone_on_new_blog_registration', 10, 6 );
+// add_action( 'wpmu_new_blog', 'bpdev_clone_on_new_blog_registration', 10, 6 );
 function bpdev_clone_on_new_blog_registration( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
   $template_id = 2; // blog id you want to clone
   $site = get_blog_details( $template_id );
