@@ -432,7 +432,13 @@ class MultisiteController extends WP_REST_Controller {
                 ) );
             }
 
-            $item->public   = $item->public === '1';
+            if ( isset($item->public) )
+                $item->public   = $item->public === '1';
+            else {
+                $public = get_blog_status( intval($item->id), 'public' );
+                $item->public = $public === '1';
+            }
+    
             $item->archived = $item->archived === '1';
             $item->mature   = $item->mature === '1';
             $item->spam     = $item->spam === '1';
