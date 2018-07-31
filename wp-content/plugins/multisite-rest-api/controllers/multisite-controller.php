@@ -399,6 +399,7 @@ class MultisiteController extends WP_REST_Controller {
             $item->ruc = $ruc ? $ruc : '';
 
             $item->banner_id = get_blog_option( intval($item->id), 'banner_id' );
+            $item->banner_url = wp_get_attachment_url( $item->banner_id );
 
             $users = $this->get_blog_users( intval($item->id) );
 
