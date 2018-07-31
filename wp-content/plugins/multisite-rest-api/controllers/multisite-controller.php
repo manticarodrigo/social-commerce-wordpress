@@ -263,6 +263,7 @@ class MultisiteController extends WP_REST_Controller {
 
         $data  = array();
         foreach ( $sites as $site ) {
+            $site->id = $site->userblog_id;
             $itemdata = $this->prepare_item_for_response( $site, $params );
             $data[]   = $this->prepare_response_for_collection( $itemdata );
         }
@@ -402,6 +403,7 @@ class MultisiteController extends WP_REST_Controller {
     public function prepare_item_for_response( $item, $request ) {
         // Here you can modify the item, before the response
         if ( $item ) {
+
             $ruc = get_blog_option( intval($item->id), 'ruc' );
             $item->ruc = $ruc ? $ruc : '';
 
