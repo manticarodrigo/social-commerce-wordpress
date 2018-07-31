@@ -174,6 +174,8 @@ class MultisiteController extends WP_REST_Controller {
             update_blog_option( $id, 'ruc', $params['ruc'] );
         if ( isset( $params['banner_id'] ) )
             update_blog_option( $id, 'banner_id', $params['banner_id'] );
+        if ( isset( $params['bank_account'] ) )
+            update_blog_option( $id, 'bank_account', $params['bank_account'] );
     }
 
     public function update_user_meta( $user_id, $params ) {
@@ -433,6 +435,9 @@ class MultisiteController extends WP_REST_Controller {
             $item->mature   = $item->mature === '1';
             $item->spam     = $item->spam === '1';
             $item->deleted  = $item->deleted === '1';
+
+            $bank_account = get_blog_option( intval($item->id), 'bank_account' );
+            $item->bank_account = $bank_account ? $bank_account : '';
         }
         return $item;
     }
@@ -509,6 +514,12 @@ class MultisiteController extends WP_REST_Controller {
         );
         $query_params['user_dni'] = array(
             'description' => 'User DNI',
+            'type' => 'string'
+        );
+
+        // bank account, sholdn't be here neither
+        $query_params['bank_account'] = array(
+            'description' => 'Bank account',
             'type' => 'string'
         );
 
