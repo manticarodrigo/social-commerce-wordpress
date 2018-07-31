@@ -1,5 +1,17 @@
 <?php
 
+add_action( 'init', 'handle_preflight' );
+function handle_preflight() {
+  header("Access-Control-Allow-Origin: " . get_http_origin());
+  header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
+  header("Access-Control-Allow-Credentials: true");
+  header("Access-Control-Allow-Headers: Authorization, Origin, X-Requested-With, Content-Type, Accept");
+  if ( 'OPTIONS' == $_SERVER['REQUEST_METHOD'] ) {
+    status_header(200);
+    exit();
+  }
+}
+
 // add_filter( 'allowed_http_origin', '__return_true' );
 
 // add_filter('http_origin', function() {
@@ -16,18 +28,6 @@
 // 		return $value;
 // 	});
 // }, 15 );
-
-// add_action( 'init', 'handle_preflight' );
-// function handle_preflight() {
-//   header("Access-Control-Allow-Origin: " . get_http_origin());
-//   header("Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE");
-//   header("Access-Control-Allow-Credentials: true");
-//   header("Access-Control-Allow-Headers: Authorization, Origin, X-Requested-With, Content-Type, Accept");
-//   if ( 'OPTIONS' == $_SERVER['REQUEST_METHOD'] ) {
-//     status_header(200);
-//     exit();
-//   }
-// }
 
 // add_filter( 'wp_headers', array( 'eg_send_cors_headers' ), 11, 1 );
 // function eg_send_cors_headers( $headers ) {
