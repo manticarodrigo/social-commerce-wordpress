@@ -135,8 +135,8 @@ class MultisiteController extends WP_REST_Controller {
         if ( !is_wp_error( $site ) && $site->blog_id == $id && $id != 1) {
             // TODO: Check if user in site
             update_blog_option( $id, 'blogname', $title );
-            update_blog_option( $id, 'home', 'http://' . $site->domain . '/' . $site_name );
-            update_blog_option( $id, 'siteurl', 'http://' . $site->domain . '/' . $site_name );
+            update_blog_option( $id, 'home', 'https://' . $site->domain . '/' . $site_name );
+            update_blog_option( $id, 'siteurl', 'https://' . $site->domain . '/' . $site_name );
             update_blog_details( $id, array( 'path' => $site_name ) );
 
             update_blog_status( $id, 'public', $public );
