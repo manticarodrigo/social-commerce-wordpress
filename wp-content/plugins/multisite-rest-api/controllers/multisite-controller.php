@@ -104,14 +104,14 @@ class MultisiteController extends WP_REST_Controller {
 	 * @param user_id The ID of the admin user for this site
 	 * @return site Object An objectified version of the site
 	 */
-	public function create_site( $title, $site_name, $user_id ) {
+	public function create_site( $title, $site_name, $user_id, $public=false ) {
         $current_site = get_current_site();
 		$site_id = wpmu_create_blog(
             $this->full_domain( $site_name, $current_site ),
 			$this->full_path( $site_name, $current_site ),
 			$title,
 			$user_id,
-			array('public' => true),
+			array('public' => $public),
             $current_site->id
         );
         if ( is_wp_error( $site_id ) )
@@ -130,7 +130,7 @@ class MultisiteController extends WP_REST_Controller {
 	 * @param title string The title of the site
 	 * @param site_name string The sitename used for the site, will become the path or the subdomain
 	 */
-	public function update_site( $id, $title, $site_name, $user_id ) {
+	public function update_site( $id, $title, $site_name, $user_id, $public=false ) {
         $site = $this->get_site_by_id( $id );
         if ( !is_wp_error( $site ) && $site->blog_id == $id && $id != 1) {
             // TODO: Check if user in site
@@ -138,6 +138,8 @@ class MultisiteController extends WP_REST_Controller {
             update_blog_option( $id, 'home', 'http://' . $site->domain . '/' . $site_name );
             update_blog_option( $id, 'siteurl', 'http://' . $site->domain . '/' . $site_name );
             update_blog_details( $id, array( 'path' => $site_name ) );
+
+            update_blog_status( $id, 'public', $public );
             return $this->get_site_by_id( $id );
         } else {
             return new WP_Error(
@@ -303,7 +305,8 @@ class MultisiteController extends WP_REST_Controller {
             $site = $this->create_site(
                 $item['title'],
                 $item['site_name'],
-                $item['user_id']
+                $item['user_id'],
+                $item['public']
             );
 
             if ( !is_wp_error( $site ) ) {
@@ -334,7 +337,8 @@ class MultisiteController extends WP_REST_Controller {
                 $params['id'],
                 $item['title'],
                 $item['site_name'],
-                $item['user_id']
+                $item['user_id'],
+                $item['public']
             );
             
             if ( $site && !is_wp_error($site) ) {
@@ -381,7 +385,8 @@ class MultisiteController extends WP_REST_Controller {
         return array(
             'title'     => $params['title'],
             'site_name' => $params['site_name'],
-            'user_id'   => $params['user_id']
+            'user_id'   => $params['user_id'],
+            'public'    => $params['public']
         );
     }
     
@@ -475,6 +480,11 @@ class MultisiteController extends WP_REST_Controller {
         $query_params['banner_id'] = array(
             'description' => 'Id of attachment for the banner',
             'type' => 'integer'
+        );
+        $query_params['public'] = array(
+            'description' => 'Is site public?',
+            'default' => false,
+            'type' => 'boolean'
         );
 
         // User related fields, should be in a different place but IDK
