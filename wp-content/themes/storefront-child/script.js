@@ -1,6 +1,6 @@
 (function($) {
     // Changing copyright text
-    let title = 'Peritagua';
+    let title = 'Heyshopper';
     let $title = $('h1');
     
     if ($title.length == 1 && $('.single-product').length == 0) {
@@ -8,34 +8,37 @@
         $title.hide();
     }
     
-    $('.storefront-handheld-footer-bar .columns-3').prepend(
+    // Top Bar
+    $('.storefront-handheld-footer-bar ul').prepend(
         `<span class="woocommerce-products-header__title alpha page-title">${title}</span>`);
 
-    $('.quick_buy_container').each(function(index) {
-        $(this).appendTo($(this).prev());
-    });
-
-    // Quantity form
-    $('form.cart').on('change', 'input.qty', function() {
-        $(this.form).find('[data-quantity]').data('quantity', this.value);
-    });
-    $(document.body).on('adding_to_cart', function() {
-        $('a.added_to_cart').remove();
-    });
-    $(document.body).on('added_to_cart', function( data ) {
-		$('.added_to_cart').after("<p class=\'confirm_add\'>Item Added</p>");
-    });
-
+    // Quantity Buttons
     $('.qty-btn-add').click(function() {
-        var current_value = parseInt($('input.qty').val());
-        $('input.qty').val(current_value + 1);
+        var $input = $('input.qty', $(this).parent());
+        var $qtybtn = $(this).parents('.cart').find('.add_to_cart_button');
+        var current_value = parseInt($input.val());
+        $input.val(current_value + 1);
+        $qtybtn.data('quantity', current_value + 1);
     });
 
     $('.qty-btn-sub').click(function() {
-        var current_value = parseInt($('input.qty').val());
+        var $input = $('input.qty', $(this).parent());
+        var $qtybtn = $(this).parents('.cart').find('.add_to_cart_button');
+        var current_value = parseInt($input.val());
         if (current_value > 0) {
-            $('input.qty').val(current_value - 1);
+            $input.val(current_value - 1);
+            $qtybtn.data('quantity', current_value - 1);
         }
+    });
+
+    // Mark shop now
+    $(document).ready(function(){
+        // listen if someone clicks 'Buy Now' button
+        $('.buy_now_button').click(function(){
+            // set value to 1
+            $('.is_buy_now_input', $(this).parent()).val('1');
+            $(this).parents('form.cart').submit();
+        });
     });
 
 })(jQuery);

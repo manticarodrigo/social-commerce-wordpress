@@ -31,6 +31,7 @@ ul.products + .storefront-sorting,
 .woocommerce-products-header .woocommerce-products-header__title,
 .reviews_tab,
 .woocommerce-checkout .woocommerce-message,
+.woocommerce-cart-form__cart-item .qty-btn,
 .woocommerce-checkout .cart {
     display: none !important;
 }
@@ -219,4 +220,14 @@ ul.products li.product img {
 
 .storefront-handheld-footer-bar {
     display: block !important;
+}
+
+.woocommerce-cart-form__cart-item .quantity {
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+.buy_now_button, a.added_to_cart {
+    margin: 0 0 3px 3px;
 }
