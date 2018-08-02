@@ -29,7 +29,7 @@ do_action( 'woocommerce_cart_is_empty' );
 
 if ( wc_get_page_id( 'shop' ) > 0 ) : ?>
 	<?php
-	$term_link = get_term_link( get_active_term_id(), 'product_cat' );
+	$term_link = get_site_url();
 	
 	if ( $term_link ) :
 	?>

@@ -298,5 +298,17 @@ function add_ref_number_gateway( $available_gateways ) {
 	return $allowed_gateways;
 }
 
+// Remove storefront home sections
+add_action( 'wp_head', 'remove_storefront_home_actions' );
+function remove_storefront_home_actions() {
+	// remove_action( 'homepage', 'storefront_homepage_content',      10 );
+  remove_action( 'homepage', 'storefront_product_categories',    20 );
+  // remove_action( 'homepage', 'storefront_recent_products',       30 );
+  remove_action( 'homepage', 'storefront_featured_products',     40 );
+  // remove_action( 'homepage', 'storefront_popular_products',      50 );
+  // remove_action( 'homepage', 'storefront_on_sale_products',      60 );
+  remove_action( 'homepage', 'storefront_best_selling_products', 70 );
+}
+
 
 ?>
