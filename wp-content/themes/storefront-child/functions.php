@@ -189,6 +189,28 @@ function custom_edit_checkout_page () {
   add_action( 'woocommerce_checkout_after_customer_details', 'woocommerce_checkout_payment', 20 );
 }
 
+// Remove woocoomerce checkout fields
+add_filter( 'woocommerce_checkout_fields' , 'override_checkout_fields' );
+function override_checkout_fields( $fields ) {
+  unset($fields['billing']['billing_company']);
+  unset($fields['billing']['billing_address_2']);
+  unset($fields['billing']['billing_city']);
+  unset($fields['billing']['billing_postcode']);
+  unset($fields['billing']['billing_state']);
+  unset($fields['billing']['billing_country']);
+  unset($fields['billing']['billing_company']);
+  $fields['billing']['billing_address_1']['label'] = 'Dirección completa';
+  $fields['billing']['billing_address_1']['placeholder'] = '';
+  $fields['billing']['billing_dni'] = array(
+    'label'     => __('Numero DNI', 'woocommerce'),
+    'placeholder'   => _x('', 'placeholder', 'woocommerce'),
+    'required'  => false,
+    'class'     => array('form-row-wide'),
+    'clear'     => true
+    );
+  return $fields;
+}
+
 // Order button text
 add_filter( 'woocommerce_order_button_text', 'woo_custom_order_button_text' ); 
 function woo_custom_order_button_text() {
