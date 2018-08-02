@@ -97,23 +97,6 @@ class MultisiteController extends WP_REST_Controller {
             return $site;
     }
 
-    /**
-     * Given a page id assign a given page template to it.
-     *
-     * @param int $page_id
-     * @param string $template
-     * @return void
-     */
-    private function _assign_page_template( $page_id, $template ) {
-        if ( empty( $page_id ) || empty( $template ) || '' === locate_template( $template ) ) {
-            return false;
-        } else {
-            $template = get_template_directory() . '/' . $template;
-        }
-
-        update_post_meta( $page_id, '_wp_page_template', $template );
-    }
-
     private function set_storefront_options( $blog_id ) {
         switch_to_blog( $blog_id );
         switch_theme( 'storefront-child' );
@@ -126,7 +109,7 @@ class MultisiteController extends WP_REST_Controller {
         ));
         update_option( 'page_on_front', $home_id );
         update_option( 'show_on_front', 'page' );
-        $this->_assign_page_template( $home_id, 'template-homepage.php' );
+        update_post_meta( $home_id, '_wp_page_template', 'template-homepage.php' );
         restore_current_blog();
     }
     
