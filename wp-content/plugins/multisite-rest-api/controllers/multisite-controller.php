@@ -238,8 +238,8 @@ class MultisiteController extends WP_REST_Controller {
     public function update_user_meta( $user_id, $params ) {
         if ( isset( $params['user_name'] ) )
             wp_update_user( array( 'ID' => $user_id, 'display_name' => $params['user_name'] ) );
-        if ( isset( $params['user_email'] ) )
-            wp_update_user( array( 'ID' => $user_id, 'user_email' => $params['user_email'] ) );
+        // if ( isset( $params['user_email'] ) )
+        //     wp_update_user( array( 'ID' => $user_id, 'user_email' => $params['user_email'] ) );
         if ( isset( $params['user_cellphone'] ) )
             update_user_meta( $user_id, 'user_cellphone', $params['user_cellphone'] );
         if ( isset( $params['user_dni'] ) )
