@@ -165,14 +165,28 @@ function woo_product_loop_image_wrapper_close() {
 add_filter( 'woocommerce_loop_add_to_cart_link', 'woa_add_quantity_fields', 10, 2 );
 function woa_add_quantity_fields($html, $product) {
   //add quantity field only to simple products
-  if ( $product && $product->is_type( 'simple' ) && $product->is_purchasable() && $product->is_in_stock() && ! $product->is_sold_individually() ) {
+  if ($product && $product->is_type( 'simple' ) && $product->is_purchasable() && $product->is_in_stock() && ! $product->is_sold_individually() ) {
     //rewrite form code for add to cart button
     $html = '<form action="' . esc_url( $product->add_to_cart_url() ) . '" class="cart" method="post" enctype="multipart/form-data">';
     $html .= woocommerce_quantity_input( array(), $product, false );
+    $html .= '<div class="buttons-wrapper">';
     $html .= '<button type="submit" data-quantity="1" data-product_id="' . $product->id . '" class="button alt ajax_add_to_cart add_to_cart_button product_type_simple">' . esc_html( $product->add_to_cart_text() ) . '</button>';
+    $html .= '<button type="submit" class="button alt product_type_simple buy_now_button">' . esc_html( 'Comprar ahora' ) . '</button>';
+    $html .= '<input type="hidden" name="is_buy_now" class="is_buy_now_input" value="0" />';
+    $html .= '</div>';
     $html .= '</form>';
   }
   return $html;
+}
+
+// Redirect to checkout if is buy now vakue
+add_filter( 'woocommerce_add_to_cart_redirect', 'redirect_to_checkout' );
+function redirect_to_checkout( $redirect_url ) {
+  if ( isset( $_REQUEST['is_buy_now'] ) && $_REQUEST['is_buy_now'] ) {
+    global $woocommerce;
+    $redirect_url = wc_get_checkout_url();
+  }
+  return $redirect_url;
 }
 
 // hide coupon field on checkout page
@@ -277,9 +291,7 @@ function cat_opengraph_image() {
     $blog_id = get_current_blog_id();
     if ( $blog_id ) {
       $thumbnail_id = get_blog_option( $blog_id, 'banner_id', true );
-      // switch_to_blog( 1 );
       $image = wp_get_attachment_url( intval( $thumbnail_id ) );
-      // restore_current_blog();
       if ( $image ) {
         echo '<meta property="og:image" content="'.$image.'" />';
       }
