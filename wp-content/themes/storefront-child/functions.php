@@ -39,23 +39,23 @@ function child_theme_body_script() { ?>
 /**
  * Display site image on front page
  */
-add_action( 'the_content', 'storefront_display_custom_banner' );
-function storefront_display_custom_banner() {
-  if ( !is_home() ) {
-    return;
-  }
-  $blog_id = get_current_blog_id();
-  if ( $blog_id ) {
-    $thumbnail_id = get_blog_option( $blog_id, 'banner_id', true );
-    switch_to_blog( 1 );
-    $image = wp_get_attachment_url( intval( $thumbnail_id ) );
-    restore_current_blog();
-    echo '<h1>' . get_option('blogname') . '</h1>';
-    if ( $image ) {
-      echo '<div class="cat-banner" style="background-image: url( '. $image . ')"></div>';
-    }
-  }
-}
+// add_action( 'the_content', 'storefront_display_custom_banner' );
+// function storefront_display_custom_banner() {
+//   if ( !is_home() ) {
+//     return;
+//   }
+//   $blog_id = get_current_blog_id();
+//   if ( $blog_id ) {
+//     $thumbnail_id = get_blog_option( $blog_id, 'banner_id', true );
+//     switch_to_blog( 1 );
+//     $image = wp_get_attachment_url( intval( $thumbnail_id ) );
+//     restore_current_blog();
+//     echo '<h1>' . get_option('blogname') . '</h1>';
+//     if ( $image ) {
+//       echo '<div class="cat-banner" style="background-image: url( '. $image . ')"></div>';
+//     }
+//   }
+// }
 
 // Scripts
 add_action( 'wp_enqueue_scripts', 'my_assets' );
@@ -286,6 +286,16 @@ if ( class_exists( 'WooCommerce' ) ) {
   include_once dirname( __FILE__ ) . '/api/ga-ecommerce-api-controller.php';
   $controller = new GaEcommerceAPIController;
   $controller->register_routes();
+}
+
+// Ref number gateway 
+add_filter( 'woocommerce_available_payment_gateways', 'add_ref_number_gateway' );
+function add_ref_number_gateway( $available_gateways ) {
+  // global $woocommerce;
+  // print_r($available_gateways);
+  // if ( ! in_array( 'ref_number', $available_gateways ) )
+  array_push( $available_gateways, new WC_Ref_Number_Gateway ); 
+  return $available_gateways;
 }
 
 
