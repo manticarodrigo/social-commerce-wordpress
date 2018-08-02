@@ -192,9 +192,9 @@ class MultisiteController extends WP_REST_Controller {
             $current_site = get_current_site();
 
             update_blog_option( $id, 'blogname', $title );
-            update_blog_option( $id, 'home', $this->full_domain( $site_name, $current_site ) );
-            update_blog_option( $id, 'siteurl', $this->full_domain( $site_name, $current_site ) );
-            update_blog_details( $id, array( 'path' => $site_name ) );
+            // update_blog_option( $id, 'home', $this->full_domain( $site_name, $current_site ) );
+            // update_blog_option( $id, 'siteurl', $this->full_domain( $site_name, $current_site ) );
+            // update_blog_details( $id, array( 'path' => $site_name ) );
             update_blog_status( $id, 'public', $public );
 
             return $this->get_site_by_id( $id );
