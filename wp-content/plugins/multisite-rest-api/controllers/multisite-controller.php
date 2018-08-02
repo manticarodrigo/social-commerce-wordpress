@@ -96,6 +96,39 @@ class MultisiteController extends WP_REST_Controller {
         else
             return $site;
     }
+
+    /**
+     * Given a page id assign a given page template to it.
+     *
+     * @param int $page_id
+     * @param string $template
+     * @return void
+     */
+    private function _assign_page_template( $page_id, $template ) {
+        if ( empty( $page_id ) || empty( $template ) || '' === locate_template( $template ) ) {
+            return false;
+        } else {
+            $template = get_template_directory() . '/' . $template;
+        }
+
+        update_post_meta( $page_id, '_wp_page_template', $template );
+    }
+
+    private function set_storefront_options( $blog_id ) {
+        switch_to_blog( $blog_id );
+        switch_theme( 'storefront-child' );
+        $home_id = wp_insert_post(array(
+			'post_title' => 'Home',
+			'post_type' =>'page',		
+			'post_name' => 'home',
+			'post_status' => 'publish',
+			'post_excerpt' => 'Your store content'	
+        ));
+        update_option( 'page_on_front', $home_id );
+        update_option( 'show_on_front', 'page' );
+        $this->_assign_page_template( $home_id, 'template-homepage.php' );
+        restore_current_blog();
+    }
     
     /**
 	 * Creates a new site.
@@ -134,10 +167,11 @@ class MultisiteController extends WP_REST_Controller {
         $site = $this->get_site_by_id( $id );
         if ( !is_wp_error( $site ) && $site->blog_id == $id && $id != 1) {
             // TODO: Check if user in site
-            // TODO: http vs https
+            $current_site = get_current_site();
+
             update_blog_option( $id, 'blogname', $title );
-            update_blog_option( $id, 'home', 'https://' . $site->domain . '/' . $site_name );
-            update_blog_option( $id, 'siteurl', 'https://' . $site->domain . '/' . $site_name );
+            update_blog_option( $id, 'home', $this->full_domain( $site_name, $current_site ) );
+            update_blog_option( $id, 'siteurl', $this->full_domain( $site_name, $current_site ) );
             update_blog_details( $id, array( 'path' => $site_name ) );
 
             update_blog_status( $id, 'public', $public );
@@ -316,6 +350,10 @@ class MultisiteController extends WP_REST_Controller {
             if ( !is_wp_error( $site ) ) {
                 $this->update_site_meta( $site->blog_id, $params );
                 $this->update_user_meta( $params['user_id'], $params );
+                
+                // Storefront options
+                $this->set_storefront_options( $site->blog_id );
+
                 return new WP_REST_Response( 
                     $this->prepare_item_for_response( $site,  $params ),
                     200
