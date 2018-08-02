@@ -211,6 +211,32 @@ function override_checkout_fields( $fields ) {
   return $fields;
 }
 
+// Add custom woocommerce checkout fields
+// add_action( 'woocommerce_before_order_notes', 'custom_checkout_field' );
+// function custom_checkout_field( $checkout ) {
+//     echo '<div id="dni">';
+//     woocommerce_form_field( 'dni', array(
+//         'type'          => 'text',
+//         'class'         => array('form-row-wide'),
+//         'label'         => __('Numero DNI'),
+//         'placeholder'   => __(''),
+//         'required'      => false
+//         ), $checkout->get_value( 'dni' ));
+//     echo '</div>';
+// }
+
+add_action( 'woocommerce_checkout_update_order_meta', 'checkout_field_update_order_meta' );
+function checkout_field_update_order_meta( $order_id ) {
+    if ( ! empty( $_POST['billing_dni'] ) ) {
+        update_post_meta( $order_id, '_billing_dni', sanitize_text_field( $_POST['billing_dni'] ) );
+    }
+}
+
+add_action( 'woocommerce_admin_order_data_after_billing_address', 'checkout_field_display_admin_order_meta', 10, 1 );
+function checkout_field_display_admin_order_meta($order){
+    echo '<p><strong>'.__('DNI').':</strong> ' . get_post_meta( $order->id, '_billing_dni', true ) . '</p>';
+}
+
 // Order button text
 add_filter( 'woocommerce_order_button_text', 'woo_custom_order_button_text' ); 
 function woo_custom_order_button_text() {
