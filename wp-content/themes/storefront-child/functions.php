@@ -189,7 +189,7 @@ function custom_edit_checkout_page () {
   add_action( 'woocommerce_checkout_after_customer_details', 'woocommerce_checkout_payment', 20 );
 }
 
-// Remove woocoomerce checkout fields
+// Modify woocommerce checkout fields
 add_filter( 'woocommerce_checkout_fields' , 'override_checkout_fields' );
 function override_checkout_fields( $fields ) {
   unset($fields['billing']['billing_company']);
