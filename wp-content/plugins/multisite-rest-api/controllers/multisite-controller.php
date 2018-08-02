@@ -97,36 +97,58 @@ class MultisiteController extends WP_REST_Controller {
             return $site;
     }
 
-    /**
-     * Given a page id assign a given page template to it.
-     *
-     * @param int $page_id
-     * @param string $template
-     * @return void
-     */
-    private function _assign_page_template( $page_id, $template ) {
-        if ( empty( $page_id ) || empty( $template ) || '' === locate_template( $template ) ) {
-            return false;
-        } else {
-            $template = get_template_directory() . '/' . $template;
+    private function set_woocommerce_options( $blog_id, $params ) {
+        if ( class_exists( 'WC_Install' ) ) {
+            switch_to_blog( $blog_id );
+
+            $state = 'LIM'; // Lima
+            $country = 'PE'; // Peru
+            $currency_code = 'PEN'; // Peruvian Soles
+            // update_option( 'woocommerce_store_address', $address );
+            // update_option( 'woocommerce_store_address_2', $address_2 );
+            // update_option( 'woocommerce_store_city', $city );
+            update_option( 'woocommerce_default_country', $country . ':' . $state );
+            // update_option( 'woocommerce_store_postcode', $postcode );
+            update_option( 'woocommerce_currency', $currency_code );
+            // update_option( 'woocommerce_product_type', $product_type );
+            // update_option( 'woocommerce_sell_in_person', $sell_in_person );
+            $locale_info = include WC()->plugin_path() . '/i18n/locale-info.php';
+            
+            if ( isset( $locale_info[ $country ] ) ) {
+                update_option( 'woocommerce_weight_unit', $locale_info[ $country ]['weight_unit'] );
+                update_option( 'woocommerce_dimension_unit', $locale_info[ $country ]['dimension_unit'] );
+                // Set currency formatting options based on chosen location and currency.
+                if ( $locale_info[ $country ]['currency_code'] === $currency_code ) {
+                    update_option( 'woocommerce_currency_pos', $locale_info[ $country ]['currency_pos'] );
+                    update_option( 'woocommerce_price_decimal_sep', $locale_info[ $country ]['decimal_sep'] );
+                    update_option( 'woocommerce_price_num_decimals', $locale_info[ $country ]['num_decimals'] );
+                    update_option( 'woocommerce_price_thousand_sep', $locale_info[ $country ]['thousand_sep'] );
+                }
+            }
+            WC_Install::create_pages();
         }
 
-        update_post_meta( $page_id, '_wp_page_template', $template );
+        restore_current_blog();
     }
 
-    private function set_storefront_options( $blog_id ) {
+    private function set_storefront_options( $blog_id, $params ) {
         switch_to_blog( $blog_id );
         switch_theme( 'storefront-child' );
-        $home_id = wp_insert_post(array(
-			'post_title' => 'Home',
+        $page_id = wp_insert_post(array(
+			'post_title' => $params['title'],
 			'post_type' =>'page',		
 			'post_name' => 'home',
 			'post_status' => 'publish',
 			'post_excerpt' => 'Your store content'	
         ));
-        update_option( 'page_on_front', $home_id );
+        update_option( 'page_on_front', $page_id );
         update_option( 'show_on_front', 'page' );
-        $this->_assign_page_template( $home_id, 'template-homepage.php' );
+        update_post_meta( $page_id, '_wp_page_template', 'template-homepage.php' );
+
+        if ( isset( $params['banner_id'] ) ) {
+            set_post_thumbnail( $page_id, intval( $params['banner_id'] ) );
+        }
+
         restore_current_blog();
     }
     
@@ -351,8 +373,11 @@ class MultisiteController extends WP_REST_Controller {
                 $this->update_site_meta( $site->blog_id, $params );
                 $this->update_user_meta( $params['user_id'], $params );
                 
+                // Woocommerce options
+                $this->set_woocommerce_options( $site->blog_id, $params );
+
                 // Storefront options
-                $this->set_storefront_options( $site->blog_id );
+                $this->set_storefront_options( $site->blog_id, $params );
 
                 return new WP_REST_Response( 
                     $this->prepare_item_for_response( $site,  $params ),
@@ -386,6 +411,7 @@ class MultisiteController extends WP_REST_Controller {
             if ( $site && !is_wp_error($site) ) {
                 $this->update_site_meta( $site->blog_id, $params );
                 $this->update_user_meta( $params['user_id'], $params );
+
                 return new WP_REST_Response(
                     $this->prepare_item_for_response( $site, $params ), 200 );
             } else {
@@ -532,17 +558,20 @@ class MultisiteController extends WP_REST_Controller {
             'description' => 'Title of the blog.',
             'required' => true,
             'type' => 'string',
+            'sanitize_callback' => 'sanitize_text_field',
             'validate_callback' => array( $this, 'is_valid_site_title' )
         );
         $query_params['site_name'] = array(
             'description' => 'Site name (path)',
             'required' => true,
             'type' => 'string',
+            'sanitize_callback' => 'sanitize_text_field',
             'validate_callback' => array( $this, 'is_valid_sitename' )
         );
         $query_params['ruc'] = array(
             'description' => 'Business RUC number',
-            'type' => 'string'
+            'type' => 'string',
+            'sanitize_callback' => 'sanitize_text_field'
         );
         $query_params['banner_id'] = array(
             'description' => 'Id of attachment for the banner',
@@ -557,25 +586,30 @@ class MultisiteController extends WP_REST_Controller {
         // User related fields, should be in a different place but IDK
         $query_params['user_name'] = array(
             'description' => 'Name of user',
-            'type' => 'string'
+            'type' => 'string',
+            'sanitize_callback' => 'sanitize_text_field'
         );
         $query_params['user_email'] = array(
             'description' => 'Email of user',
-            'type' => 'string'
+            'type' => 'string',
+            'sanitize_callback' => 'sanitize_text_field'
         );
         $query_params['user_cellphone'] = array(
             'description' => 'User Cellphone',
-            'type' => 'string'
+            'type' => 'string',
+            'sanitize_callback' => 'sanitize_text_field'
         );
         $query_params['user_dni'] = array(
             'description' => 'User DNI',
-            'type' => 'string'
+            'type' => 'string',
+            'sanitize_callback' => 'sanitize_text_field'
         );
 
         // bank account, sholdn't be here neither
         $query_params['bank_account'] = array(
             'description' => 'Bank account',
-            'type' => 'string'
+            'type' => 'string',
+            'sanitize_callback' => 'sanitize_text_field'
         );
 
         return $query_params;
