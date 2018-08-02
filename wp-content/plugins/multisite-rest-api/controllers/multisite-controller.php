@@ -443,14 +443,6 @@ class MultisiteController extends WP_REST_Controller {
         // Here you can modify the item, before the response
         if ( $item ) {
 
-            $ruc = get_blog_option( intval($item->id), 'ruc' );
-            $item->ruc = $ruc ? $ruc : '';
-
-            $item->banner_id = get_blog_option( intval($item->id), 'banner_id' );
-            $item->banner_url = wp_get_attachment_url( $item->banner_id );
-
-            $users = $this->get_blog_users( intval($item->id) );
-
             // Changing some field names
             if ( isset($item->userblog_id) ) {
                 $item->blog_id = $item->userblog_id;
@@ -461,6 +453,24 @@ class MultisiteController extends WP_REST_Controller {
                 unset($item->blogname);
             }
 
+            // Get RUC
+            $ruc = get_blog_option( intval($item->id), 'ruc' );
+            $item->ruc = $ruc ? $ruc : '';
+
+            // Get banner id
+            $item->banner_id = get_blog_option( intval($item->id), 'banner_id' );
+            
+            // Get banner url
+            switch_to_blog( $item->blog_id );
+            // $upload_path = get_option('upload_path');
+            $item->banner_url = wp_get_attachment_url( $item->banner_id );
+
+            // Get bank account
+            $bank_account = get_blog_option( intval($item->id), 'bank_account' );
+            $item->bank_account = $bank_account ? $bank_account : '';
+
+            // Get users
+            $users = $this->get_blog_users( intval($item->id) );
             $item->users = array();
             foreach ( $users as $user ) {
                 array_push( $item->users, array(
@@ -471,6 +481,7 @@ class MultisiteController extends WP_REST_Controller {
                 ) );
             }
 
+            // Get status
             if ( isset($item->public) )
                 $item->public   = $item->public === '1';
             else {
@@ -482,9 +493,6 @@ class MultisiteController extends WP_REST_Controller {
             $item->mature   = $item->mature === '1';
             $item->spam     = $item->spam === '1';
             $item->deleted  = $item->deleted === '1';
-
-            $bank_account = get_blog_option( intval($item->id), 'bank_account' );
-            $item->bank_account = $bank_account ? $bank_account : '';
         }
         return $item;
     }
