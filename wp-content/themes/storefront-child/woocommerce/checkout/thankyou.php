@@ -85,7 +85,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<?php endif; ?>
 
 	<?php	
-	$term_link = get_term_link( get_active_term_id(), 'product_cat' );
+	$term_link = get_site_url();
 	
 	if ( $term_link ) :
 	?>

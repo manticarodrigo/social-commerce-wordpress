@@ -291,11 +291,11 @@ if ( class_exists( 'WooCommerce' ) ) {
 // Ref number gateway 
 add_filter( 'woocommerce_available_payment_gateways', 'add_ref_number_gateway' );
 function add_ref_number_gateway( $available_gateways ) {
-  // global $woocommerce;
-  // print_r($available_gateways);
-  // if ( ! in_array( 'ref_number', $available_gateways ) )
-  array_push( $available_gateways, new WC_Ref_Number_Gateway ); 
-  return $available_gateways;
+  if ( class_exists( 'WC_Ref_Number_Gateway' ) ) {
+    $all_gateways = WC()->payment_gateways->payment_gateways();
+    $allowed_gateways['ref_number'] = $all_gateways['ref_number'];
+  }
+	return $allowed_gateways;
 }
 
 
