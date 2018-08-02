@@ -195,8 +195,8 @@ class MultisiteController extends WP_REST_Controller {
             update_blog_option( $id, 'home', $this->full_domain( $site_name, $current_site ) );
             update_blog_option( $id, 'siteurl', $this->full_domain( $site_name, $current_site ) );
             update_blog_details( $id, array( 'path' => $site_name ) );
-
             update_blog_status( $id, 'public', $public );
+
             return $this->get_site_by_id( $id );
         } else {
             return new WP_Error(
@@ -376,9 +376,6 @@ class MultisiteController extends WP_REST_Controller {
                 // Woocommerce options
                 $this->set_woocommerce_options( $site->blog_id, $params );
 
-                // Storefront options
-                $this->set_storefront_options( $site->blog_id, $params );
-
                 return new WP_REST_Response( 
                     $this->prepare_item_for_response( $site,  $params ),
                     200
@@ -411,6 +408,8 @@ class MultisiteController extends WP_REST_Controller {
             if ( $site && !is_wp_error($site) ) {
                 $this->update_site_meta( $site->blog_id, $params );
                 $this->update_user_meta( $params['user_id'], $params );
+
+                $this->set_storefront_options( $site->blog_id, $params );
 
                 return new WP_REST_Response(
                     $this->prepare_item_for_response( $site, $params ), 200 );
@@ -490,6 +489,7 @@ class MultisiteController extends WP_REST_Controller {
             switch_to_blog( $item->blog_id );
             // $upload_path = get_option('upload_path');
             $item->banner_url = wp_get_attachment_url( $item->banner_id );
+            restore_current_blog();
 
             // Get bank account
             $bank_account = get_blog_option( intval($item->id), 'bank_account' );

@@ -229,9 +229,9 @@ function cat_opengraph_image() {
     $blog_id = get_current_blog_id();
     if ( $blog_id ) {
       $thumbnail_id = get_blog_option( $blog_id, 'banner_id', true );
-      switch_to_blog( 1 );
+      // switch_to_blog( 1 );
       $image = wp_get_attachment_url( intval( $thumbnail_id ) );
-      restore_current_blog();
+      // restore_current_blog();
       if ( $image ) {
         echo '<meta property="og:image" content="'.$image.'" />';
       }
