@@ -32,7 +32,7 @@
     });
 
     // Mark shop now
-    $(document).ready(function(){
+    $(document).ready(function() {
         // listen if someone clicks 'Buy Now' button
         $('.buy_now_button').click(function(){
             // set value to 1

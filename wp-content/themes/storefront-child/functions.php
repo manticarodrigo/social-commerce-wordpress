@@ -36,26 +36,6 @@ function child_theme_body_script() { ?>
   <!-- End Google Tag Manager (noscript) -->
 <?php }
 
-/**
- * Display site image on front page
- */
-// add_action( 'the_content', 'storefront_display_custom_banner' );
-// function storefront_display_custom_banner() {
-//   if ( !is_home() ) {
-//     return;
-//   }
-//   $blog_id = get_current_blog_id();
-//   if ( $blog_id ) {
-//     $thumbnail_id = get_blog_option( $blog_id, 'banner_id', true );
-//     switch_to_blog( 1 );
-//     $image = wp_get_attachment_url( intval( $thumbnail_id ) );
-//     restore_current_blog();
-//     echo '<h1>' . get_option('blogname') . '</h1>';
-//     if ( $image ) {
-//       echo '<div class="cat-banner" style="background-image: url( '. $image . ')"></div>';
-//     }
-//   }
-// }
 
 // Scripts
 add_action( 'wp_enqueue_scripts', 'my_assets' );
@@ -299,46 +279,6 @@ function cat_opengraph_image() {
 
 }
 
-// add_filter( 'woocommerce_email_recipient_customer_processing_order', 'add_recipient', 20, 2 );
-// add_filter( 'woocommerce_email_recipient_customer_completed_order', 'add_recipient', 20, 2 );
-// add_filter( 'woocommerce_email_recipient_customer_note', 'add_recipient', 20, 2 );
-// /**
-//  * Add recipient to emails
-//  *
-//  * @var  str $email, comma-delimited list of addresses
-//  * @return  str
-//  */
-// function add_recipient( $email, $order ) {
-//   $term_id = get_active_term_id();
-//   if ( $term_id ) {
-//     $owner_id = get_term_meta( intval($term_id), '_owner_id', true );
-//     if ( $owner_id ) {
-//       $owner = get_userdata( intval($owner_id) );
-//       $additional_email = $owner->user_email;
-
-//       if ( $additional_email && is_email( $additional_email ) ) {
-//         $email = explode( ',', $email );
-//         array_push( $email, $additional_email );
-//         $email = implode( ',', $email );
-//       }
-//     }
-//   }
-//   return $email;
-// }
-
-
-add_filter( 'get_the_archive_title', 'remove_category_prefix_from_archive_title' );
-function remove_category_prefix_from_archive_title( $title ) {
-  if ( is_category() || is_product_category() ) {
-    $title = single_cat_title( '', false );
-  } elseif ( is_tag() ) {
-    $title = single_tag_title( '', false );
-  } elseif ( is_author() ) {
-    $title = '<span class="vcard">' . get_the_author() . '</span>' ;
-  }
-  return $title;
-}
-
 
 // Woocommerce API stuff
 
@@ -392,6 +332,12 @@ function all_products() {
     ?>
     </ul><!--/.products-->
   <?php
+}
+
+add_filter( 'woocommerce_email_from_address', 'set_from_email_woocommerce', 10, 2 );
+function set_from_email_woocommerce( $from_email, $wc_email ){
+  $from_email = 'noreply@heyshopper.co';
+  return $from_name;
 }
 
 ?>
