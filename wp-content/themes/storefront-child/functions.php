@@ -339,7 +339,7 @@ function all_products() {
 add_filter( 'woocommerce_email_from_address', 'set_from_email_woocommerce', 10, 2 );
 function set_from_email_woocommerce( $from_email, $wc_email ){
   $from_email = 'noreply@heyshopper.co';
-  return $from_name;
+  return $from_email;
 }
 
 ?>
