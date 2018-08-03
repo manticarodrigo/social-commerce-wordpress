@@ -348,12 +348,13 @@ if ( class_exists( 'WooCommerce' ) ) {
   $controller->register_routes();
 }
 
-// Ref number gateway 
-add_filter( 'woocommerce_available_payment_gateways', 'add_ref_number_gateway' );
-function add_ref_number_gateway( $available_gateways ) {
+// Default woocommerce payment gateways
+add_filter( 'woocommerce_available_payment_gateways', 'add_default_gateways' );
+function add_default_gateways( $available_gateways ) {
   if ( class_exists( 'WC_Ref_Number_Gateway' ) ) {
     $all_gateways = WC()->payment_gateways->payment_gateways();
     $allowed_gateways['ref_number'] = $all_gateways['ref_number'];
+    $allowed_gateways['cod'] = $all_gateways['cod'];
   }
 	return $allowed_gateways;
 }
