@@ -363,12 +363,34 @@ add_action( 'wp_head', 'remove_storefront_home_actions' );
 function remove_storefront_home_actions() {
 	// remove_action( 'homepage', 'storefront_homepage_content',      10 );
   remove_action( 'homepage', 'storefront_product_categories',    20 );
-  // remove_action( 'homepage', 'storefront_recent_products',       30 );
+  remove_action( 'homepage', 'storefront_recent_products',       30 );
   remove_action( 'homepage', 'storefront_featured_products',     40 );
-  // remove_action( 'homepage', 'storefront_popular_products',      50 );
-  // remove_action( 'homepage', 'storefront_on_sale_products',      60 );
+  remove_action( 'homepage', 'storefront_popular_products',      50 );
+  remove_action( 'homepage', 'storefront_on_sale_products',      60 );
   remove_action( 'homepage', 'storefront_best_selling_products', 70 );
+  add_action( 'homepage', 'all_products', 20);
 }
 
+function all_products() {
+  ?>
+    <ul class="products">
+    <?php
+      $args = array(
+        'post_type' => 'product',
+        'posts_per_page' => 12
+        );
+      $loop = new WP_Query( $args );
+      if ( $loop->have_posts() ) {
+        while ( $loop->have_posts() ) : $loop->the_post();
+          wc_get_template_part( 'content', 'product' );
+        endwhile;
+      } else {
+        echo __( 'No products found' );
+      }
+      wp_reset_postdata();
+    ?>
+    </ul><!--/.products-->
+  <?php
+}
 
 ?>
