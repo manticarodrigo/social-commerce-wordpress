@@ -112,6 +112,7 @@ class MultisiteController extends WP_REST_Controller {
             update_option( 'woocommerce_currency', $currency_code );
             // update_option( 'woocommerce_product_type', $product_type );
             // update_option( 'woocommerce_sell_in_person', $sell_in_person );
+            update_option( 'woocommerce_email_from_address', 'noreply@heyshopper.co' );
             $locale_info = include WC()->plugin_path() . '/i18n/locale-info.php';
             
             if ( isset( $locale_info[ $country ] ) ) {
