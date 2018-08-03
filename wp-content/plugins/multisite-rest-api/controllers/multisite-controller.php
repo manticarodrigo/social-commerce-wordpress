@@ -132,6 +132,28 @@ class MultisiteController extends WP_REST_Controller {
         restore_current_blog();
     }
 
+    private function set_payment_methods( $blog_id, $params ) {
+        // COD
+        update_option('woocommerce_cod_settings', array (
+            'enabled' => 'yes',
+            'title' => 'Contra entrega',
+            'description' => 'Paga en efectivo en el momento de la entrega.',
+            'instructions' => 'Paga en efectivo en el momento de la entrega.',
+            'enable_for_methods' => '',
+            'enable_for_virtual' => 'yes',
+        ) );
+
+        // Ref number
+        update_option('woocommerce_ref_number_settings', array (
+            'enabled' => 'yes',
+            'title' => 'Transferencia Bancaria | Número de referencia',
+            'description' => 'Use un número de referencia de transferencia bancaria',
+            'instructions' => 'Use un número de referencia de transferencia bancaria',
+            'enable_for_methods' => '',
+            'enable_for_virtual' => 'yes',
+        ) );
+    }
+
     private function set_storefront_options( $blog_id, $params ) {
         switch_to_blog( $blog_id );
         switch_theme( 'storefront-child' );
