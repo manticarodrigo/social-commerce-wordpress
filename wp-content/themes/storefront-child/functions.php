@@ -85,11 +85,13 @@ function custom_storefront_credit() {
   }
 
   ?>
-  <ul class="site-info"> 
-    <li>
-      <strong>RUC: </strong>
-      <span><?php echo( $footer_data['ruc'] ) ?></span>
-    </li>
+  <ul class="site-info">
+    <?php if($footer_data['ruc']) : ?>
+      <li>
+        <strong>RUC: </strong>
+        <span><?php echo( $footer_data['ruc'] ) ?></span>
+      </li>
+    <?php endif; ?>
     <li>
       <strong>Empresa: </strong>
       <span><?php echo( $footer_data['empresa'] ); ?></span></span>
