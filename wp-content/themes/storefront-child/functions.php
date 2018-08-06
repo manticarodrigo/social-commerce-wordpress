@@ -39,22 +39,84 @@ function child_theme_body_script() { ?>
 
 // Scripts
 add_action( 'wp_enqueue_scripts', 'my_assets' );
-function my_assets() {
-  wp_enqueue_script( 'jqueryflip', 'https://cdn.rawgit.com/nnattawat/flip/master/dist/jquery.flip.min.js', array( 'jquery' ), '1.0', true ); 
+function my_assets() { 
   wp_enqueue_script( 'theme-scripts', get_stylesheet_directory_uri() . '/script.js', array('jquery' ), '1.0', true );
 }
 
-// Disable woocommerce product detail
-remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
-remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
+// Custom header
+add_action( 'init', 'remove_storefront_header_hooks' );
+function remove_storefront_header_hooks() {
+  remove_action( 'storefront_header', 'storefront_header_container',                 0 );
+  remove_action( 'storefront_header', 'storefront_skip_links',                       5 );
+  remove_action( 'storefront_header', 'storefront_site_branding',                    20 );
+  remove_action( 'storefront_header', 'storefront_secondary_navigation',             30 );
+  remove_action( 'storefront_header', 'storefront_header_container_close',           41 );
+  remove_action( 'storefront_header', 'storefront_primary_navigation_wrapper',       42 );
+  remove_action( 'storefront_header', 'storefront_primary_navigation',               50 );
+  remove_action( 'storefront_header', 'storefront_primary_navigation_wrapper_close', 68 );
+  remove_action( 'storefront_header', 'storefront_product_search', 40 );
+  remove_action( 'storefront_header', 'storefront_header_cart',    60 );
+
+  add_action( 'storefront_header', 'storefront_handheld_footer_bar', 0 );
+  add_action( 'storefront_before_content', 'custom_banner', 10 );
+}
+
+function custom_banner() {
+  $id = woocommerce_get_page_id( 'shop' );
+  $featured_image = get_the_post_thumbnail_url( $id, 'thumbnail' );
+  ?>
+  <div class="site-banner" style="background-image: url(<?php echo $featured_image; ?>)"/></div>
+  <?php
+}
+
 
 // Custom footer
 add_action( 'init', 'custom_remove_footer_credit', 10 );
 function custom_remove_footer_credit () {
   remove_action( 'storefront_footer', 'storefront_credit', 20 );
   remove_action( 'storefront_footer', 'storefront_footer_widgets', 10 );
+  remove_action( 'storefront_footer', 'storefront_handheld_footer_bar', 999 );
+  
   add_action( 'storefront_footer', 'custom_storefront_credit', 20 );
 }
+
+function display_site_title() {
+  $title = get_bloginfo( 'name' );
+  $link = get_site_url();
+  echo "<h1 class='woocommerce-products-header__title alpha page-title'><a href=${link}>${title}</a></>";
+}
+
+add_filter( 'storefront_handheld_footer_bar_links', 'footer_bar_links' );
+function footer_bar_links( $links ) {
+  $new_links = array(
+    'site_title' => array(
+      'priority' => 10,
+      'callback' => 'display_site_title',
+    ),
+    'cart'       => array(
+      'priority' => 30,
+      'callback' => 'storefront_handheld_footer_bar_cart_link',
+    ),
+  );
+  return $new_links;
+}
+
+// Remove storefront home sections
+// add_action( 'init', 'remove_storefront_home_actions' );
+// function remove_storefront_home_actions() {
+//   // new WP_Query( $args ); 
+
+//   remove_action( 'homepage', 'storefront_homepage_content',      10 );
+//   remove_action( 'homepage', 'storefront_product_categories',    20 );
+//   remove_action( 'homepage', 'storefront_recent_products',       30 );
+//   remove_action( 'homepage', 'storefront_featured_products',     40 );
+//   remove_action( 'homepage', 'storefront_popular_products',      50 );
+//   remove_action( 'homepage', 'storefront_on_sale_products',      60 );
+//   remove_action( 'homepage', 'storefront_best_selling_products', 70 );
+//   remove_action( 'storefront_homepage', 'storefront_homepage_header',      10 );
+//   remove_action( 'storefront_homepage', 'storefront_page_content',         20 );
+//   add_action( 'woocommerce_before_main_content', 'storefront_homepage_content', 10 );
+// }
 
 function get_blog_users( $blog_id, $role='administrator' ) {
   $users = get_users( array( 
@@ -117,32 +179,6 @@ function add_extra_data_to_ref_number() {
   }
 }
 
-/** 
- * Wrap Archive Product Loop Image WooCommerce
- */
-add_action( 'woocommerce_before_shop_loop' , 'woo_wrap_loop_product_image', 3 );
-function woo_wrap_loop_product_image() {
-  if ( ! class_exists( 'WooCommerce' ) ) return; //* exit early if WooCommerce not active/installed
-  add_action( 'woocommerce_before_shop_loop_item_title' , 'woo_product_loop_image_wrapper_open', 9 );
-  add_action( 'woocommerce_shop_loop_item_title' , 'woo_product_loop_image_wrapper_close', 9 );
-}
-
-//open my-class-name
-function woo_product_loop_image_wrapper_open() {
-  echo '<div class="card-flip"><div class="front">';
-}
-
-//open my-class-name
-function woo_product_loop_image_wrapper_close() {
-  echo '</div>';
-  
-  global $product;
-  if ( ! $product->get_description() ) return;
-
-  echo '<div class="back">'. apply_filters( 'woocommerce_description', wp_trim_words( $product->get_description(), $num_words = 55, $more = null ) ) .'</div>';
-  echo '</div>';
-}
-
 // Quantity on product display
 add_filter( 'woocommerce_loop_add_to_cart_link', 'woa_add_quantity_fields', 10, 2 );
 function woa_add_quantity_fields($html, $product) {
@@ -172,10 +208,16 @@ function redirect_to_checkout( $redirect_url ) {
 }
 
 // hide coupon field on checkout page
+add_filter( 'woocommerce_coupons_enabled', 'hide_coupon_field_on_checkout' );
 function hide_coupon_field_on_checkout( $enabled ) {
   return false;
 }
-add_filter( 'woocommerce_coupons_enabled', 'hide_coupon_field_on_checkout' );
+
+// Set store title (shop page)
+add_filter( 'woocommerce_page_title', 'set_store_title' ); 
+function set_store_title() {
+  return get_bloginfo( 'name' );
+}
 
 
 //  Custom checkout
@@ -206,20 +248,6 @@ function override_checkout_fields( $fields ) {
     );
   return $fields;
 }
-
-// Add custom woocommerce checkout fields
-// add_action( 'woocommerce_before_order_notes', 'custom_checkout_field' );
-// function custom_checkout_field( $checkout ) {
-//     echo '<div id="dni">';
-//     woocommerce_form_field( 'dni', array(
-//         'type'          => 'text',
-//         'class'         => array('form-row-wide'),
-//         'label'         => __('Numero DNI'),
-//         'placeholder'   => __(''),
-//         'required'      => false
-//         ), $checkout->get_value( 'dni' ));
-//     echo '</div>';
-// }
 
 add_action( 'woocommerce_checkout_update_order_meta', 'checkout_field_update_order_meta' );
 function checkout_field_update_order_meta( $order_id ) {
@@ -262,26 +290,6 @@ function user_id_exists( $user_id ) {
   return empty( $count ) || 1 > $count ? false : true;
 }
 
-add_action('wp_head', 'cat_opengraph_image', 5);
-function cat_opengraph_image() {
- 
-    // If it's not a category, die.
-    if ( !is_front_page() ) {
-        return;
-    }
-
-    $blog_id = get_current_blog_id();
-    if ( $blog_id ) {
-      $thumbnail_id = get_blog_option( $blog_id, 'banner_id', true );
-      $image = wp_get_attachment_url( intval( $thumbnail_id ) );
-      if ( $image ) {
-        echo '<meta property="og:image" content="'.$image.'" />';
-      }
-    }
-
-}
-
-
 // Woocommerce API stuff
 
 if ( class_exists( 'WooCommerce' ) ) {
@@ -299,47 +307,6 @@ function add_default_gateways( $available_gateways ) {
     $allowed_gateways['cod'] = $all_gateways['cod'];
   }
 	return $allowed_gateways;
-}
-
-// Remove storefront home sections
-add_action( 'wp_head', 'remove_storefront_home_actions' );
-function remove_storefront_home_actions() {
-	// remove_action( 'homepage', 'storefront_homepage_content',      10 );
-  remove_action( 'homepage', 'storefront_product_categories',    20 );
-  remove_action( 'homepage', 'storefront_recent_products',       30 );
-  remove_action( 'homepage', 'storefront_featured_products',     40 );
-  remove_action( 'homepage', 'storefront_popular_products',      50 );
-  remove_action( 'homepage', 'storefront_on_sale_products',      60 );
-  remove_action( 'homepage', 'storefront_best_selling_products', 70 );
-  add_action( 'homepage', 'all_products', 20);
-}
-
-function all_products() {
-  ?>
-    <ul class="products">
-    <?php
-      $args = array(
-        'post_type' => 'product',
-        'posts_per_page' => 12
-        );
-      $loop = new WP_Query( $args );
-      if ( $loop->have_posts() ) {
-        while ( $loop->have_posts() ) : $loop->the_post();
-          wc_get_template_part( 'content', 'product' );
-        endwhile;
-      } else {
-        echo __( 'No products found' );
-      }
-      wp_reset_postdata();
-    ?>
-    </ul><!--/.products-->
-  <?php
-}
-
-add_filter( 'woocommerce_email_from_address', 'set_from_email_woocommerce', 10, 2 );
-function set_from_email_woocommerce( $from_email, $wc_email ){
-  $from_email = 'noreply@heyshopper.co';
-  return $from_email;
 }
 
 ?>

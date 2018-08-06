@@ -157,19 +157,12 @@ class MultisiteController extends WP_REST_Controller {
     private function set_storefront_options( $blog_id, $params ) {
         switch_to_blog( $blog_id );
         switch_theme( 'storefront-child' );
-        $page_id = wp_insert_post(array(
-			'post_title' => $params['title'],
-			'post_type' =>'page',		
-			'post_name' => 'home',
-			'post_status' => 'publish',
-			'post_excerpt' => 'Your store content'	
-        ));
-        update_option( 'page_on_front', $page_id );
+        $shop_page_id = wc_get_page_id( 'shop' );
+        update_option( 'page_on_front', $shop_page_id );
         update_option( 'show_on_front', 'page' );
-        update_post_meta( $page_id, '_wp_page_template', 'template-homepage.php' );
 
         if ( isset( $params['banner_id'] ) ) {
-            set_post_thumbnail( $page_id, intval( $params['banner_id'] ) );
+            set_post_thumbnail( $shop_page_id, intval( $params['banner_id'] ) );
         }
 
         restore_current_blog();
@@ -398,6 +391,7 @@ class MultisiteController extends WP_REST_Controller {
                 
                 // Woocommerce options
                 $this->set_woocommerce_options( $site->blog_id, $params );
+                $this->set_storefront_options( $site->blog_id, $params );
 
                 return new WP_REST_Response( 
                     $this->prepare_item_for_response( $site,  $params ),

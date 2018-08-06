@@ -1,16 +1,4 @@
 (function($) {
-    // Changing copyright text
-    let title = 'Heyshopper';
-    let $title = $('h1');
-    
-    if ($title.length == 1 && $('.single-product').length == 0) {
-        title = $title.text();
-        $title.hide();
-    }
-    
-    // Top Bar
-    $('.storefront-handheld-footer-bar ul').prepend(
-        `<span class="woocommerce-products-header__title alpha page-title">${title}</span>`);
 
     // Quantity Buttons
     $('.qty-btn-add').click(function() {
@@ -41,9 +29,4 @@
         });
     });
 
-})(jQuery);
-
-// Flip Card
-(function($) {
-    $('.card-flip').flip();
 })(jQuery);
