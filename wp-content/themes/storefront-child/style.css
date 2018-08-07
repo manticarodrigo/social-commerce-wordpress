@@ -150,6 +150,10 @@ ul.products li.product {
     border: 1px #eeeeee solid;
 }
 
+.single-product div.product .woocommerce-product-gallery img {
+    width: 100%;
+}
+
 .button.alt.add_to_cart_button {
     background-color: #f9b437;
     border-color: #f9b437;
@@ -223,6 +227,7 @@ ul.products li.product img {
 
 .site-header {
     padding: 0;
+    margin-bottom: 4.235801032em;
 }
 
 .storefront-handheld-footer-bar ul.columns-2 li.site_title {

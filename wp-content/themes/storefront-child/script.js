@@ -25,6 +25,10 @@
         $('.buy_now_button').click(function(){
             // set value to 1
             $('.is_buy_now_input', $(this).parent()).val('1');
+            var $url = $('.add_to_cart_url', $(this).parent());
+            if ( $url ) {
+                $(this).parents('form.cart').attr('action', $url.val());
+            }
             $(this).parents('form.cart').submit();
         });
     });

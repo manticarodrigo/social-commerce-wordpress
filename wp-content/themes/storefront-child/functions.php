@@ -10,9 +10,7 @@ function storefront_enqueue_styles() {
 // Remove sidebar
 add_action( 'get_header', 'remove_storefront_sidebar' );
 function remove_storefront_sidebar() {
-  if ( is_woocommerce() ) {
-    remove_action( 'storefront_sidebar', 'storefront_get_sidebar', 10 );
-  }
+  remove_action( 'storefront_sidebar', 'storefront_get_sidebar', 10 );
 }
 
 // Add scripts to wp_head()
@@ -197,6 +195,15 @@ function woa_add_quantity_fields($html, $product) {
   return $html;
 }
 
+add_filter( 'woocommerce_after_add_to_cart_button', 'single_product_add_to_cart', 10, 2 );
+function single_product_add_to_cart() {
+  global $product;
+  $html = '<button type="submit" class="button alt product_type_simple buy_now_button">' . esc_html( 'Comprar ahora' ) . '</button>';
+  $html .= '<input type="hidden" name="is_buy_now" class="is_buy_now_input" value="0" />';
+  $html .= '<input type="hidden" name="add_to_cart_url" class="add_to_cart_url" value="' . esc_html( $product->add_to_cart_url() ) . '" />';
+  echo $html;
+}
+
 // Redirect to checkout if is buy now vakue
 add_filter( 'woocommerce_add_to_cart_redirect', 'redirect_to_checkout' );
 function redirect_to_checkout( $redirect_url ) {
@@ -267,8 +274,13 @@ function woo_custom_order_button_text() {
     return __( 'Realiza tu pedido', 'woocommerce' ); 
 }
 
-// Remove Related products
-remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+// Single products
+add_action('init', 'single_product_hooks');
+function single_product_hooks() {
+  remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+  remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+  remove_action( 'storefront_before_content', 'woocommerce_breadcrumb', 10 );
+}
 
 /** 
  * Manipulate default state and countries
