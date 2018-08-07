@@ -29,4 +29,15 @@
         });
     });
 
+    // Add scrolled to body
+    $(window).on('scroll', function() {
+        var y_scroll_pos = window.pageYOffset;
+    
+        if(y_scroll_pos > 46) {
+            $('body').addClass('scrolled');
+        } else {
+            $('body').removeClass('scrolled');
+        }
+    });
+
 })(jQuery);

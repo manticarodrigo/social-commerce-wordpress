@@ -62,7 +62,7 @@ function remove_storefront_header_hooks() {
 }
 
 function custom_banner() {
-  $id = woocommerce_get_page_id( 'shop' );
+  $id = get_option( 'page_on_front' );
   $featured_image = get_the_post_thumbnail_url( $id, 'thumbnail' );
   ?>
   <div class="site-banner" style="background-image: url(<?php echo $featured_image; ?>)"/></div>
@@ -308,5 +308,15 @@ function add_default_gateways( $available_gateways ) {
   }
 	return $allowed_gateways;
 }
+
+add_filter( 'wpseo_opengraph_image', 'wpseo_change_ogimage' );
+add_filter( 'wpseo_twitter_image','wpseo_change_ogimage' );
+function wpseo_change_ogimage( $link ) {
+  if ( is_front_page() ) {
+    $id = get_option( 'page_on_front' );
+    return get_the_post_thumbnail_url( $id, 'thumbnail' );
+  }
+}
+
 
 ?>
