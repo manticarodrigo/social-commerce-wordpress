@@ -20,8 +20,6 @@ body.woocommerce #primary {
 }
 
 ul.products + .storefront-sorting,
-/* .storefront-handheld-footer-bar .my-account,
-.storefront-handheld-footer-bar .search, */
 .woocommerce-products-header .woocommerce-products-header__title,
 .reviews_tab,
 .woocommerce-result-count,
@@ -154,7 +152,7 @@ ul.products li.product {
     width: 100%;
 }
 
-.button.alt.add_to_cart_button {
+.button.alt.add_to_cart_button, .button.alt.single_add_to_cart_button {
     background-color: #f9b437;
     border-color: #f9b437;
 }

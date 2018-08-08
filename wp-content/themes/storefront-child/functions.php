@@ -60,11 +60,13 @@ function remove_storefront_header_hooks() {
 }
 
 function custom_banner() {
-  $id = get_option( 'page_on_front' );
-  $featured_image = get_the_post_thumbnail_url( $id, 'thumbnail' );
-  ?>
-  <div class="site-banner" style="background-image: url(<?php echo $featured_image; ?>)"/></div>
-  <?php
+  if( is_front_page() ) {
+    $id = get_option( 'page_on_front' );
+    $featured_image = get_the_post_thumbnail_url( $id, 'thumbnail' );
+    ?>
+    <div class="site-banner" style="background-image: url(<?php echo $featured_image; ?>)"/></div>
+    <?php
+  }
 }
 
 
@@ -328,6 +330,7 @@ function wpseo_change_ogimage( $link ) {
     $id = get_option( 'page_on_front' );
     return get_the_post_thumbnail_url( $id, 'thumbnail' );
   }
+  return $link;
 }
 
 
