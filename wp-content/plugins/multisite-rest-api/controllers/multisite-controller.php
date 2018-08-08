@@ -426,7 +426,10 @@ class MultisiteController extends WP_REST_Controller {
                 $this->update_site_meta( $site->blog_id, $params );
                 $this->update_user_meta( $params['user_id'], $params );
 
-                $this->set_storefront_options( $site->blog_id, $params );
+                if ( $params['reset_settings'] ) {
+                    $this->set_woocommerce_options( $site->blog_id, $params );
+                    $this->set_storefront_options( $site->blog_id, $params );
+                }
 
                 return new WP_REST_Response(
                     $this->prepare_item_for_response( $site, $params ), 200 );
@@ -627,6 +630,12 @@ class MultisiteController extends WP_REST_Controller {
             'description' => 'Bank account',
             'type' => 'string',
             'sanitize_callback' => 'sanitize_text_field'
+        );
+
+        $query_params['reset_settings'] = array(
+            'description' => 'Apply site settings',
+            'default' => false,
+            'type' => 'boolean'
         );
 
         return $query_params;
