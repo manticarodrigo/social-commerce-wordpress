@@ -63,9 +63,11 @@ function custom_banner() {
   if( is_front_page() ) {
     $id = get_option( 'page_on_front' );
     $featured_image = get_the_post_thumbnail_url( $id, 'thumbnail' );
-    ?>
-    <div class="site-banner" style="background-image: url(<?php echo $featured_image; ?>)"/></div>
-    <?php
+    if ( $featured_image ) {
+      ?>
+      <div class="site-banner" style="background-image: url(<?php echo $featured_image; ?>)"/></div>
+      <?php
+    }
   }
 }
 
