@@ -99,8 +99,6 @@ class MultisiteController extends WP_REST_Controller {
 
     private function set_woocommerce_options( $blog_id, $params ) {
         if ( class_exists( 'WC_Install' ) ) {
-            switch_to_blog( $blog_id );
-
             $state = 'LIM'; // Lima
             $country = 'PE'; // Peru
             $currency_code = 'PEN'; // Peruvian Soles
@@ -128,8 +126,6 @@ class MultisiteController extends WP_REST_Controller {
             }
             WC_Install::create_pages();
         }
-
-        restore_current_blog();
     }
 
     private function set_payment_methods( $blog_id, $params ) {
@@ -155,17 +151,11 @@ class MultisiteController extends WP_REST_Controller {
     }
 
     private function set_storefront_options( $blog_id, $params ) {
-        switch_to_blog( $blog_id );
-        switch_theme( 'storefront-child' );
         $shop_page_id = wc_get_page_id( 'shop' );
+        switch_theme( 'storefront-child' );
         update_option( 'page_on_front', $shop_page_id );
         update_option( 'show_on_front', 'page' );
-
-        if ( isset( $params['banner_id'] ) ) {
-            set_post_thumbnail( $shop_page_id, intval( $params['banner_id'] ) );
-        }
-
-        restore_current_blog();
+        return $shop_page_id;
     }
     
     /**
@@ -390,8 +380,13 @@ class MultisiteController extends WP_REST_Controller {
                 $this->update_user_meta( $params['user_id'], $params );
                 
                 // Woocommerce options
+                switch_to_blog( $site->blog_id );
                 $this->set_woocommerce_options( $site->blog_id, $params );
-                $this->set_storefront_options( $site->blog_id, $params );
+                $shop_page_id = $this->set_storefront_options( $site->blog_id, $params );
+                if ( isset( $params['banner_id'] ) ) {
+                    set_post_thumbnail( $shop_page_id, intval( $params['banner_id'] ) );
+                }
+                restore_current_blog();
 
                 return new WP_REST_Response( 
                     $this->prepare_item_for_response( $site,  $params ),
@@ -422,14 +417,21 @@ class MultisiteController extends WP_REST_Controller {
                 $item['public']
             );
             
-            if ( $site && !is_wp_error($site) ) {
+            if ( $site && !is_wp_error( $site ) ) {
                 $this->update_site_meta( $site->blog_id, $params );
                 $this->update_user_meta( $params['user_id'], $params );
 
-                if ( $params['reset_settings'] ) {
+                switch_to_blog( $site->blog_id );
+                $shop_page_id = wc_get_page_id( 'shop' );
+                
+                if ( $params['reset_settings'] || $shop_page_id == -1 ) {
                     $this->set_woocommerce_options( $site->blog_id, $params );
-                    $this->set_storefront_options( $site->blog_id, $params );
+                    $shop_page_id = $this->set_storefront_options( $site->blog_id, $params );
                 }
+                if ( isset( $params['banner_id'] ) ) {
+                    set_post_thumbnail( $shop_page_id, intval( $params['banner_id'] ) );
+                }
+                restore_current_blog();
 
                 return new WP_REST_Response(
                     $this->prepare_item_for_response( $site, $params ), 200 );
