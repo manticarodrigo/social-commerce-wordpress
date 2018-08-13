@@ -97,39 +97,6 @@ class MultisiteController extends WP_REST_Controller {
             return $site;
     }
 
-    private function set_woocommerce_options( $blog_id, $params ) {
-        if ( class_exists( 'WC_Install' ) ) {
-            $state = 'LIM'; // Lima
-            $country = 'PE'; // Peru
-            $currency_code = 'PEN'; // Peruvian Soles
-            // update_option( 'woocommerce_store_address', $address );
-            // update_option( 'woocommerce_store_address_2', $address_2 );
-            // update_option( 'woocommerce_store_city', $city );
-            update_option( 'woocommerce_default_country', $country . ':' . $state );
-            // update_option( 'woocommerce_store_postcode', $postcode );
-            update_option( 'woocommerce_currency', $currency_code );
-            // update_option( 'woocommerce_product_type', $product_type );
-            // update_option( 'woocommerce_sell_in_person', $sell_in_person );
-            update_option( 'woocommerce_email_from_address', 'noreply@heyshopper.co' );
-            $locale_info = include WC()->plugin_path() . '/i18n/locale-info.php';
-            
-            if ( isset( $locale_info[ $country ] ) ) {
-                update_option( 'woocommerce_weight_unit', $locale_info[ $country ]['weight_unit'] );
-                update_option( 'woocommerce_dimension_unit', $locale_info[ $country ]['dimension_unit'] );
-                // Set currency formatting options based on chosen location and currency.
-                if ( $locale_info[ $country ]['currency_code'] === $currency_code ) {
-                    update_option( 'woocommerce_currency_pos', $locale_info[ $country ]['currency_pos'] );
-                    update_option( 'woocommerce_price_decimal_sep', $locale_info[ $country ]['decimal_sep'] );
-                    update_option( 'woocommerce_price_num_decimals', $locale_info[ $country ]['num_decimals'] );
-                    update_option( 'woocommerce_price_thousand_sep', $locale_info[ $country ]['thousand_sep'] );
-                }
-            }
-            delete_option( 'woocommerce_admin_notice_install' );
-            
-            WC_Install::create_pages();
-        }
-    }
-
     private function set_payment_methods( $blog_id, $params ) {
         // COD
         update_option('woocommerce_cod_settings', array (
@@ -150,15 +117,6 @@ class MultisiteController extends WP_REST_Controller {
             'enable_for_methods' => '',
             'enable_for_virtual' => 'yes',
         ) );
-    }
-
-    private function set_storefront_options( $blog_id, $params ) {
-        $shop_page_id = wc_get_page_id( 'shop' );
-        switch_theme( 'storefront-child' );
-        update_option( 'page_on_front', $shop_page_id );
-        update_option( 'show_on_front', 'page' );
-        update_option( 'storefront_nux_dismissed', true); 
-        return $shop_page_id;
     }
     
     /**
@@ -384,11 +342,8 @@ class MultisiteController extends WP_REST_Controller {
                 
                 // Woocommerce options
                 switch_to_blog( $site->blog_id );
-                $this->set_woocommerce_options( $site->blog_id, $params );
-                $shop_page_id = $this->set_storefront_options( $site->blog_id, $params );
-                if ( isset( $params['banner_id'] ) ) {
-                    set_post_thumbnail( $shop_page_id, intval( $params['banner_id'] ) );
-                }
+                msrest_set_woocommerce_options();
+                msrest_set_storefront_options();
                 restore_current_blog();
 
                 return new WP_REST_Response( 
@@ -426,10 +381,9 @@ class MultisiteController extends WP_REST_Controller {
 
                 switch_to_blog( $site->blog_id );
                 $shop_page_id = wc_get_page_id( 'shop' );
-                
                 if ( $params['reset_settings'] || $shop_page_id == -1 ) {
-                    $this->set_woocommerce_options( $site->blog_id, $params );
-                    $shop_page_id = $this->set_storefront_options( $site->blog_id, $params );
+                    msrest_set_woocommerce_options();
+                    $shop_page_id = msrest_set_storefront_options();
                 }
                 if ( isset( $params['banner_id'] ) ) {
                     set_post_thumbnail( $shop_page_id, intval( $params['banner_id'] ) );
