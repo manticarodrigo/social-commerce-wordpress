@@ -124,6 +124,8 @@ class MultisiteController extends WP_REST_Controller {
                     update_option( 'woocommerce_price_thousand_sep', $locale_info[ $country ]['thousand_sep'] );
                 }
             }
+            delete_option( 'woocommerce_admin_notice_install' );
+            
             WC_Install::create_pages();
         }
     }
@@ -155,6 +157,7 @@ class MultisiteController extends WP_REST_Controller {
         switch_theme( 'storefront-child' );
         update_option( 'page_on_front', $shop_page_id );
         update_option( 'show_on_front', 'page' );
+        update_option( 'storefront_nux_dismissed', true); 
         return $shop_page_id;
     }
     
