@@ -62,7 +62,7 @@ function remove_storefront_header_hooks() {
 function custom_banner() {
   if( is_front_page() ) {
     $id = get_option( 'page_on_front' );
-    $featured_image = get_the_post_thumbnail_url( $id, 'thumbnail' );
+    $featured_image = get_the_post_thumbnail_url( $id, 'full' );
     if ( $featured_image ) {
       ?>
       <div class="site-banner" style="background-image: url(<?php echo $featured_image; ?>)"/></div>
@@ -335,5 +335,16 @@ function wpseo_change_ogimage( $link ) {
   return $link;
 }
 
+// Add short description to products
+add_action('woocommerce_after_shop_loop_item_title', 'woocommerce_after_shop_loop_item_title_short_description', 5);
+function woocommerce_after_shop_loop_item_title_short_description() {
+  global $product;
+  $description = $product->get_short_description() ? $product->get_short_description() : wp_trim_words( wp_strip_all_tags( $product->get_description() ), 30 );
+  ?>
+  <div itemprop="description">
+    <?php echo apply_filters( 'woocommerce_short_description', $description ) ?>
+  </div>
+  <?php
+}
 
 ?>
